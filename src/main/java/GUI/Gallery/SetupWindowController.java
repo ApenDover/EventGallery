@@ -151,10 +151,10 @@ public class SetupWindowController implements Initializable {
             loginDB.setText(SettingsLoader.getSqlLogin());
             passwordDB.setText(SettingsLoader.getSqlPassword());
 
-            if (!(companyListView.getSelectionModel().getSelectedItem() == null) & !(allEvents.getSelectionModel().getSelectedItem() == null)) {
+            if (companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
                 startButton.disableProperty().set(false);
             }
-            if (!(companyListView.getSelectionModel().getSelectedItem() == null) & !(eventText.getText().equals("") & !(eventDate.getEditor().getText().equals("")))) {
+            if (companyListView.getSelectionModel().getSelectedItem() != null && !eventText.getText().equals("") && !eventDate.getEditor().getText().equals("")) {
                 startButton.disableProperty().set(false);
             }
         }
@@ -190,16 +190,16 @@ public class SetupWindowController implements Initializable {
             String text = selectedFile.getAbsolutePath();
             pathField.setText(text);
 
-            if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(this.text.getText(), "")) & (!Objects.equals(pathField.getText(), "")) &
-                    (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), ""))) {
+            if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(this.text.getText(), "") && !Objects.equals(pathField.getText(), "") &&
+                    (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), ""))) {
                 startButton.disableProperty().set(false);
             }
 
-            if ((!Objects.equals(pathSettings.getText(), "") & (!Objects.equals(eventDate.getEditor().getText(), "")) & (!Objects.equals(eventText.getText(), "")))) {
+            if (!Objects.equals(pathSettings.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
                 startButton.disableProperty().set(false);
             }
 
-            if ((!Objects.equals(pathSettings.getText(), "") & (allEvents.getSelectionModel().getSelectedItem() != null))) {
+            if (!Objects.equals(pathSettings.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null) {
                 startButton.disableProperty().set(false);
             }
 
@@ -208,16 +208,16 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void pathFieldClick() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) & (!Objects.equals(pathField.getText(), "")) & (allEvents.getSelectionModel().getSelectedItem() != null) &
-                (allEvents.getSelectionModel().getSelectedItem() != null) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), ""))) {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") && !Objects.equals(pathField.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null &&
+                allEvents.getSelectionModel().getSelectedItem() != null && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "")) {
             startButton.disableProperty().set(false);
         }
 
-        if ((!Objects.equals(pathSettings.getText(), "") & (companyListView.getSelectionModel().getSelectedItem() != null) & (!Objects.equals(eventDate.getEditor().getText(), "")) & (!Objects.equals(eventText.getText(), "")))) {
+        if (!Objects.equals(pathSettings.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
             startButton.disableProperty().set(false);
         }
 
-        if ((!Objects.equals(pathSettings.getText(), "") & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null))) {
+        if (!Objects.equals(pathSettings.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
             startButton.disableProperty().set(false);
         }
     }
@@ -230,7 +230,7 @@ public class SetupWindowController implements Initializable {
                 File[] allFiles = new File(pathField.getText()).listFiles();
                 TreeSet<File> fileInFolder = new TreeSet<>();
                 for (File file : allFiles) {
-                    if (!(file.isDirectory()) & (file.getName().charAt(0) != '.') & (file.getName() != "config.json")) {
+                    if (!(file.isDirectory()) && (file.getName().charAt(0) != '.') && (file.getName() != "config.json")) {
                         fileInFolder.add(file);
                     }
                 }
@@ -296,7 +296,6 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void removeCompany() {
-        System.out.println("here");
         BaseConnection.removeCompany(companyField.getText());
         langs.remove(companyField.getText());
         companyField.setText("");
@@ -321,26 +320,30 @@ public class SetupWindowController implements Initializable {
         }
 
 
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), ""))
-                & (!Objects.equals(text.getText(), "")) & (!Objects.equals(pathField.getText(), ""))
-                & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), ""))) {
+        UpdateStartButtonVisible();
+
+    }
+
+    private void UpdateStartButtonVisible() {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "")
+                && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "")
+                && !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "")
+                && !Objects.equals(eventDate.getEditor().getText(), "")) {
             startButton.disableProperty().set(false);
         }
 
-        if ((!Objects.equals(pathSettings.getText(), "")
-                & (!Objects.equals(eventDate.getEditor().getText(), "")) & (!Objects.equals(eventText.getText(), "")))) {
+        if (!Objects.equals(pathSettings.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
             startButton.disableProperty().set(false);
         }
 
-        if ((!Objects.equals(pathSettings.getText(), "") & (allEvents.getSelectionModel().getSelectedItem() != null))) {
+        if (!Objects.equals(pathSettings.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null) {
             startButton.disableProperty().set(false);
         }
 
-        if ((!Objects.equals(eventDate.getEditor().getText(), "")) | (!Objects.equals(eventDate.getEditor().getText(), null))
-                | ((!Objects.equals(eventText.getText(), "")))) {
+        if (!Objects.equals(eventDate.getEditor().getText(), "") || !Objects.equals(eventDate.getEditor().getText(), null)
+                || !Objects.equals(eventText.getText(), "")) {
             startButton.disableProperty().set(true);
         }
-
     }
 
     @FXML
@@ -350,13 +353,13 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void typeEventText() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                (!Objects.equals(pathField.getText(), "")) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), "")) &
-                (companyListView.getSelectionModel().getSelectedItem() != null)) {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                (!Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
+                        companyListView.getSelectionModel().getSelectedItem() != null)) {
             startButton.disableProperty().set(false);
         } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                    (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
+            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
     }
 
     /**
@@ -364,46 +367,46 @@ public class SetupWindowController implements Initializable {
      */
     @FXML
     private void passwordPressKey() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                (!Objects.equals(pathField.getText(), "")) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), "")) &
-                (companyListView.getSelectionModel().getSelectedItem() != null)) {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
+                companyListView.getSelectionModel().getSelectedItem() != null) {
             startButton.disableProperty().set(false);
         } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                    (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
+            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
     }
 
     @FXML
     private void loginTyped() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                (!Objects.equals(pathField.getText(), "")) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), "")) &
+        if ((!Objects.equals(password.getText(), "")) && (!Objects.equals(login.getText(), "")) && (!Objects.equals(subject.getText(), "")) && (!Objects.equals(text.getText(), "")) &&
+                (!Objects.equals(pathField.getText(), "")) && (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), "")) &&
                 (companyListView.getSelectionModel().getSelectedItem() != null)) {
             startButton.disableProperty().set(false);
         } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                    (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
+            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) && (!Objects.equals(login.getText(), "")) && (!Objects.equals(subject.getText(), "")) && (!Objects.equals(text.getText(), "")) &&
+                    (!Objects.equals(pathField.getText(), "")) && (companyListView.getSelectionModel().getSelectedItem() != null) && (allEvents.getSelectionModel().getSelectedItem() != null)));
     }
 
     @FXML
     private void subjectClick() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                (!Objects.equals(pathField.getText(), "")) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), "")) &
-                (companyListView.getSelectionModel().getSelectedItem() != null)) {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                (!Objects.equals(pathField.getText(), "")) && (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), "")) &&
+                companyListView.getSelectionModel().getSelectedItem() != null) {
             startButton.disableProperty().set(false);
         } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                    (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
+            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
     }
 
     @FXML
     private void textClick() {
-        if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                (!Objects.equals(pathField.getText(), "")) & (!Objects.equals(eventText.getText(), "")) & (!Objects.equals(eventDate.getEditor().getText(), "")) &
-                (companyListView.getSelectionModel().getSelectedItem() != null)) {
+        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
+                companyListView.getSelectionModel().getSelectedItem() != null) {
             startButton.disableProperty().set(false);
         } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
-                    (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
+            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
+                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
     }
 
     @FXML
@@ -412,11 +415,11 @@ public class SetupWindowController implements Initializable {
             eventDate.getEditor().clear();
             eventText.setText("");
 
-            if ((!Objects.equals(pathSettings.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null)) {
+            if ((!Objects.equals(pathSettings.getText(), "")) && (companyListView.getSelectionModel().getSelectedItem() != null)) {
                 startButton.disableProperty().set(false);
-            } else if ((companyListView.getSelectionModel().getSelectedItem() != null) & (!Objects.equals(pathField.getText(), "")) &
-                    (companyListView.getSelectionModel().getSelectedItem() != null) & (!Objects.equals(login.getText(), "")) &
-                    (!Objects.equals(password.getText(), "")) & (!Objects.equals(text.getText(), "")) & (!Objects.equals(subject.getText(), "")))
+            } else if (companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(pathField.getText(), "") &&
+                    companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(login.getText(), "") &&
+                    !Objects.equals(password.getText(), "") && !Objects.equals(text.getText(), "") && !Objects.equals(subject.getText(), ""))
                 ;
             {
                 startButton.disableProperty().set(false);
@@ -473,7 +476,7 @@ public class SetupWindowController implements Initializable {
         /**
          * Заносим мероприятие в БД или определяемся к какому существующему мероприятию будут относиться данные
          * */
-        if ((!Objects.equals(eventDate.getEditor().getText(), "")) & (!Objects.equals(eventText.getText(), ""))) {
+        if ((!Objects.equals(eventDate.getEditor().getText(), "")) && (!Objects.equals(eventText.getText(), ""))) {
             //создаем новое мероприятие
             Date date = Date.from(eventDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             setEvent(date, eventText.getText(), companyListView.getFocusModel().getFocusedItem().toString());
@@ -485,7 +488,7 @@ public class SetupWindowController implements Initializable {
             eventArrayList.forEach(event -> {
 //                можно взять максимальное значение ключа (последний добавленый), но будем сравнивать
 //                параметры на случай ручного вмешательства в БД
-                if ((event.getDate().equals(sqlDate)) & event.getDescription().equals(description)) {
+                if ((event.getDate().equals(sqlDate)) && event.getDescription().equals(description)) {
                     IdEvent = event.getIdEvent();
                 }
             });
@@ -500,7 +503,7 @@ public class SetupWindowController implements Initializable {
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
             eventArrayList.forEach(event -> {
-                if ((event.getDate().equals(sqlDate)) & event.getDescription().equals(description)) {
+                if ((event.getDate().equals(sqlDate)) && event.getDescription().equals(description)) {
                     IdEvent.set(event.getIdEvent());
                 }
             });
