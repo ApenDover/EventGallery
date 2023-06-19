@@ -1,6 +1,6 @@
 package GUI.Gallery.Storage;
 
-import GUI.Gallery.MySQL.Entities.Sender;
+import GUI.Gallery.Data.Entities.Sender;
 
 import java.util.ArrayList;
 import java.util.TreeSet;

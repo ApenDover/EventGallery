@@ -14,13 +14,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 
-import java.awt.*;
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +47,6 @@ import static GUI.Gallery.Storage.NodeBase.imageViewLinkedHashConteiner;
 import static GUI.Gallery.Storage.NodeBase.imageViewTreeConteiner;
 
 public class ImageMediaController implements Initializable {
-
     public VBox centerVbox;
     public Pane mainPane;
     private ImageView imageView = new ImageView();
@@ -49,8 +57,10 @@ public class ImageMediaController implements Initializable {
     private BorderPane borderPane;
     public static String colorNumber = "";
     public static Image image;
-    int num = 0;
+    private static int num = 0;
+    private static double difSize = 0;
     ArrayList<String> listAll = new ArrayList<>();
+
     public void goToGallery() throws IOException {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -61,6 +71,7 @@ public class ImageMediaController implements Initializable {
         StageConteiner.stage.getScene().setRoot(root);
 //        stage.show();
     }
+
     public void sentToDB() throws IOException, AWTException {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -75,6 +86,7 @@ public class ImageMediaController implements Initializable {
         StageConteiner.stage.centerOnScreen();
         StageConteiner.stage.getScene().setRoot(root);
     }
+
     public void LeftPClick() throws FileNotFoundException {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -98,8 +110,14 @@ public class ImageMediaController implements Initializable {
             if (FileViewBase.imgExtension.contains(exLeft)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(num - 1)));
                 imageView.setImage(image);
-                imageView.setFitWidth(1200);
-                imageView.setFitHeight(800);
+                difSize = image.getWidth() / image.getHeight();
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 imageView.setId(listAll.get(num - 1));
                 borderPane.setCenter(imageView);
                 LinkTransfer.link = listAll.get(num - 1);
@@ -111,14 +129,20 @@ public class ImageMediaController implements Initializable {
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
+                    difSize = (double) media.getWidth() / media.getHeight();
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 mediaView = new MediaView();
-                mediaView.setFitWidth(1200);
-                mediaView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaView.setId(listAll.get(num - 1));
                 borderPane.setCenter(mediaView);
@@ -131,10 +155,16 @@ public class ImageMediaController implements Initializable {
             //слева ждет картинка
             if (FileViewBase.imgExtension.contains(exLeft)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(listAll.size() - 1)));
+                difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
                 imageView.setId(listAll.get(listAll.size() - 1));
-                imageView.setFitWidth(1200);
-                imageView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 borderPane.setCenter(imageView);
                 LinkTransfer.link = listAll.get(listAll.size() - 1);
                 borderPane.requestLayout();
@@ -145,14 +175,20 @@ public class ImageMediaController implements Initializable {
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
+                    difSize = (double) media.getWidth() / media.getHeight();
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 mediaView = new MediaView();
-                mediaView.setFitWidth(1200);
-                mediaView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaView.setId(listAll.get(listAll.size() - 1));
                 LinkTransfer.link = listAll.get(listAll.size() - 1);
@@ -162,11 +198,12 @@ public class ImageMediaController implements Initializable {
             }
         }
     }
+
     public void RightPClick() throws FileNotFoundException {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
-//      listALl со всеми документами из галлереи и источника
+//      listALl со всеми документами из галереи и источника
 //      смотрим какой открыт сейчас, что находится слева от него
 //      если слева видос, то видос, а нет так нет
         String now = LinkTransfer.link;
@@ -174,7 +211,6 @@ public class ImageMediaController implements Initializable {
 //      num = какой сейчас открыт порядковый номер
         for (int i = 0; i < listAll.size(); i++) {
             if (listAll.get(i).equals(now)) {
-
                 num = i;
             }
         }
@@ -186,9 +222,15 @@ public class ImageMediaController implements Initializable {
             //справа ждет картинка
             if (FileViewBase.imgExtension.contains(exRight)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(num + 1)));
+                difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
-                imageView.setFitWidth(1200);
-                imageView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 imageView.setId(listAll.get(num + 1));
                 borderPane.setCenter(imageView);
                 LinkTransfer.link = listAll.get(num + 1);
@@ -207,8 +249,13 @@ public class ImageMediaController implements Initializable {
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 mediaView = new MediaView();
-                mediaView.setFitWidth(1200);
-                mediaView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaView.setId(listAll.get(num + 1));
                 borderPane.setCenter(mediaView);
@@ -221,10 +268,16 @@ public class ImageMediaController implements Initializable {
             //справа ждет картинка
             if (FileViewBase.imgExtension.contains(exRight)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(0)));
+                difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
                 imageView.setId(listAll.get(0));
-                imageView.setFitWidth(1200);
-                imageView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 borderPane.setCenter(imageView);
                 LinkTransfer.link = listAll.get(0);
                 borderPane.requestLayout();
@@ -235,14 +288,20 @@ public class ImageMediaController implements Initializable {
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
+                    difSize = (double) media.getWidth() / media.getHeight();
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 mediaView = new MediaView();
-                mediaView.setFitWidth(1200);
-                mediaView.setFitHeight(800);
+                if (difSize > 1) {
+                    imageView.setFitWidth(1200);
+                    imageView.setFitHeight(1200 / difSize);
+                } else {
+                    imageView.setFitWidth(800 * difSize);
+                    imageView.setFitHeight(800);
+                }
                 mediaView.setId(listAll.get(0));
                 mediaView.setMediaPlayer(mediaPlayer);
                 borderPane.setCenter(mediaView);
@@ -251,6 +310,7 @@ public class ImageMediaController implements Initializable {
             }
         }
     }
+
     public void NextKeyPress(KeyEvent keyEvent) throws FileNotFoundException {
         if (keyEvent.getCode() == KeyCode.LEFT) {
             LeftPClick();
@@ -259,6 +319,7 @@ public class ImageMediaController implements Initializable {
             RightPClick();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (rezultbgImageCheck2) {
@@ -276,15 +337,10 @@ public class ImageMediaController implements Initializable {
         if ((byAddTime) & (newUp)) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewLinkedHashConteiner);
             Collections.reverse(ivlhcR);
-            ivlhcR.forEach(i -> {
-                listAll.add(i.getId());
-            });
+            ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
         if ((byAddTime) & (newDown)) {
-            imageViewLinkedHashConteiner.forEach(i ->
-            {
-                listAll.add(i.getId());
-            });
+            imageViewLinkedHashConteiner.forEach(i -> listAll.add(i.getId()));
         }
         if (byName) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewTreeConteiner);
@@ -302,19 +358,26 @@ public class ImageMediaController implements Initializable {
             borderPane.setCenter(imageView);
             try {
                 imageView.setId(LinkTransfer.link);
-                imageView.setImage(new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link)));
+                Image setedImage = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link));
+                imageView.setImage(setedImage);
+                difSize = setedImage.getWidth() / setedImage.getHeight();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            imageView.setFitWidth(1200);
-            imageView.setFitHeight(800);
+            if (difSize > 1) {
+                imageView.setFitWidth(1200);
+                imageView.setFitHeight(1200 / difSize);
+            } else {
+                imageView.setFitWidth(800 * difSize);
+                imageView.setFitHeight(800);
+            }
         }
         if (FileViewBase.movieExtension.contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
-
             File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link);
             Media media = null;
             try {
                 media = new Media(mediaFile.toURI().toURL().toString());
+                difSize = (double) media.getWidth() / media.getHeight();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -322,8 +385,13 @@ public class ImageMediaController implements Initializable {
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             allPlayers.add(mediaPlayer);
             mediaView = new MediaView();
-            mediaView.setFitWidth(1200);
-            mediaView.setFitHeight(800);
+            if (difSize > 1) {
+                imageView.setFitWidth(1200);
+                imageView.setFitHeight(1200 / difSize);
+            } else {
+                imageView.setFitWidth(800 * difSize);
+                imageView.setFitHeight(800);
+            }
             mediaView.setMediaPlayer(mediaPlayer);
             borderPane.setCenter(mediaView);
             mediaPlayer.play();

@@ -6,7 +6,7 @@ import GUI.Gallery.Storage.FileViewBase;
 import GUI.Gallery.Storage.LinkTransfer;
 import GUI.Gallery.Storage.NodeBase;
 import GUI.Gallery.Storage.StageConteiner;
-import ResizeMoviePackage.VideoResizerJPG;
+import GUI.Gallery.VideoResizer.VideoResizerJpg;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -19,9 +19,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
@@ -31,7 +37,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.ResourceBundle;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -66,6 +76,7 @@ public class GalleryController implements Initializable {
         StageConteiner.stage.getScene().setRoot(root);
         fiveSecondsWonder.stop();
     }
+
     /**
      * Создаем новые ImageView - плашки
      */
@@ -137,6 +148,7 @@ public class GalleryController implements Initializable {
             NodeBase.imageViewTreeConteiner.add(imageView);
         }
     }
+
     /**
      * мониторинг папок
      */
@@ -171,7 +183,7 @@ public class GalleryController implements Initializable {
             }
 //             видео кидаем сюда
             if (filesMovieWithoutResize.size() > 0) {
-                VideoResizerJPG.getImageFromVideo(filesMovieWithoutResize, 37, Integer.parseInt(SettingsLoader.getQualityResizer()), true);
+                VideoResizerJpg.getImageFromVideo(filesMovieWithoutResize, Integer.parseInt(SettingsLoader.getQualityResizer()), true);
             }
 //            создаем плашки
             namesWithoutResize.forEach(this::createImageView);
@@ -284,6 +296,7 @@ public class GalleryController implements Initializable {
                     Math.max(1, (int) (newValue.doubleValue() / (maxWidth + galleryPane.getHgap())))));
         });
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Rectangle2D r = Screen.getPrimary().getBounds();
@@ -313,7 +326,7 @@ public class GalleryController implements Initializable {
          * добавляем плашки при первой загрузке и перезагрузке
          * */
         if ((SettingsLoader.byAddTime) & (SettingsLoader.newDown)) {
-            if (!(galleryPane == null)) {
+            if (galleryPane != null) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (NodeBase.imageViewLinkedHashConteiner.size() == FileViewBase.namesFilesDST.size()) {
                         NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> {
@@ -333,7 +346,7 @@ public class GalleryController implements Initializable {
             ArrayList<Node> setReversed = new ArrayList<>(NodeBase.imageViewLinkedHashConteiner);
             Collections.reverse(setReversed);
 
-            if (!(galleryPane == null)) {
+            if (galleryPane != null) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (setReversed.size() == FileViewBase.namesFilesDST.size()) {
                         setReversed.forEach(imageView -> {
@@ -355,7 +368,7 @@ public class GalleryController implements Initializable {
             }
         }
         if (SettingsLoader.byName) {
-            if (!(galleryPane == null)) {
+            if (galleryPane == null) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (NodeBase.imageViewTreeConteiner.size() == FileViewBase.namesFilesDST.size()) {
                         NodeBase.imageViewTreeConteiner.forEach(imageView -> {

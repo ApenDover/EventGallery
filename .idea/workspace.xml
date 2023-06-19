@@ -9,7 +9,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="" />
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="Переделал на postgres">
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/VideoResizer/VideoResizerJpg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Connections/BaseConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Company.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Sender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +45,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -44,21 +69,24 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="29U2wJO9bYM7voj5xCvUWhWBOZD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="jdk.selected.JAVA_MODULE" value="18" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.14049587" />
-    <property name="project.structure.side.proportion" value="0.15890688" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.12180269",
+    "project.structure.side.proportion": "0.27394208",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -86,7 +114,7 @@
       <recent name="GUI.Gallery.Event" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SuperMain">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ImageBrightener" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Storage.ImageBrightener" />
       <module name="GUISender" />
@@ -102,7 +130,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Main" />
-      <module name="GUISender" />
+      <module name="GallerySender" />
       <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls" />
       <extension name="coverage">
         <pattern>
@@ -188,8 +216,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SuperMain" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.SuperMain" />
         <item itemvalue="Application.psp" />
         <item itemvalue="Application.ImageBrightener" />
         <item itemvalue="Application.please" />
@@ -221,11 +249,23 @@
       <workItem from="1661682870249" duration="10454000" />
       <workItem from="1661936611894" duration="2419000" />
       <workItem from="1661941773657" duration="4000" />
+      <workItem from="1686498822139" duration="4568000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

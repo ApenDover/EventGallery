@@ -1,16 +1,12 @@
-package GUI.Gallery.MySQL.Connections;
+package GUI.Gallery.Data.Connections;
 
-import GUI.Gallery.MySQL.Entities.Company;
-import GUI.Gallery.MySQL.Entities.Event;
-import GUI.Gallery.MySQL.Entities.Sender;
+import GUI.Gallery.Data.Entities.Company;
+import GUI.Gallery.Data.Entities.Event;
+import GUI.Gallery.Data.Entities.Sender;
 import GUI.Gallery.SetupWindowController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
@@ -18,15 +14,16 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BaseConnection {
     static Session session;
 
-    public static void addConnection(String user, String password)
-    {
+    public static void addConnection(String user, String password) {
 
 //        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 //        Metadata metadata = new MetadataSources(registry).getMetadataBuilder().build();
@@ -34,11 +31,11 @@ public class BaseConnection {
 //        session = sessionFactory.openSession();
 
         Properties settings = new Properties();
-        settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-        settings.put(Environment.URL, "jdbc:mysql://localhost:3306/MailSender?createDatabaseIfNotExist=true");
+        settings.put(Environment.DRIVER, "org.postgresql.Driver");
+        settings.put(Environment.URL, "jdbc:postgresql://localhost:5432/mailsender?createDatabaseIfNotExist=true");
         settings.put(Environment.USER, user);
         settings.put(Environment.PASS, password);
-        settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
+        settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         settings.put(Environment.POOL_SIZE, "10");
         settings.put(Environment.SHOW_SQL, "true");
         settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
@@ -52,8 +49,7 @@ public class BaseConnection {
         session = sessionFactory.openSession();
     }
 
-    public static List<Sender> getSender()
-    {
+    public static List<Sender> getSender() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Sender> query = builder.createQuery(Sender.class);
         Root<Sender> rootQuery = query.from(Sender.class);
@@ -62,8 +58,7 @@ public class BaseConnection {
         return senderList;
     }
 
-    public static List<Event> getEvents()
-    {
+    public static List<Event> getEvents() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Event> query = builder.createQuery(Event.class);
         Root<Event> rootQuery = query.from(Event.class);
@@ -72,8 +67,7 @@ public class BaseConnection {
         return eventList;
     }
 
-    public static void updateSenderStatus(String status, Sender sender)
-    {
+    public static void updateSenderStatus(String status, Sender sender) {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaUpdate<Sender> criteriaUpdate = builder.createCriteriaUpdate(Sender.class);
         Root<Sender> rootUpdate = criteriaUpdate.from(Sender.class);
@@ -84,27 +78,24 @@ public class BaseConnection {
         transaction.commit();
     }
 
-    public static void setEvent(Date dateEvent, String text, String companyName)
-    {
-            Event event = new Event();
-            event.setDescription(text);
-            Date date = dateEvent;
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-            event.setDate(sqlDate);
-            ArrayList<Company> findCompany = new ArrayList<>(BaseConnection.getCompany());
-            findCompany.forEach(c -> {
-                if (c.getName().equals(companyName))
-                {
-                    event.setCompany(c);
-                }
-            });
-            Transaction transaction = session.beginTransaction();
-            session.save(event);
-            transaction.commit();
+    public static void setEvent(Date dateEvent, String text, String companyName) {
+        Event event = new Event();
+        event.setDescription(text);
+        Date date = dateEvent;
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        event.setDate(sqlDate);
+        ArrayList<Company> findCompany = new ArrayList<>(BaseConnection.getCompany());
+        findCompany.forEach(c -> {
+            if (c.getName().equals(companyName)) {
+                event.setCompany(c);
+            }
+        });
+        Transaction transaction = session.beginTransaction();
+        session.save(event);
+        transaction.commit();
     }
 
-    public static boolean setSender(String mail, String path, Event event)
-    {
+    public static boolean setSender(String mail, String path, Event event) {
         Sender sender = new Sender();
         sender.setPath(path);
         sender.setMail(mail);
@@ -116,12 +107,11 @@ public class BaseConnection {
         return true;
     }
 
-    public static List<Event> getEventsFromCompany(String companyName)
-    {
+    public static List<Event> getEventsFromCompany(String companyName) {
         AtomicInteger companyId = new AtomicInteger();
         ArrayList<Company> companies = new ArrayList<>(getCompany());
         companies.forEach(company -> {
-            if (company.getName().equals(companyName)){
+            if (company.getName().equals(companyName)) {
                 companyId.set(company.getIdCompany());
             }
         });
@@ -133,8 +123,7 @@ public class BaseConnection {
         return eventList;
     }
 
-    public static List<Company> getCompany()
-    {
+    public static List<Company> getCompany() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Company> query = builder.createQuery(Company.class);
         Root<Company> rootQuery = query.from(Company.class);
@@ -143,8 +132,7 @@ public class BaseConnection {
         return companyList;
     }
 
-    public static boolean setCompany(String name)
-    {
+    public static boolean setCompany(String name) {
         Company company = new Company();
         company.setName(name);
         Transaction transaction = session.beginTransaction();
@@ -153,12 +141,10 @@ public class BaseConnection {
         return true;
     }
 
-    public static boolean removeCompany(String name)
-    {
+    public static boolean removeCompany(String name) {
         List<Company> companyList = getCompany();
         companyList.forEach(company -> {
-            if (company.getName().equals(name))
-            {
+            if (company.getName().equals(name)) {
                 Transaction transaction = session.beginTransaction();
                 session.remove(company);
                 transaction.commit();
@@ -167,8 +153,7 @@ public class BaseConnection {
         return true;
     }
 
-    public static List<Sender> getMails()
-    {
+    public static List<Sender> getMails() {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Sender> query = builder.createQuery(Sender.class);
         Root<Sender> rootQuery = query.from(Sender.class);
@@ -177,8 +162,7 @@ public class BaseConnection {
         return senderList;
     }
 
-    public static void closeConnection()
-    {
+    public static void closeConnection() {
         session.close();
     }
 

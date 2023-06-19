@@ -1,6 +1,14 @@
 package GUI.Gallery.Mail;
 
-import javax.mail.*;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.SendFailedException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -9,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-public class SSLGmailSender{
+public class SSLGmailSender {
 
     private final String username;
     private final String password;
@@ -36,40 +44,40 @@ public class SSLGmailSender{
             }
         });
 
-            Message message = new MimeMessage(session);
+        Message message = new MimeMessage(session);
 
 //          от кого
-            message.setFrom(new InternetAddress(username));
+        message.setFrom(new InternetAddress(username));
 
 //          кому
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
 
 //          тема сообщения
-            message.setSubject(subject);
+        message.setSubject(subject);
 
 //          содержимое сообщения
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(text);
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText(text);
 
 //          если есть вложение, добавляем его к письму
-            if (!path.equals("")) {
-                MimeBodyPart attachmentPart = new MimeBodyPart();
-                attachmentPart.attachFile(new File(path));
-                Multipart multipart = new MimeMultipart();
-                multipart.addBodyPart(messageBodyPart);
-                multipart.addBodyPart(attachmentPart);
-                message.setContent(multipart);
-            } else {
-                message.setText(text);
-            }
+        if (!path.equals("")) {
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            attachmentPart.attachFile(new File(path));
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(attachmentPart);
+            message.setContent(multipart);
+        } else {
+            message.setText(text);
+        }
 
-            //отправляем сообщение
-            try {
-                Transport.send(message);
-            } catch (SendFailedException e){
-                System.out.println("SenderSSL ERROR: " + e.getMessage());
-                return "ERROR";
-            }
-            return "SUCCESS";
+        //отправляем сообщение
+        try {
+            Transport.send(message);
+        } catch (SendFailedException e) {
+            System.out.println("SenderSSL ERROR: " + e.getMessage());
+            return "ERROR";
+        }
+        return "SUCCESS";
     }
 }

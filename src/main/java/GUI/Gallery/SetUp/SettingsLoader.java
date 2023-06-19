@@ -39,6 +39,7 @@ public class SettingsLoader {
         SQLlogin = (String) jsonObject.get("sqlLogin");
         SQLpassword = (String) jsonObject.get("sqlPassword");
     }
+
     public static void saveLoad(String login, String password, String subject, String text, String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) throws IOException, ParseException {
         //Creating a JSONObject object
         JSONObject jsonObject = new JSONObject();
@@ -59,27 +60,35 @@ public class SettingsLoader {
             e.printStackTrace();
         }
     }
+
     public static String getLogin() {
         return login;
     }
+
     public static String getPassword() {
         return password;
     }
+
     public static String getSqlLogin() {
         return SQLlogin;
     }
+
     public static String getSqlPassword() {
         return SQLpassword;
     }
+
     public static String getSubject() {
         return subject;
     }
+
     public static String getText() {
         return text;
     }
+
     public static String getSourseFolder() {
         return sourseFolder;
     }
+
     public static String getQualityResizer() {
         return qualityResizer;
     }

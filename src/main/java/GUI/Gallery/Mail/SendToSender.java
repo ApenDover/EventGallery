@@ -1,7 +1,8 @@
 package GUI.Gallery.Mail;
+
 import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.MySQL.Connections.BaseConnection;
-import GUI.Gallery.MySQL.Entities.Sender;
+import GUI.Gallery.Data.Connections.BaseConnection;
+import GUI.Gallery.Data.Entities.Sender;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;

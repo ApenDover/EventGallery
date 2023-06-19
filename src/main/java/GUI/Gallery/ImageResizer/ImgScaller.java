@@ -37,8 +37,7 @@ public class ImgScaller implements Runnable {
                     if (image == null) {
                         continue;
                     }
-                    int newHeight = (int) Math.round(image.getHeight() / (image.getWidth() / (double) newWidth));
-                    BufferedImage newImage; // = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+                    BufferedImage newImage;
 
                     newImage = Scalr.resize(image, newWidth);
                     File newFile = new File(dstFolder + "/" + file.getName());

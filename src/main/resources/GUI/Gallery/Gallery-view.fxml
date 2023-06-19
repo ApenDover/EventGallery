@@ -12,7 +12,7 @@
          <content>
             <VBox fx:id="vBox" alignment="CENTER" fillWidth="false" focusTraversable="true">
                <children>
-                  <TilePane fx:id="galleryPane" hgap="5" vgap="5" />
+                  <TilePane fx:id="galleryPane" hgap="10" vgap="10" />
                </children>
             </VBox>
          </content>

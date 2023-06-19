@@ -1,27 +1,22 @@
 package GUI.Gallery;
 
-import GUI.Gallery.MySQL.Connections.BaseConnection;
+import GUI.Gallery.Data.Connections.BaseConnection;
 import GUI.Gallery.Storage.LinkTransfer;
 import GUI.Gallery.Storage.MailBase;
 import GUI.Gallery.Storage.StageConteiner;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-import java.util.Iterator;
 
 
 public class Main extends Application {
     public static boolean start = true;
     public static BaseConnection baseConnection;
     public static Color color;
+
     @Override
     public void start(Stage stage) throws Exception {
         new MailBase();
@@ -35,9 +30,11 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.show();
     }
+
     public static void main(String[] args) throws Exception {
         launch();
     }
+
     Object object = new Object();
 }
 

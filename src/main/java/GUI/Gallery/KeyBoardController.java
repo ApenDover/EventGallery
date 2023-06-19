@@ -1,10 +1,9 @@
 package GUI.Gallery;
 
-import GUI.Gallery.ImageResizer.ImageDarker;
 import GUI.Gallery.Mail.SendToSender;
-import GUI.Gallery.MySQL.Connections.BaseConnection;
-import GUI.Gallery.MySQL.Entities.Event;
-import GUI.Gallery.MySQL.Entities.Sender;
+import GUI.Gallery.Data.Connections.BaseConnection;
+import GUI.Gallery.Data.Entities.Event;
+import GUI.Gallery.Data.Entities.Sender;
 import GUI.Gallery.SetUp.SettingsLoader;
 import GUI.Gallery.Storage.LinkTransfer;
 import GUI.Gallery.Storage.MailBase;
@@ -18,14 +17,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -134,6 +135,7 @@ public class KeyBoardController implements Initializable {
             tileMails.requestLayout();
         }
     }
+
     public void goToMedia() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
         StageConteiner.stage.centerOnScreen();
@@ -142,197 +144,235 @@ public class KeyBoardController implements Initializable {
 
     /**
      * Клавиатура
-     * */
+     */
     public void oneAction(ActionEvent event) {
         finalText += one.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void twoAction(ActionEvent event) {
         finalText += two.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void threeAction(ActionEvent event) {
         finalText += three.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void fourAction(ActionEvent event) {
         finalText += four.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void fiveAction(ActionEvent event) {
         finalText += five.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void sixAction(ActionEvent event) {
         finalText += six.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void sevenAction(ActionEvent event) {
         finalText += seven.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void eightAction(ActionEvent event) {
         finalText += eight.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void nineAction(ActionEvent event) {
         finalText += nine.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void zeroAction(ActionEvent event) {
         finalText += zero.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void spaceAction(ActionEvent event) {
 //        finalTextField += " ";
 //        mailField.setText(finalTextField);
     }
+
     public void qAction(ActionEvent event) {
         finalText += q.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void wAction(ActionEvent event) {
         finalText += w.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void eAction(ActionEvent event) {
         finalText += e.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void rAction(ActionEvent event) {
         finalText += r.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void tAction(ActionEvent event) {
         finalText += t.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
 
     }
+
     public void yAction(ActionEvent event) {
         finalText += y.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void uAction(ActionEvent event) {
         finalText += u.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void iAction(ActionEvent event) {
         finalText += i.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void oAction(ActionEvent event) {
         finalText += o.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void pAction(ActionEvent event) {
         finalText += p.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void aAction(ActionEvent event) {
         finalText += a.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void sAction(ActionEvent event) {
         finalText += s.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void dAction(ActionEvent event) {
         finalText += d.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void fAction(ActionEvent event) {
         finalText += f.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void gAction(ActionEvent event) {
         finalText += g.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void hAction(ActionEvent event) {
         finalText += h.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void jAction(ActionEvent event) {
         finalText += j.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void kAction(ActionEvent event) {
         finalText += k.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void lAction(ActionEvent event) {
         finalText += l.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void zAction(ActionEvent event) {
         finalText += z.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void xAction(ActionEvent event) {
         finalText += x.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void cAction(ActionEvent event) {
         finalText += c.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void vAction(ActionEvent event) {
         finalText += v.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void bAction(ActionEvent event) {
         finalText += b.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void nAction(ActionEvent event) {
         finalText += n.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void mAction(ActionEvent event) {
         finalText += m.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void tireAction(ActionEvent event) {
         finalText += tire.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void delAction(ActionEvent event) {
         if (finalText.length() > 0) {
             finalText = finalText.substring(0, finalText.length() - 1);
@@ -340,39 +380,47 @@ public class KeyBoardController implements Initializable {
             searchMail();
         }
     }
+
     public void downTireAction(ActionEvent event) {
         finalText += "_";
         mailField.setText(finalText);
         searchMail();
     }
+
     public void clearAction(ActionEvent event) {
         finalText = "";
         mailField.setText(finalText);
         searchMail();
     }
+
     public void pointAction(ActionEvent event) {
         finalText += point.getText().toLowerCase();
         mailField.setText(finalText);
         searchMail();
     }
+
     public void dogAction(ActionEvent event) {
         finalText += "@";
         mailField.setText(finalText);
         searchMail();
     }
+
     public void ruAction(ActionEvent event) {
         finalText += ".ru";
         mailField.setText(finalText);
         searchMail();
     }
+
     public void comAction(ActionEvent event) {
         finalText += ".com";
         mailField.setText(finalText);
         searchMail();
     }
+
     public void endAction(ActionEvent event) throws IOException {
         goToMedia();
     }
+
     public void sendAction(ActionEvent event) {
         statusCheck.play();
         String imagePath = SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link;

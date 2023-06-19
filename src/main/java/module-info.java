@@ -12,10 +12,12 @@ module GUI.Gallery {
     requires org.controlsfx.controls;
     requires jdk.jfr;
     requires javafx.media;
-    requires VideoJpgResized;
+    requires javacv;
+    requires javacpp;
+    requires imgscalr.lib;
 
     opens GUI.Gallery to javafx.fxml;
-    opens GUI.Gallery.MySQL.Entities to org.hibernate.orm.core;
+    opens GUI.Gallery.Data.Entities to org.hibernate.orm.core;
     exports GUI.Gallery;
     exports GUI.Gallery.Storage;
     opens GUI.Gallery.Storage to javafx.fxml;

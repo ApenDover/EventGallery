@@ -1,9 +1,9 @@
 package GUI.Gallery;
 
 import GUI.Gallery.ImageResizer.ImgScaller;
-import GUI.Gallery.MySQL.Connections.BaseConnection;
-import GUI.Gallery.MySQL.Entities.Company;
-import GUI.Gallery.MySQL.Entities.Event;
+import GUI.Gallery.Data.Connections.BaseConnection;
+import GUI.Gallery.Data.Entities.Company;
+import GUI.Gallery.Data.Entities.Event;
 import GUI.Gallery.SetUp.SettingsLoader;
 import GUI.Gallery.Storage.MailBase;
 import GUI.Gallery.Storage.StageConteiner;
@@ -13,9 +13,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -23,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
 
@@ -35,11 +46,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static GUI.Gallery.MySQL.Connections.BaseConnection.getEvents;
-import static GUI.Gallery.MySQL.Connections.BaseConnection.setEvent;
+import static GUI.Gallery.Data.Connections.BaseConnection.getEvents;
+import static GUI.Gallery.Data.Connections.BaseConnection.setEvent;
 
 public class SetupWindowController implements Initializable {
     @FXML
@@ -107,7 +122,7 @@ public class SetupWindowController implements Initializable {
 
     /**
      * Настройки
-     * */
+     */
     @FXML
     private void settingsPath() {
         FileChooser fileChooser = new FileChooser();
@@ -147,12 +162,11 @@ public class SetupWindowController implements Initializable {
     }
 
     /**
-     * MySQL
-     * */
+     * DataBase
+     */
     public void connectToDB() {
         companyListView.getItems().clear();
         //        Подключаем базу через hibernate.cfg
-        BaseConnection baseConnection = new BaseConnection();
         try {
             BaseConnection.addConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
@@ -160,7 +174,6 @@ public class SetupWindowController implements Initializable {
             ArrayList<Company> company = new ArrayList<>(BaseConnection.getCompany());
             company.forEach(c -> langs.add(c.getName()));
             companyListView.setItems(langs);
-
         } catch (Exception e) {
             connectLabel.setVisible(true);
             connectLabel.setText("ERROR");
@@ -169,7 +182,7 @@ public class SetupWindowController implements Initializable {
 
     /**
      * Галерея
-     * */
+     */
     @FXML
     private void findPath() {
         File selectedFile = directoryChooser.showDialog(stage);
@@ -192,6 +205,7 @@ public class SetupWindowController implements Initializable {
 
         }
     }
+
     @FXML
     private void pathFieldClick() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) & (!Objects.equals(pathField.getText(), "")) & (allEvents.getSelectionModel().getSelectedItem() != null) &
@@ -207,6 +221,7 @@ public class SetupWindowController implements Initializable {
             startButton.disableProperty().set(false);
         }
     }
+
     @FXML
     private void folderResize() {
         if (!Objects.equals(pathField.getText(), "")) {
@@ -226,6 +241,7 @@ public class SetupWindowController implements Initializable {
             thread.start();
         }
     }
+
     @FXML
     private void findPicForBackGround(ActionEvent event) throws FileNotFoundException {
         colorNumber.setText("");
@@ -240,12 +256,14 @@ public class SetupWindowController implements Initializable {
             bgImageCheck.setDisable(false);
         }
     }
+
     public void typingColor(KeyEvent event) {
         bgImageCheck.setSelected(false);
         bgImageCheck.setDisable(true);
         bgImageCheck2.setSelected(false);
         bgImageCheck2.setDisable(true);
     }
+
     @FXML
     private void findPicForBackGround2(ActionEvent event) throws FileNotFoundException {
         colorNumber.setText("");
@@ -263,7 +281,7 @@ public class SetupWindowController implements Initializable {
 
     /**
      * Мероприятие
-     * */
+     */
     @FXML
     private void addCompany() {
         if (!(companyField.getText().equals(""))) {
@@ -275,6 +293,7 @@ public class SetupWindowController implements Initializable {
 
         }
     }
+
     @FXML
     private void removeCompany() {
         System.out.println("here");
@@ -285,6 +304,7 @@ public class SetupWindowController implements Initializable {
         companyListView.setItems(langs);
         allEvents.getItems().clear();
     }
+
     @FXML
     private void getEventsFromListView() {
 
@@ -322,10 +342,12 @@ public class SetupWindowController implements Initializable {
         }
 
     }
+
     @FXML
     private void DatePickerORTextAreaClick() {
         allEvents.getSelectionModel().clearSelection();
     }
+
     @FXML
     private void typeEventText() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
@@ -339,7 +361,7 @@ public class SetupWindowController implements Initializable {
 
     /**
      * Почта
-     * */
+     */
     @FXML
     private void passwordPressKey() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
@@ -350,6 +372,7 @@ public class SetupWindowController implements Initializable {
             startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
                     (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
     }
+
     @FXML
     private void loginTyped() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
@@ -360,6 +383,7 @@ public class SetupWindowController implements Initializable {
             startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
                     (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
     }
+
     @FXML
     private void subjectClick() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
@@ -370,6 +394,7 @@ public class SetupWindowController implements Initializable {
             startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
                     (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
     }
+
     @FXML
     private void textClick() {
         if ((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
@@ -380,6 +405,7 @@ public class SetupWindowController implements Initializable {
             startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) & (!Objects.equals(login.getText(), "")) & (!Objects.equals(subject.getText(), "")) & (!Objects.equals(text.getText(), "")) &
                     (!Objects.equals(pathField.getText(), "")) & (companyListView.getSelectionModel().getSelectedItem() != null) & (allEvents.getSelectionModel().getSelectedItem() != null)));
     }
+
     @FXML
     private void allEventsClick() {
         if (allEvents.getSelectionModel().getSelectedItem() != null) {
@@ -404,6 +430,7 @@ public class SetupWindowController implements Initializable {
     private void openDel() {
         remButton.setDisable(false);
     }
+
     @FXML
     private void start(MouseEvent click) throws IOException, java.text.ParseException {
         rezultbgImageCheck = bgImageCheck.isSelected();
@@ -469,7 +496,7 @@ public class SetupWindowController implements Initializable {
             AtomicInteger IdEvent = new AtomicInteger();
             String description = pole[1];
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date utilDate = df.parse(pole[0]);
+            Date utilDate = df.parse(pole[0]);
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
             eventArrayList.forEach(event -> {
@@ -493,15 +520,16 @@ public class SetupWindowController implements Initializable {
         }
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         StageConteiner.stage = (Stage) ((Node) click.getSource()).getScene().getWindow();
-//        Rectangle2D r = Screen.getPrimary().getBounds();
-//        StageConteiner.stage.setWidth(r.getWidth());
-//        StageConteiner.stage.setHeight(r.getHeight());
+        Rectangle2D r = Screen.getPrimary().getBounds();
+        StageConteiner.stage.setWidth(r.getWidth());
+        StageConteiner.stage.setHeight(r.getHeight());
         StageConteiner.stage.centerOnScreen();
         StageConteiner.stage.getScene().setRoot(root);
         StageConteiner.stage.setFullScreenExitHint("");
         StageConteiner.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         StageConteiner.stage.setFullScreen(true);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventDate.setValue(LocalDate.now());
