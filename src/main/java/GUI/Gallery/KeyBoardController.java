@@ -1,13 +1,13 @@
 package GUI.Gallery;
 
-import GUI.Gallery.Mail.SendToSender;
-import GUI.Gallery.Data.Connections.BaseConnection;
-import GUI.Gallery.Data.Entities.Event;
-import GUI.Gallery.Data.Entities.Sender;
-import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.Storage.LinkTransfer;
-import GUI.Gallery.Storage.MailBase;
-import GUI.Gallery.Storage.StageConteiner;
+import GUI.Gallery.mail.SendToSender;
+import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.data.entities.Event;
+import GUI.Gallery.data.entities.Sender;
+import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.storage.LinkTransfer;
+import GUI.Gallery.storage.MailBase;
+import GUI.Gallery.storage.StageConteiner;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

@@ -1,9 +1,9 @@
 package GUI.Gallery;
 
-import GUI.Gallery.Data.Connections.BaseConnection;
-import GUI.Gallery.Storage.LinkTransfer;
-import GUI.Gallery.Storage.MailBase;
-import GUI.Gallery.Storage.StageConteiner;
+import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.storage.LinkTransfer;
+import GUI.Gallery.storage.MailBase;
+import GUI.Gallery.storage.StageConteiner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

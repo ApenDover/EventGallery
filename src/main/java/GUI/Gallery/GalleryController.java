@@ -1,12 +1,12 @@
 package GUI.Gallery;
 
-import GUI.Gallery.ImageResizer.ImgScaller;
-import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.Storage.FileViewBase;
-import GUI.Gallery.Storage.LinkTransfer;
-import GUI.Gallery.Storage.NodeBase;
-import GUI.Gallery.Storage.StageConteiner;
-import GUI.Gallery.VideoResizer.VideoResizerJpg;
+import GUI.Gallery.imageResizer.ImgScaller;
+import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.storage.FileViewBase;
+import GUI.Gallery.storage.LinkTransfer;
+import GUI.Gallery.storage.NodeBase;
+import GUI.Gallery.storage.StageConteiner;
+import GUI.Gallery.videoResizer.VideoResizerJpg;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;

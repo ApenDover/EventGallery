@@ -9,28 +9,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="Переделал на postgres">
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/VideoResizer/VideoResizerJpg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="fix gallery center image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SSLGmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendToSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Connections/BaseConnection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Company.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Event.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/MySQL/Entities/Sender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/ImageViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/NodeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/StageConteiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageConteiner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/VideoResizer/VideoResizerJpg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/videoResizer/VideoResizerJpg.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +50,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="931eb87b-d662-4944-9a4c-fcad682bfc72" />
+        <option name="url" value="https://github.com/ApenDover/JavaJXGalleryMailSender.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -76,6 +91,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -120,7 +136,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.Storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,7 +150,7 @@
       <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.Storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -174,7 +190,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.Storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -187,7 +203,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.Storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -251,6 +267,14 @@
       <workItem from="1661941773657" duration="4000" />
       <workItem from="1686498822139" duration="4568000" />
     </task>
+    <task id="LOCAL-00001" summary="fix gallery center image">
+      <created>1696883218380</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1696883218380</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,6 +290,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix gallery center image" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix gallery center image" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

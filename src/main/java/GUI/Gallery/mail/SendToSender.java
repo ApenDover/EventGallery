@@ -1,8 +1,8 @@
-package GUI.Gallery.Mail;
+package GUI.Gallery.mail;
 
-import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.Data.Connections.BaseConnection;
-import GUI.Gallery.Data.Entities.Sender;
+import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.data.entities.Sender;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;

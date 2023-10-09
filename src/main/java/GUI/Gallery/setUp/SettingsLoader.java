@@ -1,4 +1,4 @@
-package GUI.Gallery.SetUp;
+package GUI.Gallery.setUp;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

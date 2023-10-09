@@ -1,6 +1,6 @@
-package GUI.Gallery.Storage;
+package GUI.Gallery.storage;
 
-import GUI.Gallery.SetUp.SettingsLoader;
+import GUI.Gallery.setUp.SettingsLoader;
 
 import java.io.File;
 import java.util.HashSet;

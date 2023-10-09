@@ -1,4 +1,4 @@
-package GUI.Gallery.Storage;
+package GUI.Gallery.storage;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

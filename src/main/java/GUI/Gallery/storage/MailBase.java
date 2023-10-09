@@ -1,6 +1,6 @@
-package GUI.Gallery.Storage;
+package GUI.Gallery.storage;
 
-import GUI.Gallery.Data.Entities.Sender;
+import GUI.Gallery.data.entities.Sender;
 
 import java.util.ArrayList;
 import java.util.TreeSet;

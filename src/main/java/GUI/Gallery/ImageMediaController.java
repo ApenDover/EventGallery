@@ -1,10 +1,10 @@
 package GUI.Gallery;
 
-import GUI.Gallery.ImageResizer.ImageDarker;
-import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.Storage.FileViewBase;
-import GUI.Gallery.Storage.LinkTransfer;
-import GUI.Gallery.Storage.StageConteiner;
+import GUI.Gallery.imageResizer.ImageDarker;
+import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.storage.FileViewBase;
+import GUI.Gallery.storage.LinkTransfer;
+import GUI.Gallery.storage.StageConteiner;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,10 +42,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-import static GUI.Gallery.SetUp.SettingsLoader.*;
+import static GUI.Gallery.setUp.SettingsLoader.*;
 import static GUI.Gallery.SetupWindowController.rezultbgImageCheck2;
-import static GUI.Gallery.Storage.NodeBase.imageViewLinkedHashConteiner;
-import static GUI.Gallery.Storage.NodeBase.imageViewTreeConteiner;
+import static GUI.Gallery.storage.NodeBase.imageViewLinkedHashConteiner;
+import static GUI.Gallery.storage.NodeBase.imageViewTreeConteiner;
 
 public class ImageMediaController implements Initializable {
     public VBox centerVbox;

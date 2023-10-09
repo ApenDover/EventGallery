@@ -1,12 +1,12 @@
 package GUI.Gallery;
 
-import GUI.Gallery.ImageResizer.ImgScaller;
-import GUI.Gallery.Data.Connections.BaseConnection;
-import GUI.Gallery.Data.Entities.Company;
-import GUI.Gallery.Data.Entities.Event;
-import GUI.Gallery.SetUp.SettingsLoader;
-import GUI.Gallery.Storage.MailBase;
-import GUI.Gallery.Storage.StageConteiner;
+import GUI.Gallery.imageResizer.ImgScaller;
+import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.data.entities.Company;
+import GUI.Gallery.data.entities.Event;
+import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.storage.MailBase;
+import GUI.Gallery.storage.StageConteiner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,8 +53,8 @@ import java.util.ResourceBundle;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static GUI.Gallery.Data.Connections.BaseConnection.getEvents;
-import static GUI.Gallery.Data.Connections.BaseConnection.setEvent;
+import static GUI.Gallery.data.connections.BaseConnection.getEvents;
+import static GUI.Gallery.data.connections.BaseConnection.setEvent;
 
 public class SetupWindowController implements Initializable {
     @FXML

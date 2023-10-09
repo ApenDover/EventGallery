@@ -1,4 +1,4 @@
-package GUI.Gallery.Storage;
+package GUI.Gallery.storage;
 
 public class LinkTransfer {
     public static String link;

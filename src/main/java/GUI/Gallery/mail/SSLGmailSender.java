@@ -1,4 +1,4 @@
-package GUI.Gallery.Mail;
+package GUI.Gallery.mail;
 
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;

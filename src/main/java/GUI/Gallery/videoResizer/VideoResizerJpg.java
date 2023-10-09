@@ -1,4 +1,4 @@
-package GUI.Gallery.VideoResizer;
+package GUI.Gallery.videoResizer;
 
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;

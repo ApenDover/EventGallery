@@ -1,4 +1,4 @@
-package GUI.Gallery.Data.Entities;
+package GUI.Gallery.data.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

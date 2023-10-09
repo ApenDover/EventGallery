@@ -1,4 +1,4 @@
-package GUI.Gallery.ImageResizer;
+package GUI.Gallery.imageResizer;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
