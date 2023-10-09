@@ -6,6 +6,8 @@ import org.imgscalr.Scalr;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.TreeSet;
 
 public class ImgScaller implements Runnable {
@@ -20,6 +22,8 @@ public class ImgScaller implements Runnable {
         this.dstFolder = srcFolder + "/" + SettingsLoader.getQualityResizer();
         this.newWidth = Integer.parseInt(SettingsLoader.getQualityResizer());
         if (imgFiles != null) {
+            File file = new File(dstFolder);
+            file.mkdir();
             this.imgFiles = imgFiles;
             run();
 
@@ -28,25 +32,26 @@ public class ImgScaller implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("START RESIZE " + LocalDateTime.now());
         try {
-            for (File file : imgFiles) {
-                if (!file.getAbsolutePath().endsWith(".jpg")) {
-// проверить будет ли работать метод с другими форматами файлов!
-                } else {
-                    BufferedImage image = ImageIO.read(file);
-                    if (image == null) {
-                        continue;
+            imgFiles.parallelStream().forEach(file -> {
+                try {
+                    if (file.getAbsolutePath().endsWith(".jpg")) {
+                        BufferedImage image = ImageIO.read(file);
+                        if (Objects.nonNull(image)) {
+                            BufferedImage newImage;
+                            newImage = Scalr.resize(image, newWidth);
+                            File newFile = new File(dstFolder + "/" + file.getName());
+                            ImageIO.write(newImage, "jpg", newFile);
+                        }
                     }
-                    BufferedImage newImage;
-
-                    newImage = Scalr.resize(image, newWidth);
-                    File newFile = new File(dstFolder + "/" + file.getName());
-                    ImageIO.write(newImage, "jpg", newFile);
+                } catch (Exception ignored) {
                 }
-            }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("END RESIZE " + LocalDateTime.now());
     }
 }
 

@@ -234,7 +234,7 @@ public class SetupWindowController implements Initializable {
                         fileInFolder.add(file);
                     }
                 }
-                if (fileInFolder.size() > 0) {
+                if (!fileInFolder.isEmpty()) {
                     new ImgScaller(fileInFolder);
                 }
             });

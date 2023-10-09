@@ -8,6 +8,7 @@ import GUI.Gallery.Storage.StageConteiner;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -66,10 +67,8 @@ public class ImageMediaController implements Initializable {
             mediaPlayer.stop();
         }
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
-//        StageConteiner.stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         StageConteiner.stage.centerOnScreen();
         StageConteiner.stage.getScene().setRoot(root);
-//        stage.show();
     }
 
     public void sentToDB() throws IOException, AWTException {
@@ -322,31 +321,30 @@ public class ImageMediaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if (rezultbgImageCheck2) {
             mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.imageForBackGround2,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
-        if ((colorNumber.length() == 6) | (colorNumber.length() == 7)) {
+        if ((colorNumber.length() == 6) || (colorNumber.length() == 7)) {
             mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.RED + "," + SetupWindowController.GREEN + "," + SetupWindowController.BLUE + ");");
         } else {
             mainPane.setStyle("-fx-background: rgb(20,20,30);");
         }
 
-        if ((byAddTime) & (newUp)) {
+        if ((byAddTime) && (newUp)) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewLinkedHashConteiner);
             Collections.reverse(ivlhcR);
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
-        if ((byAddTime) & (newDown)) {
+        if ((byAddTime) && (newDown)) {
             imageViewLinkedHashConteiner.forEach(i -> listAll.add(i.getId()));
         }
         if (byName) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewTreeConteiner);
-            ivlhcR.forEach(i -> {
-                listAll.add(i.getId());
-            });
+            ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
         for (int i = 0; i < listAll.size(); i++) {
             if (listAll.get(i).equals(imageView.getId())) {
@@ -372,6 +370,7 @@ public class ImageMediaController implements Initializable {
                 imageView.setFitHeight(800);
             }
         }
+        BorderPane.setAlignment(imageView, Pos.CENTER);
         if (FileViewBase.movieExtension.contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
             File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link);
             Media media = null;

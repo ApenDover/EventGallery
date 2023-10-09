@@ -40,6 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -168,7 +169,7 @@ public class GalleryController implements Initializable {
             namesWithoutResize.removeAll(FileViewBase.namesFilesDST);
             TreeSet<File> filesImageWithoutResize = new TreeSet<>();
             TreeSet<File> filesMovieWithoutResize = new TreeSet<>();
-            namesWithoutResize.forEach(s -> {
+            namesWithoutResize.parallelStream().forEach(s -> {
                 String ex = FileViewBase.fileNamesMap.get(s);
                 if (FileViewBase.movieExtension.contains(ex)) {
                     filesMovieWithoutResize.add(new File(SettingsLoader.getSourseFolder() + "/" + s + "." + ex));
@@ -178,11 +179,11 @@ public class GalleryController implements Initializable {
                 }
             });
 //             фото кидаем сюда
-            if (filesImageWithoutResize.size() > 0) {
+            if (!filesImageWithoutResize.isEmpty()) {
                 new ImgScaller(filesImageWithoutResize);
             }
 //             видео кидаем сюда
-            if (filesMovieWithoutResize.size() > 0) {
+            if (!filesMovieWithoutResize.isEmpty()) {
                 VideoResizerJpg.getImageFromVideo(filesMovieWithoutResize, Integer.parseInt(SettingsLoader.getQualityResizer()), true);
             }
 //            создаем плашки
@@ -205,29 +206,25 @@ public class GalleryController implements Initializable {
                 galleryPane.requestLayout();
             }
             if ((SettingsLoader.byAddTime) & (SettingsLoader.newUp)) {
-                ArrayList<Node> listFromLinkedHashForReverse = new ArrayList<Node>(NodeBase.imageViewLinkedHashConteiner);
+                ArrayList<Node> listFromLinkedHashForReverse = new ArrayList<>(NodeBase.imageViewLinkedHashConteiner);
                 Collections.reverse(listFromLinkedHashForReverse);
                 LinkedHashSet<Node> linkedHashImageViewReverse = new LinkedHashSet<>();
-                listFromLinkedHashForReverse.forEach(node -> {
-                    linkedHashImageViewReverse.add(node);
-                });
-                linkedHashImageViewReverse.forEach(imageView -> {
-                    namesWithoutResize.forEach(s -> {
-                        String ex = FileViewBase.fileNamesMap.get(s);
-                        String fileName = s + "." + ex;
-                        if (fileName.equals(imageView.getId())) {
-                            if (Main.start) {
-                                galleryPane.getChildren().add(imageView);
-                            } else {
-                                galleryPane.getChildren().add(0, imageView);  // решить косяк с первой загрузкой
-                            }
+                listFromLinkedHashForReverse.forEach(node -> linkedHashImageViewReverse.add(node));
+                linkedHashImageViewReverse.forEach(imageView -> namesWithoutResize.forEach(s -> {
+                    String ex = FileViewBase.fileNamesMap.get(s);
+                    String fileName = s + "." + ex;
+                    if (fileName.equals(imageView.getId())) {
+                        if (Main.start) {
+                            galleryPane.getChildren().add(imageView);
+                        } else {
+                            galleryPane.getChildren().add(0, imageView);  // решить косяк с первой загрузкой
                         }
-                    });
-                });
+                    }
+                }));
                 Main.start = false;
                 galleryPane.requestLayout();
             }
-            if ((SettingsLoader.byName) & (SettingsLoader.newUp)) {
+            if ((SettingsLoader.byName) && (SettingsLoader.newUp)) {
                 AtomicInteger i = new AtomicInteger();
                 i.set(0);
                 NodeBase.imageViewTreeConteiner.forEach(imageView -> {
@@ -242,7 +239,7 @@ public class GalleryController implements Initializable {
                 });
                 galleryPane.requestLayout();
             }
-            if ((SettingsLoader.byName) & (SettingsLoader.newDown)) {
+            if ((SettingsLoader.byName) && (SettingsLoader.newDown)) {
                 AtomicInteger i = new AtomicInteger();
                 i.set(0);
                 NodeBase.imageViewTreeConteiner.forEach(imageView -> {
@@ -288,7 +285,7 @@ public class GalleryController implements Initializable {
         vBox.widthProperty().addListener((o, oldValue, newValue) -> {
             double maxWidth = galleryPane.getChildren()
                     .stream()
-                    .filter(n -> n instanceof ImageView)
+                    .filter(ImageView.class::isInstance)
                     .map(n -> ((ImageView) n).getFitWidth())
                     .max(Double::compareTo)
                     .orElse(0d);
@@ -303,7 +300,7 @@ public class GalleryController implements Initializable {
         scroll.setPrefHeight(r.getHeight());
         scroll.setPrefWidth(r.getWidth());
         scroll.setStyle("-fx-background: transparent;");
-        if ((colorNumber.length() == 6) | ((colorNumber.length() == 7))) {
+        if (colorNumber.length() == 6 || colorNumber.length() == 7) {
             scroll.setStyle("-fx-background: rgb(" + SetupWindowController.RED + "," + SetupWindowController.GREEN + "," + SetupWindowController.BLUE + ");");
         } else {
             if (!rezultbgImageCheck) {
@@ -317,50 +314,39 @@ public class GalleryController implements Initializable {
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
-
-        File dirResize = new File(SettingsLoader.getSourseFolder() + "/" + SettingsLoader.getQualityResizer());
-        dirResize.mkdir();
         new FileViewBase();
 
         /**
          * добавляем плашки при первой загрузке и перезагрузке
          * */
-        if ((SettingsLoader.byAddTime) & (SettingsLoader.newDown)) {
-            if (galleryPane != null) {
+        if ((SettingsLoader.byAddTime) && (SettingsLoader.newDown)) {
+            if (Objects.nonNull(galleryPane)) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (NodeBase.imageViewLinkedHashConteiner.size() == FileViewBase.namesFilesDST.size()) {
-                        NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> {
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
                         FileViewBase.namesFilesDST.forEach(this::createImageView);
-                        NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> {
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }
             }
         }
-        if ((SettingsLoader.byAddTime) & (SettingsLoader.newUp)) {
+        if ((SettingsLoader.byAddTime) && (SettingsLoader.newUp)) {
             ArrayList<Node> setReversed = new ArrayList<>(NodeBase.imageViewLinkedHashConteiner);
             Collections.reverse(setReversed);
 
             if (galleryPane != null) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (setReversed.size() == FileViewBase.namesFilesDST.size()) {
-                        setReversed.forEach(imageView -> {
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
                         FileViewBase.namesFilesDST.forEach(this::createImageView);
                         setReversed.clear();
                         setReversed.addAll(NodeBase.imageViewLinkedHashConteiner);
                         Collections.reverse(setReversed);
-                        setReversed.forEach(imageView -> {
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         Main.start = false;
                     }
                     galleryPane.requestLayout();
@@ -368,19 +354,14 @@ public class GalleryController implements Initializable {
             }
         }
         if (SettingsLoader.byName) {
-            if (galleryPane == null) {
+            if (Objects.isNull(galleryPane)) {
                 if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
                     if (NodeBase.imageViewTreeConteiner.size() == FileViewBase.namesFilesDST.size()) {
-                        NodeBase.imageViewTreeConteiner.forEach(imageView -> {
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        NodeBase.imageViewTreeConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
                         FileViewBase.namesFilesDST.forEach(this::createImageView);
-                        NodeBase.imageViewTreeConteiner.forEach(imageView -> {
-//                            создает две штуки
-                            galleryPane.getChildren().add(imageView);
-                        });
+                        NodeBase.imageViewTreeConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }
             }
