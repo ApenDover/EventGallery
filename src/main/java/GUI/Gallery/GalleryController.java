@@ -130,7 +130,7 @@ public class GalleryController implements Initializable {
             try {
                 LinkTransfer.link = imageView.getId();
                 goToImage(mouseEvent, imageView.getId());
-            } catch (IOException || InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });

@@ -445,7 +445,7 @@ public class KeyBoardController implements Initializable {
                 if (senderList.size() != 0) {
                     try {
                         status = SendEmails.send(senderList);
-                    } catch (IOException || ParseException e) {
+                    } catch (IOException | ParseException e) {
                         throw new RuntimeException(e);
                     }
                 }
