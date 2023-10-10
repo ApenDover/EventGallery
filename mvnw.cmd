@@ -112,7 +112,7 @@ IF NOT EXIST "%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config" goto endReadAdditionalConf
 
 @setlocal EnableExtensions EnableDelayedExpansion
 for /F "usebackq delims=" %%a in ("%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config") do set JVM_CONFIG_MAVEN_PROPS=!JVM_CONFIG_MAVEN_PROPS! %%a
-@endlocal & set JVM_CONFIG_MAVEN_PROPS=%JVM_CONFIG_MAVEN_PROPS%
+@endlocal && set JVM_CONFIG_MAVEN_PROPS=%JVM_CONFIG_MAVEN_PROPS%
 
 :endReadAdditionalConfig
 
@@ -172,7 +172,7 @@ goto end
 set ERROR_CODE=1
 
 :end
-@endlocal & set ERROR_CODE=%ERROR_CODE%
+@endlocal && set ERROR_CODE=%ERROR_CODE%
 
 if not "%MAVEN_SKIP_RC%"=="" goto skipRcPost
 @REM check for post script, once with legacy .bat ending and once with .cmd ending

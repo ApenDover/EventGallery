@@ -1,9 +1,9 @@
 package GUI.Gallery;
 
-import GUI.Gallery.mail.SendToSender;
+import GUI.Gallery.mail.SendEmails;
 import GUI.Gallery.data.connections.BaseConnection;
-import GUI.Gallery.data.entities.Event;
-import GUI.Gallery.data.entities.Sender;
+import GUI.Gallery.data.entity.Event;
+import GUI.Gallery.data.entity.Sender;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.MailBase;
@@ -423,7 +423,7 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent event) {
         statusCheck.play();
-        String imagePath = SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link;
+        String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link;
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);
@@ -444,8 +444,8 @@ public class KeyBoardController implements Initializable {
                 List<Sender> senderList = BaseConnection.getSender();
                 if (senderList.size() != 0) {
                     try {
-                        status = new SendToSender().sending(senderList);
-                    } catch (IOException | ParseException e) {
+                        status = SendEmails.send(senderList);
+                    } catch (IOException || ParseException e) {
                         throw new RuntimeException(e);
                     }
                 }

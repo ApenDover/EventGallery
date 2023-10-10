@@ -1,6 +1,6 @@
 package GUI.Gallery;
 
-import GUI.Gallery.imageResizer.ImageDarker;
+import GUI.Gallery.imageResizer.ImageDarkProcessor;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.FileViewBase;
 import GUI.Gallery.storage.LinkTransfer;
@@ -79,7 +79,7 @@ public class ImageMediaController implements Initializable {
         Robot robot = new Robot();
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
-        image = ImageDarker.darker(screenFullImage, 0.7);
+        image = ImageDarkProcessor.darker(screenFullImage, 0.7);
 
         Parent root = FXMLLoader.load(getClass().getResource("KeyBoard.fxml"));
         StageConteiner.stage.centerOnScreen();
@@ -107,7 +107,7 @@ public class ImageMediaController implements Initializable {
             exLeft = listAll.get(num - 1).substring(listAll.get(num - 1).lastIndexOf('.') + 1);
             //слева ждет картинка
             if (FileViewBase.imgExtension.contains(exLeft)) {
-                Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(num - 1)));
+                Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(num - 1)));
                 imageView.setImage(image);
                 difSize = image.getWidth() / image.getHeight();
                 if (difSize > 1) {
@@ -124,7 +124,7 @@ public class ImageMediaController implements Initializable {
             }
             //слева ждет видос
             if (FileViewBase.movieExtension.contains(exLeft)) {
-                File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + listAll.get(num - 1));
+                File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(num - 1));
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
@@ -153,7 +153,7 @@ public class ImageMediaController implements Initializable {
             exLeft = listAll.get(listAll.size() - 1).substring(listAll.get(listAll.size() - 1).lastIndexOf('.') + 1);
             //слева ждет картинка
             if (FileViewBase.imgExtension.contains(exLeft)) {
-                Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(listAll.size() - 1)));
+                Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(listAll.size() - 1)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
                 imageView.setId(listAll.get(listAll.size() - 1));
@@ -170,7 +170,7 @@ public class ImageMediaController implements Initializable {
             }
             //слева ждет видос
             if (FileViewBase.movieExtension.contains(exLeft)) { //слева ждет видос
-                File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + listAll.get(listAll.size() - 1));
+                File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(listAll.size() - 1));
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
@@ -220,7 +220,7 @@ public class ImageMediaController implements Initializable {
             exRight = listAll.get(num + 1).substring(listAll.get(num + 1).lastIndexOf('.') + 1);
             //справа ждет картинка
             if (FileViewBase.imgExtension.contains(exRight)) {
-                Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(num + 1)));
+                Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(num + 1)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
                 if (difSize > 1) {
@@ -237,7 +237,7 @@ public class ImageMediaController implements Initializable {
             }
             //справа ждет видос
             if (FileViewBase.movieExtension.contains(exRight)) {
-                File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + listAll.get(num + 1));
+                File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(num + 1));
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
@@ -266,7 +266,7 @@ public class ImageMediaController implements Initializable {
             exRight = listAll.get(0).substring(listAll.get(0).lastIndexOf('.') + 1);
             //справа ждет картинка
             if (FileViewBase.imgExtension.contains(exRight)) {
-                Image image = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + listAll.get(0)));
+                Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(0)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
                 imageView.setId(listAll.get(0));
@@ -283,7 +283,7 @@ public class ImageMediaController implements Initializable {
             }
             //справа ждет видос
             if (FileViewBase.movieExtension.contains(exRight)) { //справа ждет видос
-                File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + listAll.get(0));
+                File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(0));
                 Media media = null;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
@@ -356,7 +356,7 @@ public class ImageMediaController implements Initializable {
             borderPane.setCenter(imageView);
             try {
                 imageView.setId(LinkTransfer.link);
-                Image setedImage = new Image(new FileInputStream(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link));
+                Image setedImage = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link));
                 imageView.setImage(setedImage);
                 difSize = setedImage.getWidth() / setedImage.getHeight();
             } catch (FileNotFoundException e) {
@@ -372,7 +372,7 @@ public class ImageMediaController implements Initializable {
         }
         BorderPane.setAlignment(imageView, Pos.CENTER);
         if (FileViewBase.movieExtension.contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
-            File mediaFile = new File(SettingsLoader.getSourseFolder() + "/" + LinkTransfer.link);
+            File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link);
             Media media = null;
             try {
                 media = new Media(mediaFile.toURI().toURL().toString());

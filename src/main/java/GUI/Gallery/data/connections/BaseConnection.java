@@ -1,8 +1,8 @@
 package GUI.Gallery.data.connections;
 
-import GUI.Gallery.data.entities.Company;
-import GUI.Gallery.data.entities.Event;
-import GUI.Gallery.data.entities.Sender;
+import GUI.Gallery.data.entity.Company;
+import GUI.Gallery.data.entity.Event;
+import GUI.Gallery.data.entity.Sender;
 import GUI.Gallery.SetupWindowController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

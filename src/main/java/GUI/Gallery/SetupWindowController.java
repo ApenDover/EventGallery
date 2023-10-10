@@ -1,9 +1,9 @@
 package GUI.Gallery;
 
-import GUI.Gallery.imageResizer.ImgScaller;
+import GUI.Gallery.imageResizer.ImgScaleProcessor;
 import GUI.Gallery.data.connections.BaseConnection;
-import GUI.Gallery.data.entities.Company;
-import GUI.Gallery.data.entities.Event;
+import GUI.Gallery.data.entity.Company;
+import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.MailBase;
 import GUI.Gallery.storage.StageConteiner;
@@ -235,7 +235,7 @@ public class SetupWindowController implements Initializable {
                     }
                 }
                 if (!fileInFolder.isEmpty()) {
-                    new ImgScaller(fileInFolder);
+                    ImgScaleProcessor.scale(fileInFolder);
                 }
             });
             thread.start();
@@ -518,8 +518,8 @@ public class SetupWindowController implements Initializable {
 
         try {
             SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | ParseException a) {
+            throw new RuntimeException(a);
         }
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         StageConteiner.stage = (Stage) ((Node) click.getSource()).getScene().getWindow();

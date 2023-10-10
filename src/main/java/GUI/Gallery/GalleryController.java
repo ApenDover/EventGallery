@@ -1,6 +1,6 @@
 package GUI.Gallery;
 
-import GUI.Gallery.imageResizer.ImgScaller;
+import GUI.Gallery.imageResizer.ImgScaleProcessor;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.FileViewBase;
 import GUI.Gallery.storage.LinkTransfer;
@@ -82,9 +82,9 @@ public class GalleryController implements Initializable {
      * Создаем новые ImageView - плашки
      */
     private void createImageView(String fileName) {
-        String plitkaPath = SettingsLoader.getSourseFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + fileName + ".jpg";
+        String plitkaPath = SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + fileName + ".jpg";
         String exFile = FileViewBase.fileNamesMap.get(fileName);
-        String filePath = SettingsLoader.getSourseFolder() + "/" + fileName + "." + exFile;
+        String filePath = SettingsLoader.getSourceFolder() + "/" + fileName + "." + exFile;
 
         double fileW = 0;
         double fileH = 0;
@@ -130,7 +130,7 @@ public class GalleryController implements Initializable {
             try {
                 LinkTransfer.link = imageView.getId();
                 goToImage(mouseEvent, imageView.getId());
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException || InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -155,7 +155,7 @@ public class GalleryController implements Initializable {
      */
     private void repeated() throws Exception {
 
-        File dirResize = new File(SettingsLoader.getSourseFolder() + "/" + SettingsLoader.getQualityResizer());
+        File dirResize = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer());
         dirResize.mkdir();
         new FileViewBase();
 
@@ -172,27 +172,24 @@ public class GalleryController implements Initializable {
             namesWithoutResize.parallelStream().forEach(s -> {
                 String ex = FileViewBase.fileNamesMap.get(s);
                 if (FileViewBase.movieExtension.contains(ex)) {
-                    filesMovieWithoutResize.add(new File(SettingsLoader.getSourseFolder() + "/" + s + "." + ex));
+                    filesMovieWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
                 }
                 if (FileViewBase.imgExtension.contains(ex)) {
-                    filesImageWithoutResize.add(new File(SettingsLoader.getSourseFolder() + "/" + s + "." + ex));
+                    filesImageWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
                 }
             });
-//             фото кидаем сюда
             if (!filesImageWithoutResize.isEmpty()) {
-                new ImgScaller(filesImageWithoutResize);
+                ImgScaleProcessor.scale(filesImageWithoutResize);
             }
-//             видео кидаем сюда
             if (!filesMovieWithoutResize.isEmpty()) {
                 VideoResizerJpg.getImageFromVideo(filesMovieWithoutResize, Integer.parseInt(SettingsLoader.getQualityResizer()), true);
             }
-//            создаем плашки
             namesWithoutResize.forEach(this::createImageView);
 
             /**
              * берем эти новые , находим новые ноды и создаем плашки
              * */
-            if ((SettingsLoader.byAddTime) & (SettingsLoader.newDown)) {
+            if ((SettingsLoader.byAddTime) && (SettingsLoader.newDown)) {
                 NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> {  //для каждой ноды
                     namesWithoutResize.forEach(s -> {  // перебираем список новых имен
                         String ex = FileViewBase.fileNamesMap.get(s); // у имени находим расширение
@@ -205,7 +202,7 @@ public class GalleryController implements Initializable {
                 });
                 galleryPane.requestLayout();
             }
-            if ((SettingsLoader.byAddTime) & (SettingsLoader.newUp)) {
+            if ((SettingsLoader.byAddTime) && (SettingsLoader.newUp)) {
                 ArrayList<Node> listFromLinkedHashForReverse = new ArrayList<>(NodeBase.imageViewLinkedHashConteiner);
                 Collections.reverse(listFromLinkedHashForReverse);
                 LinkedHashSet<Node> linkedHashImageViewReverse = new LinkedHashSet<>();
@@ -265,7 +262,7 @@ public class GalleryController implements Initializable {
             ArrayList<ImageView> nodeForDelete = new ArrayList<>();
             deletedFilesName.removeAll(FileViewBase.namesFilesSRC);
             deletedFilesName.forEach(s -> {
-                File file = new File(SettingsLoader.getSourseFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + s + ".jpg");
+                File file = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + s + ".jpg");
                 file.delete();
                 galleryPane.getChildren().forEach(node -> {
                     if (node.getId().startsWith(s)) {

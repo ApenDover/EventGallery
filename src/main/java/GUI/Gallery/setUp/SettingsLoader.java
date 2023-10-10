@@ -12,11 +12,11 @@ public class SettingsLoader {
 
     private static String login;
     private static String password;
-    private static String SQLlogin;
-    private static String SQLpassword;
+    private static String dbLogin;
+    private static String dbPassword;
     private static String subject;
     private static String text;
-    private static String sourseFolder;
+    private static String sourceFolder;
     private static String qualityResizer;
     public static boolean byAddTime;
     public static boolean byName;
@@ -25,7 +25,6 @@ public class SettingsLoader {
     public static boolean isItTouch;
 
     public static void setLoad(String pathSettings) throws IOException, ParseException {
-//        FileReader reader = new FileReader("src/main/resources/settings.json");
         FileReader reader = new FileReader(pathSettings);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
@@ -34,10 +33,10 @@ public class SettingsLoader {
         subject = (String) jsonObject.get("subject");
         text = (String) jsonObject.get("text");
         String ps = (String) jsonObject.get("folderPath");
-        sourseFolder = ps.replaceAll("\\\\", "");
+        sourceFolder = ps.replaceAll("\\\\", "");
         qualityResizer = (String) jsonObject.get("qualityResizer");
-        SQLlogin = (String) jsonObject.get("sqlLogin");
-        SQLpassword = (String) jsonObject.get("sqlPassword");
+        dbLogin = (String) jsonObject.get("sqlLogin");
+        dbPassword = (String) jsonObject.get("sqlPassword");
     }
 
     public static void saveLoad(String login, String password, String subject, String text, String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) throws IOException, ParseException {
@@ -70,11 +69,11 @@ public class SettingsLoader {
     }
 
     public static String getSqlLogin() {
-        return SQLlogin;
+        return dbLogin;
     }
 
     public static String getSqlPassword() {
-        return SQLpassword;
+        return dbPassword;
     }
 
     public static String getSubject() {
@@ -85,8 +84,8 @@ public class SettingsLoader {
         return text;
     }
 
-    public static String getSourseFolder() {
-        return sourseFolder;
+    public static String getSourceFolder() {
+        return sourceFolder;
     }
 
     public static String getQualityResizer() {

@@ -17,17 +17,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-public class SSLGmailSender {
+public class GmailSender {
 
     private final String username;
     private final String password;
     private final Properties props;
 
-    public SSLGmailSender(String username, String password) {
-
+    public GmailSender(String username, String password) {
         this.username = username;
         this.password = password;
-
         props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -43,23 +41,12 @@ public class SSLGmailSender {
                 return new PasswordAuthentication(username, password);
             }
         });
-
         Message message = new MimeMessage(session);
-
-//          от кого
         message.setFrom(new InternetAddress(username));
-
-//          кому
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-
-//          тема сообщения
         message.setSubject(subject);
-
-//          содержимое сообщения
         BodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText(text);
-
-//          если есть вложение, добавляем его к письму
         if (!path.equals("")) {
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(new File(path));

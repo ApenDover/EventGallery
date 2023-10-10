@@ -1,4 +1,4 @@
-package GUI.Gallery.data.entities;
+package GUI.Gallery.data.entity;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;

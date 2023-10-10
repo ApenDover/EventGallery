@@ -17,7 +17,7 @@ module GUI.Gallery {
     requires imgscalr.lib;
 
     opens GUI.Gallery to javafx.fxml;
-    opens GUI.Gallery.data.entities to org.hibernate.orm.core;
+    opens GUI.Gallery.data.entity to org.hibernate.orm.core;
     exports GUI.Gallery;
     exports GUI.Gallery.storage;
     opens GUI.Gallery.storage to javafx.fxml;

@@ -9,29 +9,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="fix gallery center image">
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="start refactoring">
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarkProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Data/Entities/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImageDarker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageResizer/ImgScaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SSLGmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SSLGmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Mail/SendToSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendToSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/ImageViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/NodeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Storage/StageConteiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageConteiner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/VideoResizer/VideoResizerJpg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/videoResizer/VideoResizerJpg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entities/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SSLGmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendToSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,11 +49,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -89,20 +87,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.12180269",
-    "project.structure.side.proportion": "0.27394208",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.12180269&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.27394208&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -266,6 +264,7 @@
       <workItem from="1661936611894" duration="2419000" />
       <workItem from="1661941773657" duration="4000" />
       <workItem from="1686498822139" duration="4568000" />
+      <workItem from="1696951357566" duration="983000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -274,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696883218380</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="start refactoring">
+      <created>1696883851991</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1696883851991</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +299,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix gallery center image" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix gallery center image" />
+    <MESSAGE value="start refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="start refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
