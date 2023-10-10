@@ -15,6 +15,7 @@ module GUI.Gallery {
     requires javacv;
     requires javacpp;
     requires imgscalr.lib;
+    requires lombok;
 
     opens GUI.Gallery to javafx.fxml;
     opens GUI.Gallery.data.entity to org.hibernate.orm.core;

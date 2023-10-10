@@ -83,14 +83,14 @@ public class GalleryController implements Initializable {
      */
     private void createImageView(String fileName) {
         String plitkaPath = SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + fileName + ".jpg";
-        String exFile = FileViewBase.fileNamesMap.get(fileName);
+        String exFile = FileViewBase.getFileNamesMap().get(fileName);
         String filePath = SettingsLoader.getSourceFolder() + "/" + fileName + "." + exFile;
 
         double fileW = 0;
         double fileH = 0;
 
 //      нужны размеры оригинального изображения чтобы создать плитку нужного размера
-        if (FileViewBase.imgExtension.contains(exFile)) {
+        if (FileViewBase.getImgExtension().contains(exFile)) {
             Image imageOriginal = null;
             try {
                 imageOriginal = new Image(new FileInputStream(filePath));
@@ -100,7 +100,7 @@ public class GalleryController implements Initializable {
             fileW = imageOriginal.getWidth();
             fileH = imageOriginal.getHeight();
         }
-        if (FileViewBase.movieExtension.contains(exFile)) {
+        if (FileViewBase.getMovieExtension().contains(exFile)) {
             File mediaFile = new File(filePath);
             Media media = null;
             try {
@@ -163,18 +163,18 @@ public class GalleryController implements Initializable {
          *  Если добавились файлы, то определяем конкретные и их тип,
          *  а далее отправляем на ресайз + сразу сделаем им imageView
          * */
-        if ((FileViewBase.filesMovieSRC.size() + FileViewBase.filesImgSRC.size()) > FileViewBase.namesFilesDST.size()) {
+        if ((FileViewBase.getFilesMovieSrc().size() + FileViewBase.getFileTreeSet().size()) > FileViewBase.getNamesFilesDst().size()) {
 
-            TreeSet<String> namesWithoutResize = new TreeSet<>(FileViewBase.namesFilesSRC);
-            namesWithoutResize.removeAll(FileViewBase.namesFilesDST);
+            TreeSet<String> namesWithoutResize = new TreeSet<>(FileViewBase.getStringTreeSet());
+            namesWithoutResize.removeAll(FileViewBase.getNamesFilesDst());
             TreeSet<File> filesImageWithoutResize = new TreeSet<>();
             TreeSet<File> filesMovieWithoutResize = new TreeSet<>();
             namesWithoutResize.parallelStream().forEach(s -> {
-                String ex = FileViewBase.fileNamesMap.get(s);
-                if (FileViewBase.movieExtension.contains(ex)) {
+                String ex = FileViewBase.getFileNamesMap().get(s);
+                if (FileViewBase.getMovieExtension().contains(ex)) {
                     filesMovieWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
                 }
-                if (FileViewBase.imgExtension.contains(ex)) {
+                if (FileViewBase.getImgExtension().contains(ex)) {
                     filesImageWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
                 }
             });
@@ -192,7 +192,7 @@ public class GalleryController implements Initializable {
             if ((SettingsLoader.byAddTime) && (SettingsLoader.newDown)) {
                 NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> {  //для каждой ноды
                     namesWithoutResize.forEach(s -> {  // перебираем список новых имен
-                        String ex = FileViewBase.fileNamesMap.get(s); // у имени находим расширение
+                        String ex = FileViewBase.getFileNamesMap().get(s); // у имени находим расширение
                         String fileName = s + "." + ex; //и сам файл
                         if (fileName.equals(imageView.getId())) // если имя совпало с ID ноды
                         {
@@ -208,7 +208,7 @@ public class GalleryController implements Initializable {
                 LinkedHashSet<Node> linkedHashImageViewReverse = new LinkedHashSet<>();
                 listFromLinkedHashForReverse.forEach(node -> linkedHashImageViewReverse.add(node));
                 linkedHashImageViewReverse.forEach(imageView -> namesWithoutResize.forEach(s -> {
-                    String ex = FileViewBase.fileNamesMap.get(s);
+                    String ex = FileViewBase.getFileNamesMap().get(s);
                     String fileName = s + "." + ex;
                     if (fileName.equals(imageView.getId())) {
                         if (Main.start) {
@@ -227,7 +227,7 @@ public class GalleryController implements Initializable {
                 NodeBase.imageViewTreeConteiner.forEach(imageView -> {
                     i.incrementAndGet();
                     namesWithoutResize.forEach(s -> {
-                        String ex = FileViewBase.fileNamesMap.get(s);
+                        String ex = FileViewBase.getFileNamesMap().get(s);
                         String fileName = s + "." + ex;
                         if (fileName.equals(imageView.getId())) {
                             galleryPane.getChildren().add(i.get() - 1, imageView);
@@ -242,7 +242,7 @@ public class GalleryController implements Initializable {
                 NodeBase.imageViewTreeConteiner.forEach(imageView -> {
                     i.incrementAndGet();
                     namesWithoutResize.forEach(s -> {
-                        String ex = FileViewBase.fileNamesMap.get(s);
+                        String ex = FileViewBase.getFileNamesMap().get(s);
                         String fileName = s + "." + ex;
                         if (fileName.equals(imageView.getId())) {
                             galleryPane.getChildren().add(i.get() - 1, imageView);
@@ -257,10 +257,10 @@ public class GalleryController implements Initializable {
          *  Если удалили из источника какой-то файл находим конкретный,
          *  удаляем ресайз и плашку
          * */
-        if ((FileViewBase.namesFilesSRC.size()) < FileViewBase.namesFilesDST.size()) {
-            TreeSet<String> deletedFilesName = new TreeSet<>(FileViewBase.namesFilesDST);
+        if ((FileViewBase.getStringTreeSet().size()) < FileViewBase.getNamesFilesDst().size()) {
+            TreeSet<String> deletedFilesName = new TreeSet<>(FileViewBase.getNamesFilesDst());
             ArrayList<ImageView> nodeForDelete = new ArrayList<>();
-            deletedFilesName.removeAll(FileViewBase.namesFilesSRC);
+            deletedFilesName.removeAll(FileViewBase.getStringTreeSet());
             deletedFilesName.forEach(s -> {
                 File file = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + s + ".jpg");
                 file.delete();
@@ -318,12 +318,12 @@ public class GalleryController implements Initializable {
          * */
         if ((SettingsLoader.byAddTime) && (SettingsLoader.newDown)) {
             if (Objects.nonNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
-                    if (NodeBase.imageViewLinkedHashConteiner.size() == FileViewBase.namesFilesDST.size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
+                    if (NodeBase.imageViewLinkedHashConteiner.size() == FileViewBase.getNamesFilesDst().size()) {
                         NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.namesFilesDST.forEach(this::createImageView);
+                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
                         NodeBase.imageViewLinkedHashConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }
@@ -334,12 +334,12 @@ public class GalleryController implements Initializable {
             Collections.reverse(setReversed);
 
             if (galleryPane != null) {
-                if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
-                    if (setReversed.size() == FileViewBase.namesFilesDST.size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
+                    if (setReversed.size() == FileViewBase.getNamesFilesDst().size()) {
                         setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.namesFilesDST.forEach(this::createImageView);
+                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
                         setReversed.clear();
                         setReversed.addAll(NodeBase.imageViewLinkedHashConteiner);
                         Collections.reverse(setReversed);
@@ -352,12 +352,12 @@ public class GalleryController implements Initializable {
         }
         if (SettingsLoader.byName) {
             if (Objects.isNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.namesFilesDST.size()) {
-                    if (NodeBase.imageViewTreeConteiner.size() == FileViewBase.namesFilesDST.size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
+                    if (NodeBase.imageViewTreeConteiner.size() == FileViewBase.getNamesFilesDst().size()) {
                         NodeBase.imageViewTreeConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.namesFilesDST.forEach(this::createImageView);
+                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
                         NodeBase.imageViewTreeConteiner.forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }

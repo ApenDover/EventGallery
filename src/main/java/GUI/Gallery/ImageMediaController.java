@@ -106,7 +106,7 @@ public class ImageMediaController implements Initializable {
         if (num != 0) { // мы не уперлись в конец очереди
             exLeft = listAll.get(num - 1).substring(listAll.get(num - 1).lastIndexOf('.') + 1);
             //слева ждет картинка
-            if (FileViewBase.imgExtension.contains(exLeft)) {
+            if (FileViewBase.getImgExtension().contains(exLeft)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(num - 1)));
                 imageView.setImage(image);
                 difSize = image.getWidth() / image.getHeight();
@@ -123,7 +123,7 @@ public class ImageMediaController implements Initializable {
                 borderPane.requestLayout();
             }
             //слева ждет видос
-            if (FileViewBase.movieExtension.contains(exLeft)) {
+            if (FileViewBase.getMovieExtension().contains(exLeft)) {
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(num - 1));
                 Media media = null;
                 try {
@@ -152,7 +152,7 @@ public class ImageMediaController implements Initializable {
         } else { // и мы уперлись в конец очереди
             exLeft = listAll.get(listAll.size() - 1).substring(listAll.get(listAll.size() - 1).lastIndexOf('.') + 1);
             //слева ждет картинка
-            if (FileViewBase.imgExtension.contains(exLeft)) {
+            if (FileViewBase.getImgExtension().contains(exLeft)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(listAll.size() - 1)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
@@ -169,7 +169,7 @@ public class ImageMediaController implements Initializable {
                 borderPane.requestLayout();
             }
             //слева ждет видос
-            if (FileViewBase.movieExtension.contains(exLeft)) { //слева ждет видос
+            if (FileViewBase.getMovieExtension().contains(exLeft)) { //слева ждет видос
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(listAll.size() - 1));
                 Media media = null;
                 try {
@@ -219,7 +219,7 @@ public class ImageMediaController implements Initializable {
         if (num != listAll.size() - 1) { // мы не уперлись в конец очереди
             exRight = listAll.get(num + 1).substring(listAll.get(num + 1).lastIndexOf('.') + 1);
             //справа ждет картинка
-            if (FileViewBase.imgExtension.contains(exRight)) {
+            if (FileViewBase.getImgExtension().contains(exRight)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(num + 1)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
@@ -236,7 +236,7 @@ public class ImageMediaController implements Initializable {
                 borderPane.requestLayout();
             }
             //справа ждет видос
-            if (FileViewBase.movieExtension.contains(exRight)) {
+            if (FileViewBase.getMovieExtension().contains(exRight)) {
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(num + 1));
                 Media media = null;
                 try {
@@ -265,7 +265,7 @@ public class ImageMediaController implements Initializable {
         } else { // и мы уперлись в конец очереди
             exRight = listAll.get(0).substring(listAll.get(0).lastIndexOf('.') + 1);
             //справа ждет картинка
-            if (FileViewBase.imgExtension.contains(exRight)) {
+            if (FileViewBase.getImgExtension().contains(exRight)) {
                 Image image = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + listAll.get(0)));
                 difSize = image.getWidth() / image.getHeight();
                 imageView.setImage(image);
@@ -282,7 +282,7 @@ public class ImageMediaController implements Initializable {
                 borderPane.requestLayout();
             }
             //справа ждет видос
-            if (FileViewBase.movieExtension.contains(exRight)) { //справа ждет видос
+            if (FileViewBase.getMovieExtension().contains(exRight)) { //справа ждет видос
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(0));
                 Media media = null;
                 try {
@@ -351,7 +351,7 @@ public class ImageMediaController implements Initializable {
                 num = i;
             }
         }
-        if (FileViewBase.imgExtension.contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
+        if (FileViewBase.getImgExtension().contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
             ImageView imageView = new ImageView();
             borderPane.setCenter(imageView);
             try {
@@ -371,7 +371,7 @@ public class ImageMediaController implements Initializable {
             }
         }
         BorderPane.setAlignment(imageView, Pos.CENTER);
-        if (FileViewBase.movieExtension.contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
+        if (FileViewBase.getMovieExtension().contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
             File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link);
             Media media = null;
             try {
