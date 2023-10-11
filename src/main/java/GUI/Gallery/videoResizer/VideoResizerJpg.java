@@ -1,35 +1,35 @@
 package GUI.Gallery.videoResizer;
 
+import lombok.NonNull;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.imgscalr.Scalr;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class VideoResizerJpg {
 
-    public static void getImageFromVideo(TreeSet<File> filesToResize, int newWidth, boolean videoSign) throws Exception {
-        Iterator<File> iterator = filesToResize.iterator();
+    public static void getImageFromVideo(Set<File> filesToResize, int newWidth, boolean videoSign) {
 
-        while (iterator.hasNext()) {
-            final var file = iterator.next();
+        for (File file : filesToResize) {
             final var filePath = file.getAbsolutePath();
-            String targetFilePath = "";
-            final var ff = new FFmpegFrameGrabber(filePath);
-            ff.start();
-            Frame f = ff.grabImage();
+            String targetFilePath;
+            try (final var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
+                fFmpegFrameGrabber.start();
+                Frame frame = fFmpegFrameGrabber.grabImage();
 
-            targetFilePath = getImagePath(filePath);
-            doExecuteFrame(f, targetFilePath, newWidth, videoSign);
+                targetFilePath = getImagePath(filePath);
+                doExecuteFrame(frame, targetFilePath, newWidth, videoSign);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
@@ -43,49 +43,34 @@ public class VideoResizerJpg {
             dir.mkdir();
             filePath = filePath.substring(0, filePath.lastIndexOf("/")).concat("/300/").concat(fileName).concat(".").concat("png");
         }
-
         return filePath;
     }
 
-    private static void doExecuteFrame(Frame f, String targetFilePath, int newWidth, boolean videoSign) throws IOException {
-        if (null != f && null != f.image) {
+    private static void doExecuteFrame(@NonNull Frame frame, String targetFilePath, int newWidth, boolean videoSign) throws IOException {
+        if (Objects.nonNull(frame.image)) {
             Java2DFrameConverter converter = new Java2DFrameConverter();
-            BufferedImage biFromMovie = converter.getBufferedImage(f);
-            biFromMovie = Scalr.resize(biFromMovie, newWidth, new BufferedImageOp[0]);
-            String var10000;
+            BufferedImage biFromMovie = converter.getBufferedImage(frame);
+            biFromMovie = Scalr.resize(biFromMovie, newWidth);
+            String filePath = targetFilePath.substring(0, targetFilePath.lastIndexOf(".")) + ".jpg";
+            File output = new File(filePath);
+
             if (videoSign) {
                 BufferedImage overlay = ImageIO.read(new File("Images/WatermarkPlay.png"));
                 int w = Math.max(biFromMovie.getWidth(), overlay.getWidth());
                 int h = Math.max(biFromMovie.getHeight(), overlay.getHeight());
                 int x = (int) (biFromMovie.getWidth() - biFromMovie.getWidth() * 0.125);
                 int y = (int) (biFromMovie.getHeight() * 0.125);
-                BufferedImage combined = new BufferedImage(w, h, 1);
-                Graphics g = combined.getGraphics();
-                g.drawImage(biFromMovie, 0, 0, (ImageObserver) null);
-                g.drawImage(overlay, x - 14, y - 14, (ImageObserver) null);
-                int pointNum = targetFilePath.lastIndexOf(46);
-                var10000 = targetFilePath.substring(0, pointNum);
-                String pathToJpg = var10000 + ".jpg";
-                File output = new File(pathToJpg);
-
-                try {
-                    ImageIO.write(combined, "jpg", output);
-                } catch (IOException var18) {
-                    var18.printStackTrace();
-                }
+                BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = combined.createGraphics();
+                g.drawImage(biFromMovie, 0, 0, null);
+                g.drawImage(overlay, x - 14, y - 14, null);
+                g.dispose();
+                ImageIO.write(combined, "jpg", output);
             } else {
-                int pointNum = targetFilePath.lastIndexOf(46);
-                var10000 = targetFilePath.substring(0, pointNum);
-                String pathToJpg = var10000 + ".jpg";
-                File output = new File(pathToJpg);
-
-                try {
-                    ImageIO.write(biFromMovie, "jpg", output);
-                } catch (IOException var17) {
-                    var17.printStackTrace();
-                }
+                ImageIO.write(biFromMovie, "jpg", output);
             }
-
         }
     }
+
+
 }

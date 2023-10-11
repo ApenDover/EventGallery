@@ -6,7 +6,7 @@ import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.MailBase;
-import GUI.Gallery.storage.StageConteiner;
+import GUI.Gallery.storage.StageContainer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +35,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -135,11 +134,7 @@ public class SetupWindowController implements Initializable {
         }
 
         if (!(pathSettings.getText().equals(""))) {
-            try {
-                SettingsLoader.setLoad(pathSettings.getText());
-            } catch (IOException | ParseException e) {
-                throw new RuntimeException(e);
-            }
+            SettingsLoader.setLoad(pathSettings.getText());
             String ap = selectedFile.getAbsolutePath();
             pathField.setText(ap.substring(0, ap.length() - 12));
             pathField.setStyle("-fx-faint-focus-color: #00СС22;");
@@ -148,8 +143,8 @@ public class SetupWindowController implements Initializable {
             password.setText(SettingsLoader.getPassword());
             subject.setText(SettingsLoader.getSubject());
             text.setText(SettingsLoader.getText());
-            loginDB.setText(SettingsLoader.getSqlLogin());
-            passwordDB.setText(SettingsLoader.getSqlPassword());
+            loginDB.setText(SettingsLoader.getDbLogin());
+            passwordDB.setText(SettingsLoader.getDbPassword());
 
             if (companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
                 startButton.disableProperty().set(false);
@@ -457,21 +452,18 @@ public class SetupWindowController implements Initializable {
         /**
          * Запишем настройки сортировки в SettingsLoader
          * */
-        SettingsLoader.byAddTime = byAddTime.isSelected();
-        SettingsLoader.byName = byName.isSelected();
-        SettingsLoader.newUp = newUp.isSelected();
-        SettingsLoader.newDown = newDown.isSelected();
+        SettingsLoader.setByAddTime(byAddTime.isSelected());
+        SettingsLoader.setByName(byName.isSelected());
+        SettingsLoader.setNewUp(newUp.isSelected());
+        SettingsLoader.setNewDown(newDown.isSelected());
 
         /**
          * Провери пустая ли папка, если нет - запустим ресайзер (а если пустая?)
          * */
 
         /** Записываем настройки в config.json */
-        try {
-            SettingsLoader.saveLoad(login.getText(), password.getText(), subject.getText(), text.getText(), pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        SettingsLoader.saveLoad(login.getText(), password.getText(), subject.getText(), text.getText(), pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
+
 
         /**
          * Заносим мероприятие в БД или определяемся к какому существующему мероприятию будут относиться данные
@@ -508,29 +500,25 @@ public class SetupWindowController implements Initializable {
                 }
             });
             SetupWindowController.IdEvent = IdEvent.get();
-            MailBase.mailsFromBase.addAll(BaseConnection.getMails());
-            MailBase.mailsFromBase.forEach(sender -> MailBase.mailStorage.add(sender.getMail()));
+            MailBase.getMailsFromBase().addAll(BaseConnection.getMails());
+            MailBase.getMailsFromBase().forEach(sender -> MailBase.getMailStorage().add(sender.getMail()));
         }
 
 /**
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
 
-        try {
-            SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
-        } catch (IOException | ParseException a) {
-            throw new RuntimeException(a);
-        }
+        SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
-        StageConteiner.stage = (Stage) ((Node) click.getSource()).getScene().getWindow();
+        StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();
-        StageConteiner.stage.setWidth(r.getWidth());
-        StageConteiner.stage.setHeight(r.getHeight());
-        StageConteiner.stage.centerOnScreen();
-        StageConteiner.stage.getScene().setRoot(root);
-        StageConteiner.stage.setFullScreenExitHint("");
-        StageConteiner.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        StageConteiner.stage.setFullScreen(true);
+        StageContainer.getStage().setWidth(r.getWidth());
+        StageContainer.getStage().setHeight(r.getHeight());
+        StageContainer.getStage().centerOnScreen();
+        StageContainer.getStage().getScene().setRoot(root);
+        StageContainer.getStage().setFullScreenExitHint("");
+        StageContainer.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        StageContainer.getStage().setFullScreen(true);
     }
 
     @Override

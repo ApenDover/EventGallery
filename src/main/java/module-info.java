@@ -15,12 +15,13 @@ module GUI.Gallery {
     requires javacv;
     requires javacpp;
     requires imgscalr.lib;
-    requires lombok;
+    requires static lombok;
 
     opens GUI.Gallery to javafx.fxml;
     opens GUI.Gallery.data.entity to org.hibernate.orm.core;
     exports GUI.Gallery;
     exports GUI.Gallery.storage;
+    exports GUI.Gallery.data.entity;
     opens GUI.Gallery.storage to javafx.fxml;
     exports GUI.Gallery.mail;
     opens GUI.Gallery.mail to javafx.fxml;

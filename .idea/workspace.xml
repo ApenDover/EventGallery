@@ -10,9 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarkProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarkProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageConteiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +133,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -131,7 +147,7 @@
       <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -171,7 +187,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -184,7 +200,7 @@
       <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.*" />
+          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -248,6 +264,7 @@
       <workItem from="1661941773657" duration="4000" />
       <workItem from="1686498822139" duration="4568000" />
       <workItem from="1696951357566" duration="1551000" />
+      <workItem from="1696975141144" duration="6472000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -277,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696974849327</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactoring">
+      <created>1696976275930</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696976275930</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

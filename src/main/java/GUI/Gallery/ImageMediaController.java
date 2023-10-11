@@ -4,7 +4,8 @@ import GUI.Gallery.imageResizer.ImageDarkProcessor;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.FileViewBase;
 import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.storage.StageConteiner;
+import GUI.Gallery.storage.NodeBase;
+import GUI.Gallery.storage.StageContainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,8 +45,6 @@ import java.util.ResourceBundle;
 
 import static GUI.Gallery.setUp.SettingsLoader.*;
 import static GUI.Gallery.SetupWindowController.rezultbgImageCheck2;
-import static GUI.Gallery.storage.NodeBase.imageViewLinkedHashConteiner;
-import static GUI.Gallery.storage.NodeBase.imageViewTreeConteiner;
 
 public class ImageMediaController implements Initializable {
     public VBox centerVbox;
@@ -67,8 +66,8 @@ public class ImageMediaController implements Initializable {
             mediaPlayer.stop();
         }
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
-        StageConteiner.stage.centerOnScreen();
-        StageConteiner.stage.getScene().setRoot(root);
+        StageContainer.getStage().centerOnScreen();
+        StageContainer.getStage().getScene().setRoot(root);
     }
 
     public void sentToDB() throws IOException, AWTException {
@@ -82,8 +81,8 @@ public class ImageMediaController implements Initializable {
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
 
         Parent root = FXMLLoader.load(getClass().getResource("KeyBoard.fxml"));
-        StageConteiner.stage.centerOnScreen();
-        StageConteiner.stage.getScene().setRoot(root);
+        StageContainer.getStage().centerOnScreen();
+        StageContainer.getStage().getScene().setRoot(root);
     }
 
     public void LeftPClick() throws FileNotFoundException {
@@ -93,7 +92,7 @@ public class ImageMediaController implements Initializable {
 //      listALl со всеми документами из галлереи и источника
 //      смотрим какой открыт сейчас, что находится слева от него
 //      если слева видос, то видос, а нет так нет
-        String now = LinkTransfer.link;
+        String now = LinkTransfer.getLink();
         String exLeft = "";
 //       num = какой сейчас открыт порядковый номер
         for (int i = 0; i < listAll.size(); i++) {
@@ -119,7 +118,7 @@ public class ImageMediaController implements Initializable {
                 }
                 imageView.setId(listAll.get(num - 1));
                 borderPane.setCenter(imageView);
-                LinkTransfer.link = listAll.get(num - 1);
+                LinkTransfer.setLink(listAll.get(num - 1));
                 borderPane.requestLayout();
             }
             //слева ждет видос
@@ -145,7 +144,7 @@ public class ImageMediaController implements Initializable {
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaView.setId(listAll.get(num - 1));
                 borderPane.setCenter(mediaView);
-                LinkTransfer.link = listAll.get(num - 1);
+                LinkTransfer.setLink(listAll.get(num - 1));
                 borderPane.requestLayout();
                 mediaPlayer.play();
             }
@@ -165,7 +164,7 @@ public class ImageMediaController implements Initializable {
                     imageView.setFitHeight(800);
                 }
                 borderPane.setCenter(imageView);
-                LinkTransfer.link = listAll.get(listAll.size() - 1);
+                LinkTransfer.setLink(listAll.get(listAll.size() - 1));
                 borderPane.requestLayout();
             }
             //слева ждет видос
@@ -190,7 +189,7 @@ public class ImageMediaController implements Initializable {
                 }
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaView.setId(listAll.get(listAll.size() - 1));
-                LinkTransfer.link = listAll.get(listAll.size() - 1);
+                LinkTransfer.setLink(listAll.get(listAll.size() - 1));
                 borderPane.setCenter(mediaView);
 
                 mediaPlayer.play();
@@ -205,7 +204,7 @@ public class ImageMediaController implements Initializable {
 //      listALl со всеми документами из галереи и источника
 //      смотрим какой открыт сейчас, что находится слева от него
 //      если слева видос, то видос, а нет так нет
-        String now = LinkTransfer.link;
+        String now = LinkTransfer.getLink();
         String exRight = "";
 //      num = какой сейчас открыт порядковый номер
         for (int i = 0; i < listAll.size(); i++) {
@@ -232,7 +231,7 @@ public class ImageMediaController implements Initializable {
                 }
                 imageView.setId(listAll.get(num + 1));
                 borderPane.setCenter(imageView);
-                LinkTransfer.link = listAll.get(num + 1);
+                LinkTransfer.setLink(listAll.get(num + 1));
                 borderPane.requestLayout();
             }
             //справа ждет видос
@@ -244,7 +243,7 @@ public class ImageMediaController implements Initializable {
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
-                LinkTransfer.link = listAll.get(num + 1);
+                LinkTransfer.setLink(listAll.get(num + 1));
                 mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
                 mediaView = new MediaView();
@@ -259,7 +258,7 @@ public class ImageMediaController implements Initializable {
                 mediaView.setId(listAll.get(num + 1));
                 borderPane.setCenter(mediaView);
                 borderPane.requestLayout();
-                LinkTransfer.link = listAll.get(num + 1);
+                LinkTransfer.setLink(listAll.get(num + 1));
                 mediaPlayer.play();
             }
         } else { // и мы уперлись в конец очереди
@@ -278,7 +277,7 @@ public class ImageMediaController implements Initializable {
                     imageView.setFitHeight(800);
                 }
                 borderPane.setCenter(imageView);
-                LinkTransfer.link = listAll.get(0);
+                LinkTransfer.setLink(listAll.get(0));
                 borderPane.requestLayout();
             }
             //справа ждет видос
@@ -304,7 +303,7 @@ public class ImageMediaController implements Initializable {
                 mediaView.setId(listAll.get(0));
                 mediaView.setMediaPlayer(mediaPlayer);
                 borderPane.setCenter(mediaView);
-                LinkTransfer.link = listAll.get(0);
+                LinkTransfer.setLink(listAll.get(0));
                 mediaPlayer.play();
             }
         }
@@ -334,16 +333,16 @@ public class ImageMediaController implements Initializable {
             mainPane.setStyle("-fx-background: rgb(20,20,30);");
         }
 
-        if ((byAddTime) && (newUp)) {
-            ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewLinkedHashConteiner);
+        if (isByAddTime() && isNewUp()) {
+            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewLinkedHashConteiner());
             Collections.reverse(ivlhcR);
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
-        if ((byAddTime) && (newDown)) {
-            imageViewLinkedHashConteiner.forEach(i -> listAll.add(i.getId()));
+        if (isByAddTime() && isNewDown()) {
+            NodeBase.getImageViewLinkedHashConteiner().forEach(i -> listAll.add(i.getId()));
         }
-        if (byName) {
-            ArrayList<ImageView> ivlhcR = new ArrayList<>(imageViewTreeConteiner);
+        if (isByName()) {
+            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewTreeConteiner());
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
         for (int i = 0; i < listAll.size(); i++) {
@@ -351,12 +350,12 @@ public class ImageMediaController implements Initializable {
                 num = i;
             }
         }
-        if (FileViewBase.getImgExtension().contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
+        if (FileViewBase.getImgExtension().contains(LinkTransfer.getLink().substring(LinkTransfer.getLink().lastIndexOf('.') + 1))) {
             ImageView imageView = new ImageView();
             borderPane.setCenter(imageView);
             try {
-                imageView.setId(LinkTransfer.link);
-                Image setedImage = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link));
+                imageView.setId(LinkTransfer.getLink());
+                Image setedImage = new Image(new FileInputStream(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.getLink()));
                 imageView.setImage(setedImage);
                 difSize = setedImage.getWidth() / setedImage.getHeight();
             } catch (FileNotFoundException e) {
@@ -371,8 +370,8 @@ public class ImageMediaController implements Initializable {
             }
         }
         BorderPane.setAlignment(imageView, Pos.CENTER);
-        if (FileViewBase.getMovieExtension().contains(LinkTransfer.link.substring(LinkTransfer.link.lastIndexOf('.') + 1))) {
-            File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link);
+        if (FileViewBase.getMovieExtension().contains(LinkTransfer.getLink().substring(LinkTransfer.getLink().lastIndexOf('.') + 1))) {
+            File mediaFile = new File(SettingsLoader.getSourceFolder(), LinkTransfer.getLink());
             Media media = null;
             try {
                 media = new Media(mediaFile.toURI().toURL().toString());

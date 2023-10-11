@@ -7,19 +7,19 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Objects;
-import java.util.TreeSet;
+import java.util.Set;
 
 public class ImgScaleProcessor {
 
     private ImgScaleProcessor() {
     }
 
-    public static boolean scale(TreeSet<File> imgFiles) {
+    public static void scale(Set<File> imgFiles) {
         String srcFolder = SettingsLoader.getSourceFolder();
         String dstFolder = srcFolder + "/" + SettingsLoader.getQualityResizer();
         int newWidth = Integer.parseInt(SettingsLoader.getQualityResizer());
         if (Objects.isNull(imgFiles)) {
-            return false;
+            return;
         }
 
         File fileDst = new File(dstFolder);
@@ -32,14 +32,13 @@ public class ImgScaleProcessor {
                     if (Objects.nonNull(image)) {
                         BufferedImage newImage;
                         newImage = Scalr.resize(image, newWidth);
-                        File newFile = new File(dstFolder + "/" + file.getName());
+                        File newFile = new File(dstFolder, file.getName());
                         ImageIO.write(newImage, "jpg", newFile);
                     }
                 }
             } catch (Exception ignored) {
             }
         });
-        return true;
     }
 }
 

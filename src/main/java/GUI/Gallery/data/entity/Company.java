@@ -1,5 +1,7 @@
 package GUI.Gallery.data.entity;
 
+import lombok.Data;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class Company {
 
     @Id
@@ -27,19 +30,4 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private final List<Event> event = new ArrayList<>();
 
-    public List<Event> getEvents() {
-        return event;
-    }
-
-    public int getIdCompany() {
-        return idCompany;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

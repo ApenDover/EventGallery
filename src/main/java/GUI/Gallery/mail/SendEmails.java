@@ -3,16 +3,14 @@ package GUI.Gallery.mail;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.data.connections.BaseConnection;
 import GUI.Gallery.data.entity.Sender;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SendEmails {
 
-    public static String send(List<Sender> senderList) throws IOException, ParseException {
+    public static String send(List<Sender> senderList) {
         AtomicReference<String> status = new AtomicReference<>("");
         String subject = SettingsLoader.getSubject();
         String text = SettingsLoader.getText();

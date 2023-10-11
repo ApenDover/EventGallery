@@ -1,13 +1,14 @@
 package GUI.Gallery;
 
-import GUI.Gallery.mail.SendEmails;
 import GUI.Gallery.data.connections.BaseConnection;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.data.entity.Sender;
+import GUI.Gallery.mail.SendEmails;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.MailBase;
-import GUI.Gallery.storage.StageConteiner;
+import GUI.Gallery.storage.StageContainer;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -25,7 +26,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -116,7 +116,7 @@ public class KeyBoardController implements Initializable {
             tileMails.setHgap(10);
             tileMails.setVgap(10);
             ArrayList<String> serched = new ArrayList<>();
-            MailBase.mailStorage.forEach(mail -> {
+            MailBase.getMailStorage().forEach(mail -> {
                 if (mail.startsWith(finalText)) {
                     serched.add(mail);
                 }
@@ -138,8 +138,8 @@ public class KeyBoardController implements Initializable {
 
     public void goToMedia() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
-        StageConteiner.stage.centerOnScreen();
-        StageConteiner.stage.getScene().setRoot(root);
+        StageContainer.getStage().centerOnScreen();
+        StageContainer.getStage().getScene().setRoot(root);
     }
 
     /**
@@ -423,14 +423,14 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent event) {
         statusCheck.play();
-        String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.link;
+        String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.getLink();
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);
         if (!matcher.find()) {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
-            MailBase.mailStorage.add(mail.toLowerCase());
+            MailBase.getMailStorage().add(mail.toLowerCase());
             ArrayList<Event> eventList = new ArrayList<>(BaseConnection.getEvents());
             eventList.forEach(e -> {
                 if (e.getIdEvent() == SetupWindowController.IdEvent) {
@@ -442,12 +442,8 @@ public class KeyBoardController implements Initializable {
             Thread thread = new Thread(() -> {
                 String status = "";
                 List<Sender> senderList = BaseConnection.getSender();
-                if (senderList.size() != 0) {
-                    try {
-                        status = SendEmails.send(senderList);
-                    } catch (IOException | ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+                if (!senderList.isEmpty()) {
+                    status = SendEmails.send(senderList);
                 }
                 textForStatus = status;
             });
@@ -460,7 +456,7 @@ public class KeyBoardController implements Initializable {
         sendRezultLabel.setText("");
         Background background = new Background(new BackgroundImage(ImageMediaController.image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         back.setBackground(background);
-        statusCheck.setCycleCount(Timeline.INDEFINITE);
+        statusCheck.setCycleCount(Animation.INDEFINITE);
     }
 }
 

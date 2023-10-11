@@ -10,6 +10,9 @@ import java.util.Objects;
 
 public class ImageDarkProcessor {
 
+    private ImageDarkProcessor() {
+    }
+
     public static Image darker(BufferedImage imageToDark, double factor) {
         BufferedImage darkImage = new BufferedImage(imageToDark.getWidth(), imageToDark.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < imageToDark.getHeight(); y++) {
