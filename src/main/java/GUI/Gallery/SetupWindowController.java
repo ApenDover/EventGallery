@@ -163,7 +163,7 @@ public class SetupWindowController implements Initializable {
         companyListView.getItems().clear();
         //        Подключаем базу через hibernate.cfg
         try {
-            BaseConnection.addConnection(loginDB.getText(), passwordDB.getText());
+            BaseConnection.openConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
             connectLabel.setVisible(true);
             ArrayList<Company> company = new ArrayList<>(BaseConnection.getCompany());
