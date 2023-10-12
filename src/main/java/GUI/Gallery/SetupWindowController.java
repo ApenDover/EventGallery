@@ -30,7 +30,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
@@ -57,66 +56,97 @@ import static GUI.Gallery.data.connections.BaseConnection.setEvent;
 
 public class SetupWindowController implements Initializable {
     @FXML
-    private VBox mainVbox;
-    @FXML
     private ToggleButton byAddTime;
+
     @FXML
     private ToggleButton byName;
+
     @FXML
     private RadioButton newUp;
+
     @FXML
     private RadioButton newDown;
+
     @FXML
     private TextField loginDB;
+
     @FXML
     private TextField passwordDB;
+
     @FXML
     private Label connectLabel;
+
     @FXML
     private CheckBox bgImageCheck;
+
     @FXML
     private TextField colorNumber;
+
     @FXML
     private CheckBox bgImageCheck2;
+
     @FXML
     private TextField pathField;
+
     @FXML
     private TextField login;
+
     @FXML
     private PasswordField password;
+
     @FXML
     public TextField subject;
+
     @FXML
     private TextField text;
+
     @FXML
     private ListView companyListView;
+
     @FXML
     private TextField companyField;
+
     @FXML
     private ListView allEvents;
+
     @FXML
     private DatePicker eventDate;
+
     @FXML
     private TextArea eventText;
+
     @FXML
     private TextField pathSettings;
+
     @FXML
     private Button startButton;
+
     @FXML
     private Button remButton;
+
     @FXML
     private final ObservableList<String> langs = FXCollections.observableArrayList();
+
     @FXML
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
+
     @FXML
     private Stage stage;
-    public static boolean rezultbgImageCheck = false;
-    public static boolean rezultbgImageCheck2 = false;
+
+    public static boolean resultBgImageCheck = false;
+
+    public static boolean resultBgImageCheck2 = false;
+
     public static String RED;
+
     public static String GREEN;
+
     public static String BLUE;
+
     public static int IdEvent = 0;
+
     public static Image imageForBackGround;
+
     public static Image imageForBackGround2;
 
     /**
@@ -133,7 +163,7 @@ public class SetupWindowController implements Initializable {
             pathSettings.setText(selectedFile.getAbsolutePath());
         }
 
-        if (!(pathSettings.getText().equals(""))) {
+        if (!pathSettings.getText().equals("")) {
             SettingsLoader.setLoad(pathSettings.getText());
             String ap = selectedFile.getAbsolutePath();
             pathField.setText(ap.substring(0, ap.length() - 12));
@@ -161,7 +191,6 @@ public class SetupWindowController implements Initializable {
      */
     public void connectToDB() {
         companyListView.getItems().clear();
-        //        Подключаем базу через hibernate.cfg
         try {
             BaseConnection.openConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
@@ -431,8 +460,8 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void start(MouseEvent click) throws IOException, java.text.ParseException {
-        rezultbgImageCheck = bgImageCheck.isSelected();
-        rezultbgImageCheck2 = bgImageCheck2.isSelected();
+        resultBgImageCheck = bgImageCheck.isSelected();
+        resultBgImageCheck2 = bgImageCheck2.isSelected();
 
         if (colorNumber.getText().length() == 6) {
             ImageMediaController.colorNumber = colorNumber.getText();
@@ -509,7 +538,7 @@ public class SetupWindowController implements Initializable {
  * */
 
         SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
-        Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Gallery-view.fxml")));
         StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();
         StageContainer.getStage().setWidth(r.getWidth());

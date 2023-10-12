@@ -44,7 +44,7 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 import static GUI.Gallery.setUp.SettingsLoader.*;
-import static GUI.Gallery.SetupWindowController.rezultbgImageCheck2;
+import static GUI.Gallery.SetupWindowController.resultBgImageCheck2;
 
 public class ImageMediaController implements Initializable {
     public VBox centerVbox;
@@ -321,7 +321,7 @@ public class ImageMediaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (rezultbgImageCheck2) {
+        if (resultBgImageCheck2) {
             mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.imageForBackGround2,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,

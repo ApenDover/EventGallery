@@ -17,19 +17,18 @@ public class Sender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sender", nullable = false)
-
     private int idSender;
+
     @Column(name = "mail", nullable = false)
-
     private String mail;
+
     @Column(name = "path", nullable = false)
-
     private String path;
+
     @Column(name = "status")
-
     private String status;
-    @ManyToOne(cascade = CascadeType.ALL)
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Event event;
 
 }
