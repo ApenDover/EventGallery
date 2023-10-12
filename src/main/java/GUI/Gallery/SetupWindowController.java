@@ -34,6 +34,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,6 +56,7 @@ import static GUI.Gallery.data.connections.BaseConnection.getEvents;
 import static GUI.Gallery.data.connections.BaseConnection.setEvent;
 
 public class SetupWindowController implements Initializable {
+
     @FXML
     private ToggleButton byAddTime;
 
@@ -161,26 +163,28 @@ public class SetupWindowController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             pathSettings.setText(selectedFile.getAbsolutePath());
-        }
+            if (StringUtils.isNotEmpty(pathSettings.getText())) {
+                SettingsLoader.setLoad(pathSettings.getText());
+                String ap = selectedFile.getAbsolutePath();
+                pathField.setText(ap.substring(0, ap.length() - 12));
+                pathField.setStyle("-fx-faint-focus-color: #00СС22;");
+                pathField.requestFocus();
+                login.setText(SettingsLoader.getLogin());
+                password.setText(SettingsLoader.getPassword());
+                subject.setText(SettingsLoader.getSubject());
+                text.setText(SettingsLoader.getText());
+                loginDB.setText(SettingsLoader.getDbLogin());
+                passwordDB.setText(SettingsLoader.getDbPassword());
 
-        if (!pathSettings.getText().equals("")) {
-            SettingsLoader.setLoad(pathSettings.getText());
-            String ap = selectedFile.getAbsolutePath();
-            pathField.setText(ap.substring(0, ap.length() - 12));
-            pathField.setStyle("-fx-faint-focus-color: #00СС22;");
-            pathField.requestFocus();
-            login.setText(SettingsLoader.getLogin());
-            password.setText(SettingsLoader.getPassword());
-            subject.setText(SettingsLoader.getSubject());
-            text.setText(SettingsLoader.getText());
-            loginDB.setText(SettingsLoader.getDbLogin());
-            passwordDB.setText(SettingsLoader.getDbPassword());
-
-            if (companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
-                startButton.disableProperty().set(false);
-            }
-            if (companyListView.getSelectionModel().getSelectedItem() != null && !eventText.getText().equals("") && !eventDate.getEditor().getText().equals("")) {
-                startButton.disableProperty().set(false);
+                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                        && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
+                    startButton.disableProperty().set(false);
+                }
+                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                        && StringUtils.isNotBlank(eventText.getText())
+                        && StringUtils.isNotBlank(eventDate.getEditor().getText())) {
+                    startButton.disableProperty().set(false);
+                }
             }
         }
 
@@ -195,8 +199,8 @@ public class SetupWindowController implements Initializable {
             BaseConnection.openConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
             connectLabel.setVisible(true);
-            ArrayList<Company> company = new ArrayList<>(BaseConnection.getCompany());
-            company.forEach(c -> langs.add(c.getName()));
+            ArrayList<Company> companies = new ArrayList<>(BaseConnection.getCompany());
+            companies.forEach(company -> langs.add(company.getName()));
             companyListView.setItems(langs);
         } catch (Exception e) {
             connectLabel.setVisible(true);
