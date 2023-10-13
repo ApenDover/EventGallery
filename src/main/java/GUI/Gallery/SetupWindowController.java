@@ -30,11 +30,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,67 +56,99 @@ import static GUI.Gallery.data.connections.BaseConnection.getEvents;
 import static GUI.Gallery.data.connections.BaseConnection.setEvent;
 
 public class SetupWindowController implements Initializable {
-    @FXML
-    private VBox mainVbox;
+
     @FXML
     private ToggleButton byAddTime;
+
     @FXML
     private ToggleButton byName;
+
     @FXML
     private RadioButton newUp;
+
     @FXML
     private RadioButton newDown;
+
     @FXML
     private TextField loginDB;
+
     @FXML
     private TextField passwordDB;
+
     @FXML
     private Label connectLabel;
+
     @FXML
     private CheckBox bgImageCheck;
+
     @FXML
     private TextField colorNumber;
+
     @FXML
     private CheckBox bgImageCheck2;
+
     @FXML
     private TextField pathField;
+
     @FXML
     private TextField login;
+
     @FXML
     private PasswordField password;
+
     @FXML
     public TextField subject;
+
     @FXML
     private TextField text;
+
     @FXML
     private ListView companyListView;
+
     @FXML
     private TextField companyField;
+
     @FXML
     private ListView allEvents;
+
     @FXML
     private DatePicker eventDate;
+
     @FXML
     private TextArea eventText;
+
     @FXML
     private TextField pathSettings;
+
     @FXML
     private Button startButton;
+
     @FXML
     private Button remButton;
+
     @FXML
     private final ObservableList<String> langs = FXCollections.observableArrayList();
+
     @FXML
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
+
     @FXML
     private Stage stage;
-    public static boolean rezultbgImageCheck = false;
-    public static boolean rezultbgImageCheck2 = false;
+
+    public static boolean resultBgImageCheck = false;
+
+    public static boolean resultBgImageCheck2 = false;
+
     public static String RED;
+
     public static String GREEN;
+
     public static String BLUE;
+
     public static int IdEvent = 0;
+
     public static Image imageForBackGround;
+
     public static Image imageForBackGround2;
 
     /**
@@ -131,26 +163,28 @@ public class SetupWindowController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             pathSettings.setText(selectedFile.getAbsolutePath());
-        }
+            if (StringUtils.isNotEmpty(pathSettings.getText())) {
+                SettingsLoader.setLoad(pathSettings.getText());
+                String ap = selectedFile.getAbsolutePath();
+                pathField.setText(ap.substring(0, ap.length() - 12));
+                pathField.setStyle("-fx-faint-focus-color: #00СС22;");
+                pathField.requestFocus();
+                login.setText(SettingsLoader.getLogin());
+                password.setText(SettingsLoader.getPassword());
+                subject.setText(SettingsLoader.getSubject());
+                text.setText(SettingsLoader.getText());
+                loginDB.setText(SettingsLoader.getDbLogin());
+                passwordDB.setText(SettingsLoader.getDbPassword());
 
-        if (!(pathSettings.getText().equals(""))) {
-            SettingsLoader.setLoad(pathSettings.getText());
-            String ap = selectedFile.getAbsolutePath();
-            pathField.setText(ap.substring(0, ap.length() - 12));
-            pathField.setStyle("-fx-faint-focus-color: #00СС22;");
-            pathField.requestFocus();
-            login.setText(SettingsLoader.getLogin());
-            password.setText(SettingsLoader.getPassword());
-            subject.setText(SettingsLoader.getSubject());
-            text.setText(SettingsLoader.getText());
-            loginDB.setText(SettingsLoader.getDbLogin());
-            passwordDB.setText(SettingsLoader.getDbPassword());
-
-            if (companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
-                startButton.disableProperty().set(false);
-            }
-            if (companyListView.getSelectionModel().getSelectedItem() != null && !eventText.getText().equals("") && !eventDate.getEditor().getText().equals("")) {
-                startButton.disableProperty().set(false);
+                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                        && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
+                    startButton.disableProperty().set(false);
+                }
+                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                        && StringUtils.isNotBlank(eventText.getText())
+                        && StringUtils.isNotBlank(eventDate.getEditor().getText())) {
+                    startButton.disableProperty().set(false);
+                }
             }
         }
 
@@ -161,13 +195,12 @@ public class SetupWindowController implements Initializable {
      */
     public void connectToDB() {
         companyListView.getItems().clear();
-        //        Подключаем базу через hibernate.cfg
         try {
-            BaseConnection.addConnection(loginDB.getText(), passwordDB.getText());
+            BaseConnection.openConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
             connectLabel.setVisible(true);
-            ArrayList<Company> company = new ArrayList<>(BaseConnection.getCompany());
-            company.forEach(c -> langs.add(c.getName()));
+            ArrayList<Company> companies = new ArrayList<>(BaseConnection.getCompany());
+            companies.forEach(company -> langs.add(company.getName()));
             companyListView.setItems(langs);
         } catch (Exception e) {
             connectLabel.setVisible(true);
@@ -431,8 +464,8 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void start(MouseEvent click) throws IOException, java.text.ParseException {
-        rezultbgImageCheck = bgImageCheck.isSelected();
-        rezultbgImageCheck2 = bgImageCheck2.isSelected();
+        resultBgImageCheck = bgImageCheck.isSelected();
+        resultBgImageCheck2 = bgImageCheck2.isSelected();
 
         if (colorNumber.getText().length() == 6) {
             ImageMediaController.colorNumber = colorNumber.getText();

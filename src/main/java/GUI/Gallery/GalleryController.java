@@ -46,7 +46,7 @@ import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static GUI.Gallery.SetupWindowController.rezultbgImageCheck;
+import static GUI.Gallery.SetupWindowController.resultBgImageCheck;
 
 /**
  * Если открыто следующее окно процесс мониторинга папок завершается.
@@ -71,7 +71,7 @@ public class GalleryController implements Initializable {
     /**
      * Переход в конкретную картинку
      */
-    private void goToImage(MouseEvent event, String id) throws IOException, InterruptedException {
+    private void goToImage() throws IOException, InterruptedException {
         root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
         StageContainer.getStage().centerOnScreen();
         StageContainer.getStage().getScene().setRoot(root);
@@ -129,7 +129,7 @@ public class GalleryController implements Initializable {
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 LinkTransfer.setLink(imageView.getId());
-                goToImage(mouseEvent, imageView.getId());
+                goToImage();
             } catch (IOException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -300,12 +300,12 @@ public class GalleryController implements Initializable {
         if (colorNumber.length() == 6 || colorNumber.length() == 7) {
             scroll.setStyle("-fx-background: rgb(" + SetupWindowController.RED + "," + SetupWindowController.GREEN + "," + SetupWindowController.BLUE + ");");
         } else {
-            if (!rezultbgImageCheck) {
+            if (!resultBgImageCheck) {
                 scroll.setStyle("-fx-background: rgb(20,20,30);");
             }
         }
 
-        if (rezultbgImageCheck) {
+        if (resultBgImageCheck) {
             mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.imageForBackGround,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,

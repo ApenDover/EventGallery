@@ -9,27 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring">
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="load bag fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarkProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImageDarkProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageConteiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +32,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="f92824bc25c1519a010ce80ea1454b6a48e9c895" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -230,10 +221,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.SuperMain" />
         <item itemvalue="Application.psp" />
-        <item itemvalue="Application.ImageBrightener" />
         <item itemvalue="Application.please" />
+        <item itemvalue="Application.ImageBrightener" />
+        <item itemvalue="Application.SuperMain" />
       </list>
     </recent_temporary>
   </component>
@@ -301,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1696976275930</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="load bag fix">
+      <created>1697214265132</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697214265132</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +320,34 @@
     <MESSAGE value="fix gallery center image" />
     <MESSAGE value="start refactoring" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="load bag fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="load bag fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
+          <line>442</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
+          <line>437</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
+          <line>450</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
+          <line>440</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

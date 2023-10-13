@@ -15,6 +15,7 @@ module GUI.Gallery {
     requires javacv;
     requires javacpp;
     requires imgscalr.lib;
+    requires org.apache.commons.lang3;
     requires static lombok;
 
     opens GUI.Gallery to javafx.fxml;

@@ -27,7 +27,7 @@ public class BaseConnection {
 
     static Session session;
 
-    public static void addConnection(String user, String password) {
+    public static void openConnection(String user, String password) {
 
         Properties settings = new Properties();
         settings.put(AvailableSettings.DRIVER, "org.postgresql.Driver");
