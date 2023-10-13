@@ -49,9 +49,9 @@ import static GUI.Gallery.SetupWindowController.resultBgImageCheck2;
 public class ImageMediaController implements Initializable {
     public VBox centerVbox;
     public Pane mainPane;
-    private ImageView imageView = new ImageView();
+    private final ImageView imageView = new ImageView();
     private MediaView mediaView;
-    public static ArrayList<MediaPlayer> allPlayers = new ArrayList<>();
+    public static final ArrayList<MediaPlayer> allPlayers = new ArrayList<>();
     private MediaPlayer mediaPlayer;
     @FXML
     private BorderPane borderPane;

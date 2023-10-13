@@ -7,6 +7,8 @@ import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.MailBase;
 import GUI.Gallery.storage.StageContainer;
+import GUI.Gallery.utils.EmptyChecker;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,6 +49,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
@@ -103,13 +106,13 @@ public class SetupWindowController implements Initializable {
     private TextField text;
 
     @FXML
-    private ListView companyListView;
+    private ListView<String> companyListView;
 
     @FXML
     private TextField companyField;
 
     @FXML
-    private ListView allEvents;
+    private ListView<String> allEvents;
 
     @FXML
     private DatePicker eventDate;
@@ -156,38 +159,42 @@ public class SetupWindowController implements Initializable {
      */
     @FXML
     private void settingsPath() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open config.json File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JSON", "config.json"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            pathSettings.setText(selectedFile.getAbsolutePath());
-            if (StringUtils.isNotEmpty(pathSettings.getText())) {
-                SettingsLoader.setLoad(pathSettings.getText());
-                String ap = selectedFile.getAbsolutePath();
-                pathField.setText(ap.substring(0, ap.length() - 12));
-                pathField.setStyle("-fx-faint-focus-color: #00СС22;");
-                pathField.requestFocus();
-                login.setText(SettingsLoader.getLogin());
-                password.setText(SettingsLoader.getPassword());
-                subject.setText(SettingsLoader.getSubject());
-                text.setText(SettingsLoader.getText());
-                loginDB.setText(SettingsLoader.getDbLogin());
-                passwordDB.setText(SettingsLoader.getDbPassword());
+        Platform.runLater(() -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open config.json File");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("JSON", "config.json"));
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                pathSettings.setText(selectedFile.getAbsolutePath());
+                if (StringUtils.isNotEmpty(pathSettings.getText())) {
+                    SettingsLoader.setLoad(pathSettings.getText());
+                    String ap = selectedFile.getAbsolutePath();
+                    pathField.setText(ap.substring(0, ap.length() - 12));
+                    pathField.setStyle("-fx-faint-focus-color: #00СС22;");
+                    pathField.requestFocus();
+                    login.setText(SettingsLoader.getLogin());
+                    password.setText(SettingsLoader.getPassword());
+                    subject.setText(SettingsLoader.getSubject());
+                    text.setText(SettingsLoader.getText());
+                    loginDB.setText(SettingsLoader.getDbLogin());
+                    passwordDB.setText(SettingsLoader.getDbPassword());
+                    try {
+                        if (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(), companyListView.getSelectionModel().getSelectedItem(),
+                                allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))) {
+                            startButton.disableProperty().set(false);
+                        }
 
-                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
-                        && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
-                    startButton.disableProperty().set(false);
-                }
-                if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
-                        && StringUtils.isNotBlank(eventText.getText())
-                        && StringUtils.isNotBlank(eventDate.getEditor().getText())) {
-                    startButton.disableProperty().set(false);
+                        if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                                && EmptyChecker.isStringListValid(List.of(eventText.getText(),
+                                eventDate.getEditor().getText()))) {
+                            startButton.disableProperty().set(false);
+                        }
+                    } catch (Exception ignored) {
+                    }
                 }
             }
-        }
-
+        });
     }
 
     /**
@@ -215,33 +222,23 @@ public class SetupWindowController implements Initializable {
     private void findPath() {
         File selectedFile = directoryChooser.showDialog(stage);
         if (selectedFile != null) {
-            String text = selectedFile.getAbsolutePath();
-            pathField.setText(text);
-
-            if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(this.text.getText(), "") && !Objects.equals(pathField.getText(), "") &&
-                    (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), ""))) {
-                startButton.disableProperty().set(false);
-            }
-
-            if (!Objects.equals(pathSettings.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
-                startButton.disableProperty().set(false);
-            }
-
-            if (!Objects.equals(pathSettings.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null) {
-                startButton.disableProperty().set(false);
-            }
-
+            pathField.setText(selectedFile.getAbsolutePath());
+            startButton.disableProperty().set(checkFindPath());
         }
     }
 
     @FXML
     private void pathFieldClick() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") && !Objects.equals(pathField.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null &&
-                allEvents.getSelectionModel().getSelectedItem() != null && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "")) {
+
+        if (EmptyChecker.isStringListValid(List.of(password.getText(),
+                login.getText(), subject.getText(), text.getText(), pathField.getText(),
+                eventText.getText(), eventDate.getEditor().getText()))
+                && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
             startButton.disableProperty().set(false);
         }
 
-        if (!Objects.equals(pathSettings.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
+        if (EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(),
+                eventText.getText())) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())) {
             startButton.disableProperty().set(false);
         }
 
@@ -456,7 +453,6 @@ public class SetupWindowController implements Initializable {
 
     }
 
-
     @FXML
     private void openDel() {
         remButton.setDisable(false);
@@ -558,4 +554,14 @@ public class SetupWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventDate.setValue(LocalDate.now());
     }
+
+    private boolean checkFindPath() {
+        return !((EmptyChecker.isStringListValid(List.of(password.getText(),
+                login.getText(), subject.getText(), text.getText(),
+                pathField.getText(), eventText.getText(),
+                eventDate.getEditor().getText()))) || (EmptyChecker.isStringListValid(List.of(pathSettings.getText(),
+                eventDate.getEditor().getText(), eventText.getText()))) || (StringUtils.isNotBlank(pathSettings.getText())
+                && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())));
+    }
+
 }
