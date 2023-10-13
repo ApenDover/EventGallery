@@ -28,6 +28,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -41,25 +43,43 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ImageMediaController implements Initializable {
-    public VBox centerVbox;
-    public Pane mainPane;
-    private final ImageView imageView = new ImageView();
-    private MediaView mediaView;
-    public static final ArrayList<MediaPlayer> allPlayers = new ArrayList<>();
-    private MediaPlayer mediaPlayer;
+
     @FXML
     private BorderPane borderPane;
-    public static String colorNumber = "";
-    public static Image image;
+
+    @FXML
+    private VBox centerVbox;
+
+    @FXML
+    private Pane mainPane;
+
+    @Setter
+    private static String colorNumber = "";
+
+    @Getter
+    private static Image image;
+
+    private final ImageView imageView = new ImageView();
+
+    private MediaView mediaView;
+
+    private static final ArrayList<MediaPlayer> allPlayers = new ArrayList<>();
+
+    private MediaPlayer mediaPlayer;
+
     private static int num = 0;
+
     private static double difSize = 0;
-    ArrayList<String> listAll = new ArrayList<>();
+
+    private ArrayList<String> listAll = new ArrayList<>();
+
 
     public void goToGallery() throws IOException {
-        if (mediaPlayer != null) {
+        if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
@@ -68,7 +88,7 @@ public class ImageMediaController implements Initializable {
     }
 
     public void sentToDB() throws IOException, AWTException {
-        if (mediaPlayer != null) {
+        if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
         Rectangle2D r = Screen.getPrimary().getBounds();
@@ -83,7 +103,7 @@ public class ImageMediaController implements Initializable {
     }
 
     public void LeftPClick() throws FileNotFoundException {
-        if (mediaPlayer != null) {
+        if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
 //      listALl со всеми документами из галлереи и источника
@@ -195,7 +215,7 @@ public class ImageMediaController implements Initializable {
     }
 
     public void RightPClick() throws FileNotFoundException {
-        if (mediaPlayer != null) {
+        if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
 //      listALl со всеми документами из галереи и источника

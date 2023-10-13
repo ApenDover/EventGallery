@@ -174,7 +174,7 @@ public class SetupWindowController implements Initializable {
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("JSON", "config.json"));
             File selectedFile = fileChooser.showOpenDialog(stage);
-            if (selectedFile != null) {
+            if (Objects.nonNull(selectedFile)) {
                 pathSettings.setText(selectedFile.getAbsolutePath());
                 if (StringUtils.isNotEmpty(pathSettings.getText())) {
                     SettingsLoader.setLoad(pathSettings.getText());
@@ -230,7 +230,7 @@ public class SetupWindowController implements Initializable {
     @FXML
     private void findPath() {
         File selectedFile = directoryChooser.showDialog(stage);
-        if (selectedFile != null) {
+        if (Objects.nonNull(selectedFile)) {
             pathField.setText(selectedFile.getAbsolutePath());
             startButton.disableProperty().set(checkFindPath());
         }
@@ -284,7 +284,7 @@ public class SetupWindowController implements Initializable {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
+        if (Objects.nonNull(selectedFile)) {
             imageForBackGround = new Image(new FileInputStream(selectedFile));
             bgImageCheck.setSelected(true);
             bgImageCheck.setDisable(false);
@@ -306,7 +306,7 @@ public class SetupWindowController implements Initializable {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"));
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
+        if (Objects.nonNull(selectedFile)) {
             imageForBackGround2 = new Image(new FileInputStream(selectedFile));
             bgImageCheck2.setSelected(true);
             bgImageCheck2.setDisable(false);
@@ -473,16 +473,16 @@ public class SetupWindowController implements Initializable {
         resultBgImageCheck2 = bgImageCheck2.isSelected();
 
         if (colorNumber.getText().length() == 6) {
-            ImageMediaController.colorNumber = colorNumber.getText();
-            GalleryController.colorNumber = colorNumber.getText();
+            ImageMediaController.setColorNumber(colorNumber.getText());
+            GalleryController.setColorNumber(colorNumber.getText());
             RED = colorNumber.getText().substring(0, 2);
             GREEN = colorNumber.getText().substring(2, 4);
             BLUE = colorNumber.getText().substring(4, 6);
         }
 
         if (colorNumber.getText().length() == 7) {
-            ImageMediaController.colorNumber = colorNumber.getText();
-            GalleryController.colorNumber = colorNumber.getText();
+            ImageMediaController.setColorNumber(colorNumber.getText());
+            GalleryController.setColorNumber(colorNumber.getText());
             RED = colorNumber.getText().substring(1, 3);
             GREEN = colorNumber.getText().substring(3, 5);
             BLUE = colorNumber.getText().substring(5, 7);

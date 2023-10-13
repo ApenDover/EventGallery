@@ -30,6 +30,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.stage.Screen;
 import javafx.util.Duration;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,16 +56,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class GalleryController implements Initializable {
 
-    public static String colorNumber = "";
+    @Setter
+    private static String colorNumber = "";
+
     @FXML
     private Pane mainPane;
+
     @FXML
     private ScrollPane scroll;
+
     @FXML
     private VBox vBox;
+
     @FXML
     private TilePane galleryPane;
+
     private Parent root;
+
     static Timeline fiveSecondsWonder;
 
     /**
@@ -331,7 +340,7 @@ public class GalleryController implements Initializable {
             ArrayList<Node> setReversed = new ArrayList<>(NodeBase.getImageViewLinkedHashConteiner());
             Collections.reverse(setReversed);
 
-            if (galleryPane != null) {
+            if (Objects.nonNull(galleryPane)) {
                 if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
                     if (setReversed.size() == FileViewBase.getNamesFilesDst().size()) {
                         setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));

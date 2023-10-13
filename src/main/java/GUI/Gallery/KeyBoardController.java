@@ -4,6 +4,7 @@ import GUI.Gallery.data.connections.BaseConnection;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.data.entity.Sender;
 import GUI.Gallery.mail.SendEmails;
+import GUI.Gallery.mail.SendProcess;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.MailBase;
@@ -12,6 +13,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -26,76 +28,186 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KeyBoardController implements Initializable {
 
-    public TextField mailField;
-    public String finalText = "";
-    public Button one;
-    public Button two;
-    public Button three;
-    public Button four;
-    public Button five;
-    public Button six;
-    public Button seven;
-    public Button eight;
-    public Button nine;
-    public Button zero;
-    public Button tire;
-    public Button del;
-    public Button q;
-    public Button w;
-    public Button e;
-    public Button r;
-    public Button t;
-    public Button y;
-    public Button u;
-    public Button i;
-    public Button o;
-    public Button p;
-    public Button a;
-    public Button s;
-    public Button d;
-    public Button f;
-    public Button g;
-    public Button h;
-    public Button j;
-    public Button k;
-    public Button l;
-    public Button z;
-    public Button x;
+    @FXML
+    private TextField mailField;
 
-    public Button c;
-    public Button v;
-    public Button b;
-    public Button n;
-    public Button m;
-    public Button downTire;
-    public Button clear;
-    public Button end;
-    public Button space;
-    public Button ru;
-    public Button com;
-    public Button send;
-    public Button point;
-    public Button dog;
-    public TilePane tileMails;
-    public Label sendRezultLabel;
-    public VBox back;
+    @FXML
+    private Button one;
 
-    String textForStatus = "";
-    Timeline statusCheck = new Timeline(
+    @FXML
+    private Button two;
+
+    @FXML
+    private Button three;
+
+    @FXML
+    private Button four;
+
+    @FXML
+    private Button five;
+
+    @FXML
+    private Button six;
+
+    @FXML
+    private Button seven;
+
+    @FXML
+    private Button eight;
+
+    @FXML
+    private Button nine;
+
+    @FXML
+    private Button zero;
+
+    @FXML
+    private Button tire;
+
+    @FXML
+    private Button del;
+
+    @FXML
+    private Button q;
+
+    @FXML
+    private Button w;
+
+    @FXML
+    private Button e;
+
+    @FXML
+    private Button r;
+
+    @FXML
+    private Button t;
+
+    @FXML
+    private Button y;
+
+    @FXML
+    private Button u;
+
+    @FXML
+    private Button i;
+
+    @FXML
+    private Button o;
+
+    @FXML
+    private Button p;
+
+    @FXML
+    private Button a;
+
+    @FXML
+    private Button s;
+
+    @FXML
+    private Button d;
+
+    @FXML
+    private Button f;
+
+    @FXML
+    private Button g;
+
+    @FXML
+    private Button h;
+
+    @FXML
+    private Button j;
+
+    @FXML
+    private Button k;
+
+    @FXML
+    private Button l;
+
+    @FXML
+    private Button z;
+
+    @FXML
+    private Button x;
+
+    @FXML
+    private Button c;
+
+    @FXML
+    private Button v;
+
+    @FXML
+    private Button b;
+
+    @FXML
+    private Button n;
+
+    @FXML
+    private Button m;
+
+    @FXML
+    private Button downTire;
+
+    @FXML
+    private Button clear;
+
+    @FXML
+    private Button end;
+
+    @FXML
+    private Button space;
+
+    @FXML
+    private Button ru;
+
+    @FXML
+    private Button com;
+
+    @FXML
+    private Button send;
+
+    @FXML
+    private Button point;
+
+    @FXML
+    private Button dog;
+
+    @FXML
+    private TilePane tileMails;
+
+    @FXML
+    private Label sendRezultLabel;
+
+    @FXML
+    private VBox back;
+
+    private String finalText = "";
+
+    private final SendProcess sendProcess = new SendProcess();
+
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+
+    @Getter
+    private String textForStatus = "";
+
+    private Timeline statusCheck = new Timeline(
             new KeyFrame(Duration.millis(1000),
                     event -> {
-                        if (!(textForStatus.equals(""))) {
+                        if (StringUtils.isNotBlank(textForStatus)) {
                             sendRezultLabel.setText(textForStatus);
                             sendRezultLabel.setVisible(true);
                             textForStatus = "";
@@ -103,7 +215,7 @@ public class KeyBoardController implements Initializable {
                     }));
 
     public void searchMail() {
-        if (textForStatus != "") {
+        if (StringUtils.isNotBlank(textForStatus)) {
             statusCheck.stop();
         }
         textForStatus = "";
@@ -417,11 +529,15 @@ public class KeyBoardController implements Initializable {
         searchMail();
     }
 
-    public void endAction(ActionEvent event) throws IOException {
-        goToMedia();
+    public void endAction(ActionEvent event) {
+        try {
+            goToMedia();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public void sendAction(ActionEvent event) {
+    public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
         String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.getLink();
         String mail = mailField.getText();
@@ -431,30 +547,19 @@ public class KeyBoardController implements Initializable {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
             MailBase.getMailStorage().add(mail.toLowerCase());
-            ArrayList<Event> eventList = new ArrayList<>(BaseConnection.getEvents());
-            eventList.forEach(e -> {
-                if (e.getIdEvent() == SetupWindowController.getIdEvent()) {
-                    BaseConnection.setSender(mail.toLowerCase(), imagePath, e);
-                }
-            });
-            mailField.setText("");
-
-            Thread thread = new Thread(() -> {
-                String status = "";
-                List<Sender> senderList = BaseConnection.getSender();
-                if (!senderList.isEmpty()) {
-                    status = SendEmails.send(senderList);
-                }
-                textForStatus = status;
-            });
-            thread.start();
+            Event event = BaseConnection.getEventById(SetupWindowController.getIdEvent());
+            BaseConnection.setSender(mail.toLowerCase(), imagePath, event);
+            mailField.clear();
+            executor.execute(() -> textForStatus = sendProcess.call());
+            executor.shutdown();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sendRezultLabel.setText("");
-        Background background = new Background(new BackgroundImage(ImageMediaController.image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+        Background background = new Background(new BackgroundImage(ImageMediaController.getImage(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         back.setBackground(background);
         statusCheck.setCycleCount(Animation.INDEFINITE);
     }

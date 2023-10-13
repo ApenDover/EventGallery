@@ -79,6 +79,13 @@ public class BaseConnection {
         return result;
     }
 
+    public static Event getEventById(int id) {
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Event WHERE id = :id", Event.class).setParameter("id", id).getSingleResult();
+        session.getTransaction().commit();
+        return result;
+    }
+
     public static void updateSenderStatus(String status, Sender sender) {
         session.beginTransaction();
         session.createQuery("UPDATE Sender SET status = :status WHERE idSender = :sender")
