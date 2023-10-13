@@ -238,27 +238,12 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void pathFieldClick() {
-
-        if (EmptyChecker.isStringListValid(List.of(password.getText(),
-                login.getText(), subject.getText(), text.getText(), pathField.getText(),
-                eventText.getText(), eventDate.getEditor().getText()))
-                && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
-            startButton.disableProperty().set(false);
-        }
-
-        if (EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(),
-                eventText.getText())) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())) {
-            startButton.disableProperty().set(false);
-        }
-
-        if (!Objects.equals(pathSettings.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null) {
-            startButton.disableProperty().set(false);
-        }
+        startButton.disableProperty().set(checkPathFieldClick());
     }
 
     @FXML
     private void folderResize() {
-        if (!Objects.equals(pathField.getText(), "")) {
+        if (StringUtils.isNotBlank(pathField.getText())) {
             Thread thread = new Thread(() ->
             {
                 File[] allFiles = new File(pathField.getText()).listFiles();
@@ -571,6 +556,17 @@ public class SetupWindowController implements Initializable {
                 eventDate.getEditor().getText()))) || (EmptyChecker.isStringListValid(List.of(pathSettings.getText(),
                 eventDate.getEditor().getText(), eventText.getText()))) || (StringUtils.isNotBlank(pathSettings.getText())
                 && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())));
+    }
+
+    private boolean checkPathFieldClick() {
+        return !(EmptyChecker.isStringListValid(List.of(password.getText(),
+                login.getText(), subject.getText(), text.getText(),
+                pathField.getText(), eventText.getText(),
+                eventDate.getEditor().getText())) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
+                || (EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(),
+                eventText.getText())) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView
+                .getSelectionModel().getSelectedItem()) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())));
     }
 
 }
