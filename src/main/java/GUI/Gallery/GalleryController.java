@@ -46,8 +46,6 @@ import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static GUI.Gallery.SetupWindowController.resultBgImageCheck;
-
 /**
  * Если открыто следующее окно процесс мониторинга папок завершается.
  * Как вариант, прописать отдельный repeated(), который запускать по нажатию кнопки в GoToImage
@@ -298,15 +296,15 @@ public class GalleryController implements Initializable {
         scroll.setPrefWidth(r.getWidth());
         scroll.setStyle("-fx-background: transparent;");
         if (colorNumber.length() == 6 || colorNumber.length() == 7) {
-            scroll.setStyle("-fx-background: rgb(" + SetupWindowController.RED + "," + SetupWindowController.GREEN + "," + SetupWindowController.BLUE + ");");
+            scroll.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
         } else {
-            if (!resultBgImageCheck) {
+            if (!SetupWindowController.isResultBgImageCheck()) {
                 scroll.setStyle("-fx-background: rgb(20,20,30);");
             }
         }
 
-        if (resultBgImageCheck) {
-            mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.imageForBackGround,
+        if (SetupWindowController.isResultBgImageCheck()) {
+            mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.getImageForBackGround(),
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));

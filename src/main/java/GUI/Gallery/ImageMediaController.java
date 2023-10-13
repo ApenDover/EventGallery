@@ -43,9 +43,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-import static GUI.Gallery.setUp.SettingsLoader.*;
-import static GUI.Gallery.SetupWindowController.resultBgImageCheck2;
-
 public class ImageMediaController implements Initializable {
     public VBox centerVbox;
     public Pane mainPane;
@@ -321,27 +318,27 @@ public class ImageMediaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (resultBgImageCheck2) {
-            mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.imageForBackGround2,
+        if (SetupWindowController.isResultBgImageCheck2()) {
+            mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.getImageForBackGround2(),
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
         if ((colorNumber.length() == 6) || (colorNumber.length() == 7)) {
-            mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.RED + "," + SetupWindowController.GREEN + "," + SetupWindowController.BLUE + ");");
+            mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
         } else {
             mainPane.setStyle("-fx-background: rgb(20,20,30);");
         }
 
-        if (isByAddTime() && isNewUp()) {
+        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewLinkedHashConteiner());
             Collections.reverse(ivlhcR);
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
-        if (isByAddTime() && isNewDown()) {
+        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
             NodeBase.getImageViewLinkedHashConteiner().forEach(i -> listAll.add(i.getId()));
         }
-        if (isByName()) {
+        if (SettingsLoader.isByName()) {
             ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewTreeConteiner());
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }

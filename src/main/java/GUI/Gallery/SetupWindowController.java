@@ -36,6 +36,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -138,21 +139,29 @@ public class SetupWindowController implements Initializable {
     @FXML
     private Stage stage;
 
-    public static boolean resultBgImageCheck = false;
+    @Getter
+    private static boolean resultBgImageCheck = false;
 
-    public static boolean resultBgImageCheck2 = false;
+    @Getter
+    private static boolean resultBgImageCheck2 = false;
 
-    public static String RED;
+    @Getter
+    private static String RED;
 
-    public static String GREEN;
+    @Getter
+    private static String GREEN;
 
-    public static String BLUE;
+    @Getter
+    private static String BLUE;
 
-    public static int IdEvent = 0;
+    @Getter
+    private static int IdEvent = 0;
 
-    public static Image imageForBackGround;
+    @Getter
+    private static Image imageForBackGround;
 
-    public static Image imageForBackGround2;
+    @Getter
+    private static Image imageForBackGround2;
 
     /**
      * Настройки

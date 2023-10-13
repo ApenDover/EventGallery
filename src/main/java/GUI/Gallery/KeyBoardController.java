@@ -433,7 +433,7 @@ public class KeyBoardController implements Initializable {
             MailBase.getMailStorage().add(mail.toLowerCase());
             ArrayList<Event> eventList = new ArrayList<>(BaseConnection.getEvents());
             eventList.forEach(e -> {
-                if (e.getIdEvent() == SetupWindowController.IdEvent) {
+                if (e.getIdEvent() == SetupWindowController.getIdEvent()) {
                     BaseConnection.setSender(mail.toLowerCase(), imagePath, e);
                 }
             });

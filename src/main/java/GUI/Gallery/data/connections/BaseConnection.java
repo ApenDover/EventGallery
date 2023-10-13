@@ -148,7 +148,7 @@ public class BaseConnection {
     public static List<Sender> getMails() {
         session.beginTransaction();
         final var result = session.createQuery("FROM Sender s WHERE s.event.idEvent = :eventId", Sender.class)
-                .setParameter("eventId", SetupWindowController.IdEvent)
+                .setParameter("eventId", SetupWindowController.getIdEvent())
                 .getResultList();
         session.getTransaction().commit();
         return result;
