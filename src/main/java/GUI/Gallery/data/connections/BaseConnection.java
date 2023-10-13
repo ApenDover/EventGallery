@@ -32,6 +32,9 @@ public class BaseConnection {
         settings.put(AvailableSettings.PASS, password);
         settings.put(AvailableSettings.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         settings.put(AvailableSettings.HBM2DDL_AUTO, "update");
+        settings.put(AvailableSettings.POOL_SIZE, "10");
+        settings.put(AvailableSettings.SHOW_SQL, "true");
+        settings.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
         try {
             openSession(settings);
         } catch (ServiceException exception) {
@@ -61,29 +64,40 @@ public class BaseConnection {
     }
 
     public static List<Sender> getSender() {
-        return session.createQuery("FROM Sender s WHERE s.status = :status", Sender.class)
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Sender s WHERE s.status = :status", Sender.class)
                 .setParameter("status", "NEW")
                 .getResultList();
+        session.getTransaction().commit();
+        return result;
     }
 
     public static List<Event> getEvents() {
-        return session.createQuery("FROM Event", Event.class).getResultList();
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Event", Event.class).getResultList();
+        session.getTransaction().commit();
+        return result;
     }
 
     public static void updateSenderStatus(String status, Sender sender) {
+        session.beginTransaction();
         session.createQuery("UPDATE Sender SET status = :status WHERE idSender = :sender")
                 .setParameter("status", status)
                 .setParameter("sender", sender.getIdSender())
                 .executeUpdate();
+        session.getTransaction().commit();
     }
 
     public static void setEvent(Date dateEvent, String text, String companyName) {
         Event event = new Event();
         event.setDescription(text);
-        event.setDate(dateEvent);
+        java.sql.Date sqlDate = new java.sql.Date(dateEvent.getTime());
+        event.setDate(sqlDate);
         ArrayList<Company> findCompany = new ArrayList<>(BaseConnection.getCompany());
         findCompany.stream().filter(company -> company.getName().equals(companyName)).forEach(event::setCompany);
+        session.beginTransaction();
         session.save(event);
+        session.getTransaction().commit();
     }
 
     public static boolean setSender(String mail, String path, Event event) {
@@ -92,7 +106,9 @@ public class BaseConnection {
         sender.setMail(mail);
         sender.setEvent(event);
         sender.setStatus("NEW");
+        session.beginTransaction();
         session.save(sender);
+        session.getTransaction().commit();
         return true;
     }
 
@@ -100,30 +116,42 @@ public class BaseConnection {
         AtomicInteger companyId = new AtomicInteger();
         ArrayList<Company> companies = new ArrayList<>(getCompany());
         companies.stream().filter(company -> company.getName().equals(companyName)).forEach(company -> companyId.set(company.getIdCompany()));
-        return session.createQuery("FROM Event e WHERE e.company.idCompany = :companyId", Event.class)
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Event e WHERE e.company.idCompany = :companyId", Event.class)
                 .setParameter("companyId", companyId.get())
                 .getResultList();
-
+        session.getTransaction().commit();
+        return result;
     }
 
     public static List<Company> getCompany() {
-        return session.createQuery("FROM Company", Company.class).getResultList();
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Company", Company.class).getResultList();
+        session.getTransaction().commit();
+        return result;
     }
 
     public static void setCompany(String name) {
         Company company = new Company();
         company.setName(name);
+        session.getTransaction();
         session.save(company);
+        session.getTransaction().commit();
     }
 
     public static void removeCompany(String name) {
+        session.beginTransaction();
         session.createQuery("DELETE FROM Company WHERE name = :name").setParameter("name", name).executeUpdate();
+        session.getTransaction().commit();
     }
 
     public static List<Sender> getMails() {
-        return session.createQuery("FROM Sender s WHERE s.event.idEvent = :eventId", Sender.class)
+        session.beginTransaction();
+        final var result = session.createQuery("FROM Sender s WHERE s.event.idEvent = :eventId", Sender.class)
                 .setParameter("eventId", SetupWindowController.IdEvent)
                 .getResultList();
+        session.getTransaction().commit();
+        return result;
     }
 
     public static void closeConnection() {

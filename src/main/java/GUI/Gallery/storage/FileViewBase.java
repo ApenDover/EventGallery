@@ -79,7 +79,7 @@ public class FileViewBase {
 
     private static void findFolderContent(File[] files) {
         for (File file : files) {
-            if (file.getName().charAt(0) != '.' && file.isDirectory() && !file.getName().equals("config.json")) //берем только нужные
+            if (file.getName().charAt(0) != '.' && !file.isDirectory() && !file.getName().equals("config.json")) //берем только нужные
             {
                 String fileName = file.getName().substring(0, file.getName().lastIndexOf('.'));
                 String fileFormat = file.getName().substring(file.getName().lastIndexOf('.') + 1);
