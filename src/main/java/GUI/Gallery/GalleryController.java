@@ -170,10 +170,10 @@ public class GalleryController implements Initializable {
          *  Если добавились файлы, то определяем конкретные и их тип,
          *  а далее отправляем на ресайз + сразу сделаем им imageView
          * */
-        if ((FileViewBase.getFilesMovieSrc().size() + FileViewBase.getFileTreeSet().size()) > FileViewBase.getNamesFilesDst().size()) {
+        if ((FileViewBase.getAllMovieOriginalFilePath().size() + FileViewBase.getAllImgOriginalFilePath().size()) > FileViewBase.getAllNamesPreviewResized().size()) {
 
-            TreeSet<String> namesWithoutResize = new TreeSet<>(FileViewBase.getStringTreeSet());
-            namesWithoutResize.removeAll(FileViewBase.getNamesFilesDst());
+            TreeSet<String> namesWithoutResize = new TreeSet<>(FileViewBase.getAllOriginalFileNames());
+            namesWithoutResize.removeAll(FileViewBase.getAllNamesPreviewResized());
             TreeSet<File> filesImageWithoutResize = new TreeSet<>();
             TreeSet<File> filesMovieWithoutResize = new TreeSet<>();
             namesWithoutResize.parallelStream().forEach(s -> {
@@ -264,10 +264,10 @@ public class GalleryController implements Initializable {
          *  Если удалили из источника какой-то файл находим конкретный,
          *  удаляем ресайз и плашку
          * */
-        if ((FileViewBase.getStringTreeSet().size()) < FileViewBase.getNamesFilesDst().size()) {
-            TreeSet<String> deletedFilesName = new TreeSet<>(FileViewBase.getNamesFilesDst());
+        if ((FileViewBase.getAllOriginalFileNames().size()) < FileViewBase.getAllNamesPreviewResized().size()) {
+            TreeSet<String> deletedFilesName = new TreeSet<>(FileViewBase.getAllNamesPreviewResized());
             ArrayList<ImageView> nodeForDelete = new ArrayList<>();
-            deletedFilesName.removeAll(FileViewBase.getStringTreeSet());
+            deletedFilesName.removeAll(FileViewBase.getAllOriginalFileNames());
             deletedFilesName.forEach(s -> {
                 File file = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + s + ".jpg");
                 file.delete();
@@ -325,12 +325,12 @@ public class GalleryController implements Initializable {
          * */
         if ((SettingsLoader.isByAddTime()) && (SettingsLoader.isNewDown())) {
             if (Objects.nonNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
-                    if (NodeBase.getImageViewLinkedHashConteiner().size() == FileViewBase.getNamesFilesDst().size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                    if (NodeBase.getImageViewLinkedHashConteiner().size() == FileViewBase.getAllNamesPreviewResized().size()) {
                         NodeBase.getImageViewLinkedHashConteiner().forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
+                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
                         NodeBase.getImageViewLinkedHashConteiner().forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }
@@ -341,12 +341,12 @@ public class GalleryController implements Initializable {
             Collections.reverse(setReversed);
 
             if (Objects.nonNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
-                    if (setReversed.size() == FileViewBase.getNamesFilesDst().size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                    if (setReversed.size() == FileViewBase.getAllNamesPreviewResized().size()) {
                         setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
+                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
                         setReversed.clear();
                         setReversed.addAll(NodeBase.getImageViewLinkedHashConteiner());
                         Collections.reverse(setReversed);
@@ -359,12 +359,12 @@ public class GalleryController implements Initializable {
         }
         if (SettingsLoader.isByName()) {
             if (Objects.isNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.getNamesFilesDst().size()) {
-                    if (NodeBase.getImageViewTreeConteiner().size() == FileViewBase.getNamesFilesDst().size()) {
+                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                    if (NodeBase.getImageViewTreeConteiner().size() == FileViewBase.getAllNamesPreviewResized().size()) {
                         NodeBase.getImageViewTreeConteiner().forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
                     } else {
-                        FileViewBase.getNamesFilesDst().forEach(this::createImageView);
+                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
                         NodeBase.getImageViewTreeConteiner().forEach(imageView -> galleryPane.getChildren().add(imageView));
                     }
                 }

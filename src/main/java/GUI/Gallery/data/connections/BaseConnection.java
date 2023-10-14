@@ -141,7 +141,7 @@ public class BaseConnection {
     public static void setCompany(String name) {
         Company company = new Company();
         company.setName(name);
-        session.getTransaction();
+        session.beginTransaction();
         session.save(company);
         session.getTransaction().commit();
     }

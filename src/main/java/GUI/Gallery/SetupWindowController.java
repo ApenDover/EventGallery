@@ -193,17 +193,13 @@ public class SetupWindowController implements Initializable {
                     loginDB.setText(SettingsLoader.getDbLogin());
                     passwordDB.setText(SettingsLoader.getDbPassword());
                     try {
-                        if (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
+                        final var check = (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
                                 companyListView.getSelectionModel().getSelectedItem(),
-                                allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))) {
-                            startButton.disableProperty().set(false);
-                        }
-
-                        if (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                                allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))
+                                || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
                                 && EmptyChecker.isStringListValid(List.of(eventText.getText(),
-                                eventDate.getEditor().getText()))) {
-                            startButton.disableProperty().set(false);
-                        }
+                                eventDate.getEditor().getText()))));
+                        startButton.disableProperty().set(!check);
                     } catch (Exception ignored) {
                     }
                 }
@@ -311,17 +307,12 @@ public class SetupWindowController implements Initializable {
             now.forEach(event -> events.add(event.getDate().toString() + " : " + event.getDescription()));
             companyListView.getFocusModel().getFocusedItem();
             allEvents.setItems(events);
-        } catch (NullPointerException ignored) {
-        }
-        UpdateStartButtonVisible();
+            final var check = ((checkAllFields() || checkFileFields() || StringUtils.isNotBlank(pathSettings.getText()))
+                    || Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
+                    || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText())));
+            startButton.disableProperty().set(!check);
+        } catch (Exception ignored) {}
 
-    }
-
-    private void UpdateStartButtonVisible() {
-        if ((checkAllFields() || checkFileFields() || EmptyChecker.isStringListValid(List.of(pathSettings.getText(), allEvents.getSelectionModel().getSelectedItem())))
-                || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText()))) {
-            startButton.disableProperty().set(false);
-        }
     }
 
     @FXML
@@ -379,10 +370,9 @@ public class SetupWindowController implements Initializable {
         if (Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
             eventDate.getEditor().clear();
             eventText.setText("");
-            if ((StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                    || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()) && checkTextFields())) {
-                startButton.disableProperty().set(false);
-            }
+            final var check = ((StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                    || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()) && checkTextFields()));
+            startButton.disableProperty().set(!check);
         }
 
     }

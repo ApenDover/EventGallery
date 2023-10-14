@@ -15,19 +15,19 @@ import java.util.TreeSet;
 public class FileViewBase {
 
     @Getter
-    private static final Set<String> stringTreeSet = new TreeSet<>();
+    private static final Set<String> allOriginalFileNames = new TreeSet<>();
 
     @Getter
-    private static final Set<File> fileTreeSet = new TreeSet<>();
+    private static final Set<File> allImgOriginalFilePath = new TreeSet<>();
 
     @Getter
-    private static final Set<File> filesMovieSrc = new TreeSet<>();
+    private static final Set<File> allMovieOriginalFilePath = new TreeSet<>();
 
     @Getter
-    private static final Set<String> namesFilesDst = new TreeSet<>();
+    private static final Set<String> allNamesPreviewResized = new TreeSet<>();
 
     @Getter
-    private static final Set<String> allFullNamesFilesDst = new TreeSet<>();
+    private static final Set<String> allFullPathPreviewImages = new TreeSet<>();
 
     @Getter
     private static final Set<String> imgExtension = new HashSet<>(List.of("jpg", "jpeg", "png", "JPG", "JPEG", "PNG"));
@@ -43,20 +43,20 @@ public class FileViewBase {
 
     public static void init() {
         fileNamesMap.clear();
-        stringTreeSet.clear();
-        namesFilesDst.clear();
-        fileTreeSet.clear();
-        filesMovieSrc.clear();
-        allFullNamesFilesDst.clear();
+        allOriginalFileNames.clear();
+        allNamesPreviewResized.clear();
+        allImgOriginalFilePath.clear();
+        allMovieOriginalFilePath.clear();
+        allFullPathPreviewImages.clear();
 
         File[] files = new File(SettingsLoader.getSourceFolder()).listFiles(); //перебираем все файлы в srcFolder
         if (Objects.nonNull(files) && files.length > 0) {
             findFolderContent(files);
             findPreviewImages();
         }
-        getNamesFilesDst().forEach(s -> {
-            String ex = getFileNamesMap().get(s);
-            getAllFullNamesFilesDst().add(s + "." + ex);
+        allNamesPreviewResized.forEach(s -> {
+            String ex = fileNamesMap.get(s);
+            allFullPathPreviewImages.add(s + "." + ex);
         });
 
     }
@@ -64,11 +64,11 @@ public class FileViewBase {
     private static void findPreviewImages() {
         File folder = new File(SettingsLoader.getSourceFolder(), SettingsLoader.getQualityResizer()); //перебираем все файлы в dstFolder
         if (folder.exists()) {
-            File[] dstFiles = new File(SettingsLoader.getSourceFolder(), SettingsLoader.getQualityResizer()).listFiles();
-            if (Objects.nonNull(dstFiles)) {
-                for (File file : dstFiles) {
-                    if (getImgExtension().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
-                        getNamesFilesDst().add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+            File[] previewFiles = new File(SettingsLoader.getSourceFolder(), SettingsLoader.getQualityResizer()).listFiles();
+            if (Objects.nonNull(previewFiles)) {
+                for (File file : previewFiles) {
+                    if (imgExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
+                        allNamesPreviewResized.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
                     }
                 }
             }
@@ -83,14 +83,14 @@ public class FileViewBase {
             {
                 String fileName = file.getName().substring(0, file.getName().lastIndexOf('.'));
                 String fileFormat = file.getName().substring(file.getName().lastIndexOf('.') + 1);
-                getFileNamesMap().put(fileName, fileFormat);
-                getStringTreeSet().add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+                fileNamesMap.put(fileName, fileFormat);
+                allOriginalFileNames.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
 
-                if (FileViewBase.getImgExtension().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
-                    fileTreeSet.add(file);
+                if (imgExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
+                    allImgOriginalFilePath.add(file);
                 }
-                if (FileViewBase.getMovieExtension().contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
-                    filesMovieSrc.add(file);
+                if (movieExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
+                    allMovieOriginalFilePath.add(file);
                 }
             }
         }
