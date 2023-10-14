@@ -26,4 +26,6 @@ module GUI.Gallery {
     opens GUI.Gallery.storage to javafx.fxml;
     exports GUI.Gallery.mail;
     opens GUI.Gallery.mail to javafx.fxml;
+    exports GUI.Gallery.runnable;
+    opens GUI.Gallery.runnable to javafx.fxml;
 }

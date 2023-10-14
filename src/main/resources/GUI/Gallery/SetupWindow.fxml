@@ -227,7 +227,7 @@
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="174.0">
                                                     <children>
                                                         <Button fx:id="bgImageButton" mnemonicParsing="false"
-                                                                onAction="#findPicForBackGround" prefHeight="26.0"
+                                                                onAction="#findPicForBackground" prefHeight="26.0"
                                                                 prefWidth="136.0" text="Фон галереи">
                                                             <font>
                                                                 <Font size="10.0"/>
@@ -243,7 +243,7 @@
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="174.0">
                                                     <children>
                                                         <Button fx:id="bgImageButton2" mnemonicParsing="false"
-                                                                onAction="#findPicForBackGround2" prefHeight="26.0"
+                                                                onAction="#findPicForBackground2" prefHeight="26.0"
                                                                 prefWidth="136.0" text="Фон просмотра">
                                                             <font>
                                                                 <Font size="10.0"/>

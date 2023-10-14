@@ -1,9 +1,9 @@
 package GUI.Gallery;
 
-import GUI.Gallery.imageResizer.ImgScaleProcessor;
 import GUI.Gallery.data.connections.BaseConnection;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
+import GUI.Gallery.runnable.ScalePreviewImagesProcess;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.MailBase;
 import GUI.Gallery.storage.StageContainer;
@@ -48,12 +48,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.TreeSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static GUI.Gallery.data.connections.BaseConnection.getEvents;
@@ -137,7 +140,7 @@ public class SetupWindowController implements Initializable {
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
 
     @FXML
-    private Stage stage;
+    private static Stage stage;
 
     @Getter
     private static boolean resultBgImageCheck = false;
@@ -155,13 +158,15 @@ public class SetupWindowController implements Initializable {
     private static String BLUE;
 
     @Getter
-    private static int IdEvent = 0;
+    private static int idEvent = 0;
 
     @Getter
     private static Image imageForBackGround;
 
     @Getter
     private static Image imageForBackGround2;
+
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
     /**
      * Настройки
@@ -171,8 +176,7 @@ public class SetupWindowController implements Initializable {
         Platform.runLater(() -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open config.json File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("JSON", "config.json"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON", "config.json"));
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (Objects.nonNull(selectedFile)) {
                 pathSettings.setText(selectedFile.getAbsolutePath());
@@ -189,7 +193,8 @@ public class SetupWindowController implements Initializable {
                     loginDB.setText(SettingsLoader.getDbLogin());
                     passwordDB.setText(SettingsLoader.getDbPassword());
                     try {
-                        if (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(), companyListView.getSelectionModel().getSelectedItem(),
+                        if (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
+                                companyListView.getSelectionModel().getSelectedItem(),
                                 allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))) {
                             startButton.disableProperty().set(false);
                         }
@@ -232,48 +237,37 @@ public class SetupWindowController implements Initializable {
         File selectedFile = directoryChooser.showDialog(stage);
         if (Objects.nonNull(selectedFile)) {
             pathField.setText(selectedFile.getAbsolutePath());
-            startButton.disableProperty().set(checkFindPath());
+            final var check = checkAllFields() || EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(), eventText.getText()))
+                    || (StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem()));
+            startButton.disableProperty().set(!check);
         }
     }
 
     @FXML
     private void pathFieldClick() {
-        startButton.disableProperty().set(checkPathFieldClick());
+        final var check = (checkAllFields() && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem()))
+                || (checkFileFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (StringUtils.isNotBlank(pathSettings.getText()) && isCompanyListViewAllEventPersist());
+        startButton.disableProperty().set(!check);
     }
 
     @FXML
     private void folderResize() {
         if (StringUtils.isNotBlank(pathField.getText())) {
-            Thread thread = new Thread(() ->
-            {
-                File[] allFiles = new File(pathField.getText()).listFiles();
-                TreeSet<File> fileInFolder = new TreeSet<>();
-                for (File file : allFiles) {
-                    if (!(file.isDirectory()) && (file.getName().charAt(0) != '.') && (file.getName() != "config.json")) {
-                        fileInFolder.add(file);
-                    }
-                }
-                if (!fileInFolder.isEmpty()) {
-                    ImgScaleProcessor.scale(fileInFolder);
-                }
-            });
-            thread.start();
+            final var scalePreviewImagesProcess = new ScalePreviewImagesProcess(pathField);
+            executor.execute(scalePreviewImagesProcess);
+            executor.shutdown();
         }
     }
 
     @FXML
-    private void findPicForBackGround(ActionEvent event) throws FileNotFoundException {
-        colorNumber.setText("");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("background gallery Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (Objects.nonNull(selectedFile)) {
-            imageForBackGround = new Image(new FileInputStream(selectedFile));
-            bgImageCheck.setSelected(true);
-            bgImageCheck.setDisable(false);
-        }
+    private void findPicForBackground(ActionEvent event) {
+        findPic(bgImageCheck, "background gallery Image");
+    }
+
+    @FXML
+    private void findPicForBackground2(ActionEvent event) {
+        findPic(bgImageCheck2, "background sender Image");
     }
 
     public void typingColor(KeyEvent event) {
@@ -283,27 +277,12 @@ public class SetupWindowController implements Initializable {
         bgImageCheck2.setDisable(true);
     }
 
-    @FXML
-    private void findPicForBackGround2(ActionEvent event) throws FileNotFoundException {
-        colorNumber.setText("");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("background sender Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (Objects.nonNull(selectedFile)) {
-            imageForBackGround2 = new Image(new FileInputStream(selectedFile));
-            bgImageCheck2.setSelected(true);
-            bgImageCheck2.setDisable(false);
-        }
-    }
-
     /**
      * Мероприятие
      */
     @FXML
     private void addCompany() {
-        if (!(companyField.getText().equals(""))) {
+        if (StringUtils.isNotBlank(companyField.getText())) {
             BaseConnection.setCompany(companyField.getText());
             langs.add(companyField.getText());
             companyField.setText("");
@@ -325,43 +304,23 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void getEventsFromListView() {
-
         try {
-            String choose = companyListView.getFocusModel().getFocusedItem().toString();
+            String choose = companyListView.getFocusModel().getFocusedItem();
             ArrayList<Event> now = new ArrayList<>(BaseConnection.getEventsFromCompany(choose));
             ObservableList<String> events = FXCollections.observableArrayList();
-            now.forEach(event -> {
-                events.add(event.getDate().toString() + " : " + event.getDescription());
-            });
+            now.forEach(event -> events.add(event.getDate().toString() + " : " + event.getDescription()));
             companyListView.getFocusModel().getFocusedItem();
             allEvents.setItems(events);
         } catch (NullPointerException ignored) {
         }
-
-
         UpdateStartButtonVisible();
 
     }
 
     private void UpdateStartButtonVisible() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "")
-                && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "")
-                && !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "")
-                && !Objects.equals(eventDate.getEditor().getText(), "")) {
+        if ((checkAllFields() || checkFileFields() || EmptyChecker.isStringListValid(List.of(pathSettings.getText(), allEvents.getSelectionModel().getSelectedItem())))
+                || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText()))) {
             startButton.disableProperty().set(false);
-        }
-
-        if (!Objects.equals(pathSettings.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") && !Objects.equals(eventText.getText(), "")) {
-            startButton.disableProperty().set(false);
-        }
-
-        if (!Objects.equals(pathSettings.getText(), "") && allEvents.getSelectionModel().getSelectedItem() != null) {
-            startButton.disableProperty().set(false);
-        }
-
-        if (!Objects.equals(eventDate.getEditor().getText(), "") || !Objects.equals(eventDate.getEditor().getText(), null)
-                || !Objects.equals(eventText.getText(), "")) {
-            startButton.disableProperty().set(true);
         }
     }
 
@@ -372,13 +331,9 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void typeEventText() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                (!Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
-                        companyListView.getSelectionModel().getSelectedItem() != null)) {
-            startButton.disableProperty().set(false);
-        } else
-            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
+        final var check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (checkTextFields() && isCompanyListViewAllEventPersist());
+        startButton.disableProperty().set(!check);
     }
 
     /**
@@ -386,61 +341,46 @@ public class SetupWindowController implements Initializable {
      */
     @FXML
     private void passwordPressKey() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
-                companyListView.getSelectionModel().getSelectedItem() != null) {
-            startButton.disableProperty().set(false);
-        } else
-            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
+        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (checkTextFields() && EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel().getSelectedItem(),
+                companyListView.getSelectionModel().getSelectedItem(), allEvents.getSelectionModel().getSelectedItem())));
+        startButton.disableProperty().set(!check);
     }
 
     @FXML
     private void loginTyped() {
-        if ((!Objects.equals(password.getText(), "")) && (!Objects.equals(login.getText(), "")) && (!Objects.equals(subject.getText(), "")) && (!Objects.equals(text.getText(), "")) &&
-                (!Objects.equals(pathField.getText(), "")) && (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), "")) &&
-                (companyListView.getSelectionModel().getSelectedItem() != null)) {
-            startButton.disableProperty().set(false);
-        } else
-            startButton.disableProperty().set(!((!Objects.equals(password.getText(), "")) && (!Objects.equals(login.getText(), "")) && (!Objects.equals(subject.getText(), "")) && (!Objects.equals(text.getText(), "")) &&
-                    (!Objects.equals(pathField.getText(), "")) && (companyListView.getSelectionModel().getSelectedItem() != null) && (allEvents.getSelectionModel().getSelectedItem() != null)));
+        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (checkTextFields() && isCompanyListViewAllEventPersist());
+        startButton.disableProperty().set(!check);
     }
 
     @FXML
     private void subjectClick() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                (!Objects.equals(pathField.getText(), "")) && (!Objects.equals(eventText.getText(), "")) && (!Objects.equals(eventDate.getEditor().getText(), "")) &&
-                companyListView.getSelectionModel().getSelectedItem() != null) {
-            startButton.disableProperty().set(false);
-        } else
-            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
+        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (checkTextFields() && isCompanyListViewAllEventPersist());
+        startButton.disableProperty().set(!check);
     }
 
     @FXML
     private void textClick() {
-        if (!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                !Objects.equals(pathField.getText(), "") && !Objects.equals(eventText.getText(), "") && !Objects.equals(eventDate.getEditor().getText(), "") &&
-                companyListView.getSelectionModel().getSelectedItem() != null) {
-            startButton.disableProperty().set(false);
-        } else
-            startButton.disableProperty().set(!(!Objects.equals(password.getText(), "") && !Objects.equals(login.getText(), "") && !Objects.equals(subject.getText(), "") && !Objects.equals(text.getText(), "") &&
-                    !Objects.equals(pathField.getText(), "") && companyListView.getSelectionModel().getSelectedItem() != null && allEvents.getSelectionModel().getSelectedItem() != null));
+        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                || (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                || (checkTextFields() && isCompanyListViewAllEventPersist()));
+        startButton.disableProperty().set(!check);
+
+    }
+
+    private boolean isCompanyListViewAllEventPersist() {
+        return EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel().getSelectedItem(), allEvents.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
     private void allEventsClick() {
-        if (allEvents.getSelectionModel().getSelectedItem() != null) {
+        if (Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
             eventDate.getEditor().clear();
             eventText.setText("");
-
-            if ((!Objects.equals(pathSettings.getText(), "")) && (companyListView.getSelectionModel().getSelectedItem() != null)) {
-                startButton.disableProperty().set(false);
-            } else if (companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(pathField.getText(), "") &&
-                    companyListView.getSelectionModel().getSelectedItem() != null && !Objects.equals(login.getText(), "") &&
-                    !Objects.equals(password.getText(), "") && !Objects.equals(text.getText(), "") && !Objects.equals(subject.getText(), ""))
-                ;
-            {
+            if ((StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
+                    || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()) && checkTextFields())) {
                 startButton.disableProperty().set(false);
             }
         }
@@ -485,33 +425,36 @@ public class SetupWindowController implements Initializable {
          * */
 
         /** Записываем настройки в config.json */
-        SettingsLoader.saveLoad(login.getText(), password.getText(), subject.getText(), text.getText(), pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
+        SettingsLoader.saveLoad(login.getText(), password.getText(), subject.getText(), text.getText(),
+                pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
 
 
         /**
          * Заносим мероприятие в БД или определяемся к какому существующему мероприятию будут относиться данные
          * */
-        if ((!Objects.equals(eventDate.getEditor().getText(), "")) && (!Objects.equals(eventText.getText(), ""))) {
+        if (StringUtils.isNotBlank(eventDate.getEditor().getText()) && StringUtils.isNotBlank(eventText.getText())) {
             //создаем новое мероприятие
             Date date = Date.from(eventDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            setEvent(date, eventText.getText(), companyListView.getFocusModel().getFocusedItem().toString());
+            setEvent(date, eventText.getText(), companyListView.getFocusModel().getFocusedItem());
             ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
             String description = eventText.getText();
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-            java.util.Date utilDate = df.parse(eventDate.getEditor().getText());
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .appendPattern("dd.MM.yyyy")
+                    .toFormatter();
+            LocalDate localDate = LocalDate.parse(eventDate.getEditor().getText(), formatter);
+            java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
             eventArrayList.forEach(event -> {
 //                можно взять максимальное значение ключа (последний добавленый), но будем сравнивать
 //                параметры на случай ручного вмешательства в БД
                 if ((event.getDate().equals(sqlDate)) && event.getDescription().equals(description)) {
-                    IdEvent = event.getIdEvent();
+                    idEvent = event.getIdEvent();
                 }
             });
         } else {
             //если выбрали существующее мероприятие мэтчим с базой по дате и описанию, ключ запомним.
             // будем записывать ключ в таблицу sender с отправкой писем
-            String[] pole = allEvents.getSelectionModel().getSelectedItem().toString().split(" : ");
-            AtomicInteger IdEvent = new AtomicInteger();
+            String[] pole = allEvents.getSelectionModel().getSelectedItem().split(" : ");
+            AtomicInteger atomicIdEvent = new AtomicInteger();
             String description = pole[1];
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date utilDate = df.parse(pole[0]);
@@ -519,10 +462,10 @@ public class SetupWindowController implements Initializable {
             ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
             eventArrayList.forEach(event -> {
                 if ((event.getDate().equals(sqlDate)) && event.getDescription().equals(description)) {
-                    IdEvent.set(event.getIdEvent());
+                    atomicIdEvent.set(event.getIdEvent());
                 }
             });
-            SetupWindowController.IdEvent = IdEvent.get();
+            idEvent = atomicIdEvent.get();
             MailBase.getMailsFromBase().addAll(BaseConnection.getMails());
             MailBase.getMailsFromBase().forEach(sender -> MailBase.getMailStorage().add(sender.getMail()));
         }
@@ -530,7 +473,6 @@ public class SetupWindowController implements Initializable {
 /**
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
-
         SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
@@ -549,24 +491,44 @@ public class SetupWindowController implements Initializable {
         eventDate.setValue(LocalDate.now());
     }
 
-    private boolean checkFindPath() {
-        return !((EmptyChecker.isStringListValid(List.of(password.getText(),
-                login.getText(), subject.getText(), text.getText(),
-                pathField.getText(), eventText.getText(),
-                eventDate.getEditor().getText()))) || (EmptyChecker.isStringListValid(List.of(pathSettings.getText(),
-                eventDate.getEditor().getText(), eventText.getText()))) || (StringUtils.isNotBlank(pathSettings.getText())
-                && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())));
+    private void findPic(CheckBox bgImageCheck, String title) {
+        colorNumber.setText("");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (Objects.nonNull(selectedFile)) {
+            try {
+                imageForBackGround = new Image(new FileInputStream(selectedFile));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            bgImageCheck.setSelected(true);
+            bgImageCheck.setDisable(false);
+        }
     }
 
-    private boolean checkPathFieldClick() {
-        return !(EmptyChecker.isStringListValid(List.of(password.getText(),
-                login.getText(), subject.getText(), text.getText(),
-                pathField.getText(), eventText.getText(),
-                eventDate.getEditor().getText())) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
-                || (EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(),
-                eventText.getText())) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView
-                .getSelectionModel().getSelectedItem()) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())));
+    private boolean checkTextFields() {
+        return EmptyChecker.isObjectListValid(List.of(
+                password.getText(),
+                login.getText(),
+                subject.getText(),
+                text.getText(),
+                pathField.getText()));
+    }
+
+    private boolean checkFileFields() {
+        return EmptyChecker.isObjectListValid(List.of(
+                pathSettings.getText(),
+                eventDate.getEditor().getText(),
+                eventText.getText()));
+    }
+
+    private boolean checkAllFields() {
+        return checkTextFields()
+                && EmptyChecker.isStringListValid(List.of(
+                eventText.getText(),
+                eventDate.getEditor().getText()));
     }
 
 }

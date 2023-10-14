@@ -2,9 +2,7 @@ package GUI.Gallery;
 
 import GUI.Gallery.data.connections.BaseConnection;
 import GUI.Gallery.data.entity.Event;
-import GUI.Gallery.data.entity.Sender;
-import GUI.Gallery.mail.SendEmails;
-import GUI.Gallery.mail.SendProcess;
+import GUI.Gallery.runnable.SendMailProcess;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.MailBase;
@@ -197,7 +195,7 @@ public class KeyBoardController implements Initializable {
 
     private String finalText = "";
 
-    private final SendProcess sendProcess = new SendProcess();
+    private final SendMailProcess sendMailProcess = new SendMailProcess();
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -550,7 +548,7 @@ public class KeyBoardController implements Initializable {
             Event event = BaseConnection.getEventById(SetupWindowController.getIdEvent());
             BaseConnection.setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
-            executor.execute(() -> textForStatus = sendProcess.call());
+            executor.execute(() -> textForStatus = sendMailProcess.call());
             executor.shutdown();
         }
     }
