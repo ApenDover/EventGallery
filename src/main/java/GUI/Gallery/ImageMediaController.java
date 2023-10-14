@@ -366,15 +366,15 @@ public class ImageMediaController implements Initializable {
         }
 
         if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
-            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewLinkedHashConteiner());
+            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewLinkedHashContainer());
             Collections.reverse(ivlhcR);
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
         if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
-            NodeBase.getImageViewLinkedHashConteiner().forEach(i -> listAll.add(i.getId()));
+            NodeBase.getImageViewLinkedHashContainer().forEach(i -> listAll.add(i.getId()));
         }
         if (SettingsLoader.isByName()) {
-            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewTreeConteiner());
+            ArrayList<ImageView> ivlhcR = new ArrayList<>(NodeBase.getImageViewTreeContainer());
             ivlhcR.forEach(i -> listAll.add(i.getId()));
         }
         for (int i = 0; i < listAll.size(); i++) {

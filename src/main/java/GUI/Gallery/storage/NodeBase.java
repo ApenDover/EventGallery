@@ -11,10 +11,10 @@ public class NodeBase{
 
     @Getter
     @Setter
-    private static TreeSet<ImageView> imageViewTreeConteiner = new TreeSet<>(new ImageViewComparator());
+    private static TreeSet<ImageView> imageViewTreeContainer = new TreeSet<>(new ImageViewComparator());
 
     @Getter
     @Setter
-    private static LinkedHashSet<ImageView> imageViewLinkedHashConteiner = new LinkedHashSet<>();
+    private static LinkedHashSet<ImageView> imageViewLinkedHashContainer = new LinkedHashSet<>();
 }
 

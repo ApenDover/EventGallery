@@ -4,8 +4,6 @@ import GUI.Gallery.imageResizer.ImgScaleProcessor;
 import javafx.scene.control.TextField;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -20,15 +18,17 @@ public class ScalePreviewImagesProcess implements Runnable {
 
     public void run() {
         File[] allFiles = new File(pathField.getText()).listFiles();
-        List<File> fileList = List.of(allFiles);
-        TreeSet<File> fileInFolder = new TreeSet<>();
-        fileList.parallelStream().forEach(file -> {
-            if (!file.isDirectory() && file.getName().charAt(0) != '.' && !Objects.equals(file.getName(), "config.json")) {
-                fileInFolder.add(file);
+        if (Objects.nonNull(allFiles)) {
+            List<File> fileList = List.of(allFiles);
+            TreeSet<File> fileInFolder = new TreeSet<>();
+            fileList.parallelStream().forEach(file -> {
+                if (!file.isDirectory() && file.getName().charAt(0) != '.' && !Objects.equals(file.getName(), "config.json")) {
+                    fileInFolder.add(file);
+                }
+            });
+            if (!fileInFolder.isEmpty()) {
+                ImgScaleProcessor.scale(fileInFolder);
             }
-        });
-        if (!fileInFolder.isEmpty()) {
-            ImgScaleProcessor.scale(fileInFolder);
         }
     }
 }
