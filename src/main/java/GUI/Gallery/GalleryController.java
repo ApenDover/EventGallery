@@ -175,7 +175,7 @@ public class GalleryController implements Initializable {
             namesWithoutResize.removeAll(FileViewBase.getAllNamesPreviewResized());
             TreeSet<File> filesImageWithoutResize = new TreeSet<>();
             TreeSet<File> filesMovieWithoutResize = new TreeSet<>();
-            namesWithoutResize.parallelStream().forEach(s -> {
+            namesWithoutResize.forEach(s -> {
                 String ex = FileViewBase.getFileNamesMap().get(s);
                 if (FileViewBase.getMovieExtension().contains(ex)) {
                     filesMovieWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
