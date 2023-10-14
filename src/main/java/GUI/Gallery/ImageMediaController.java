@@ -78,26 +78,41 @@ public class ImageMediaController implements Initializable {
     private ArrayList<String> listAll = new ArrayList<>();
 
 
-    public void goToGallery() throws IOException {
+    public void goToGallery() {
         if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
-        Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         StageContainer.getStage().centerOnScreen();
         StageContainer.getStage().getScene().setRoot(root);
     }
 
-    public void sentToDB() throws IOException, AWTException {
+    public void sentToDB() {
         if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
         Rectangle2D r = Screen.getPrimary().getBounds();
-        Robot robot = new Robot();
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
 
-        Parent root = FXMLLoader.load(getClass().getResource("KeyBoard.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("KeyBoard.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         StageContainer.getStage().centerOnScreen();
         StageContainer.getStage().getScene().setRoot(root);
     }
