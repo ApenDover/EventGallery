@@ -112,7 +112,7 @@ public class GalleryController implements Initializable {
         }
         if (FileViewBase.getMovieExtension().contains(exFile)) {
             File mediaFile = new File(filePath);
-            Media media = null;
+            Media media;
             try {
                 media = new Media(mediaFile.toURI().toURL().toString());
             } catch (MalformedURLException e) {
@@ -124,7 +124,7 @@ public class GalleryController implements Initializable {
 
 //      создаем плитку
         ImageView imageView = new ImageView();
-        Image imagePlitka = null;
+        Image imagePlitka;
         try {
             imagePlitka = new Image(new FileInputStream(plitkaPath));
         } catch (FileNotFoundException e) {

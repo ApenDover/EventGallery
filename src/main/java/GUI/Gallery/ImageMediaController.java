@@ -82,7 +82,7 @@ public class ImageMediaController implements Initializable {
         if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         } catch (IOException e) {
@@ -97,7 +97,7 @@ public class ImageMediaController implements Initializable {
             mediaPlayer.stop();
         }
         Rectangle2D r = Screen.getPrimary().getBounds();
-        Robot robot = null;
+        Robot robot;
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -107,7 +107,7 @@ public class ImageMediaController implements Initializable {
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
 
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("KeyBoard.fxml"));
         } catch (IOException e) {
@@ -156,7 +156,7 @@ public class ImageMediaController implements Initializable {
             //слева ждет видос
             if (FileViewBase.getMovieExtension().contains(exLeft)) {
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(num - 1));
-                Media media = null;
+                Media media;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
                     difSize = (double) media.getWidth() / media.getHeight();
@@ -199,10 +199,9 @@ public class ImageMediaController implements Initializable {
                 LinkTransfer.setLink(listAll.get(listAll.size() - 1));
                 borderPane.requestLayout();
             }
-            //слева ждет видос
             if (FileViewBase.getMovieExtension().contains(exLeft)) { //слева ждет видос
                 File mediaFile = new File(SettingsLoader.getSourceFolder() + "/" + listAll.get(listAll.size() - 1));
-                Media media = null;
+                Media media;
                 try {
                     media = new Media(mediaFile.toURI().toURL().toString());
                     difSize = (double) media.getWidth() / media.getHeight();
@@ -404,7 +403,7 @@ public class ImageMediaController implements Initializable {
         BorderPane.setAlignment(imageView, Pos.CENTER);
         if (FileViewBase.getMovieExtension().contains(LinkTransfer.getLink().substring(LinkTransfer.getLink().lastIndexOf('.') + 1))) {
             File mediaFile = new File(SettingsLoader.getSourceFolder(), LinkTransfer.getLink());
-            Media media = null;
+            Media media;
             try {
                 media = new Media(mediaFile.toURI().toURL().toString());
                 difSize = (double) media.getWidth() / media.getHeight();
