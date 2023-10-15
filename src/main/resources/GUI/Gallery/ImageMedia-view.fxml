@@ -12,10 +12,10 @@
     <children>
         <BorderPane fx:id="borderPane" layoutX="10.0" layoutY="10.0" prefHeight="${mainPane.height}" prefWidth="${mainPane.width}">
             <left>
-                <Pane fx:id="imgWinLeftP" focusTraversable="true" minHeight="600.0" onKeyPressed="#NextKeyPress" onMouseClicked="#LeftPClick" prefWidth="335.0" BorderPane.alignment="CENTER" />
+                <Pane fx:id="imgWinLeftP" focusTraversable="true" minHeight="600.0" onKeyPressed="#nextKeyPress" onMouseClicked="#leftPClick" prefWidth="335.0" BorderPane.alignment="CENTER" />
             </left>
             <right>
-                <Pane fx:id="imgWinRightP" focusTraversable="true" minHeight="600.0" onKeyPressed="#NextKeyPress" onMouseClicked="#RightPClick" prefWidth="335.0" BorderPane.alignment="CENTER" />
+                <Pane fx:id="imgWinRightP" focusTraversable="true" minHeight="600.0" onKeyPressed="#nextKeyPress" onMouseClicked="#rightPClick" prefWidth="335.0" BorderPane.alignment="CENTER" />
             </right>
             <bottom>
                 <VBox fx:id="centerVbox" alignment="TOP_CENTER" prefHeight="204.0" prefWidth="1920.0" BorderPane.alignment="TOP_CENTER">

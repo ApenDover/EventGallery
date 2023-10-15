@@ -8,6 +8,7 @@ import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.MailBase;
 import GUI.Gallery.storage.StageContainer;
 import GUI.Gallery.utils.EmptyChecker;
+import GUI.Gallery.utils.FileStringConverter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -311,7 +312,8 @@ public class SetupWindowController implements Initializable {
                     || Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
                     || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText())));
             startButton.disableProperty().set(!check);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
     }
 
@@ -463,7 +465,7 @@ public class SetupWindowController implements Initializable {
 /**
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
-        SettingsLoader.setLoad(pathField.getText() + "/" + "config.json");
+        SettingsLoader.setLoad(FileStringConverter.getFilePath(pathField.getText(), "config", "json"));
         Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();

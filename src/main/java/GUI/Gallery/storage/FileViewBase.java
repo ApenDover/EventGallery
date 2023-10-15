@@ -1,6 +1,7 @@
 package GUI.Gallery.storage;
 
 import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.utils.FileStringConverter;
 import lombok.Getter;
 
 import java.io.File;
@@ -56,7 +57,7 @@ public class FileViewBase {
         }
         allNamesPreviewResized.forEach(s -> {
             String ex = fileNamesMap.get(s);
-            allFullPathPreviewImages.add(s + "." + ex);
+            allFullPathPreviewImages.add(FileStringConverter.getNameWithEx(s, ex));
         });
 
     }
@@ -67,8 +68,8 @@ public class FileViewBase {
             File[] previewFiles = new File(SettingsLoader.getSourceFolder(), SettingsLoader.getQualityResizer()).listFiles();
             if (Objects.nonNull(previewFiles)) {
                 for (File file : previewFiles) {
-                    if (imgExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
-                        allNamesPreviewResized.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+                    if (imgExtension.contains(FileStringConverter.getExtension(file))) {
+                        allNamesPreviewResized.add(FileStringConverter.getName(file));
                     }
                 }
             }
@@ -81,15 +82,16 @@ public class FileViewBase {
         for (File file : files) {
             if (file.getName().charAt(0) != '.' && !file.isDirectory() && !file.getName().equals("config.json")) //берем только нужные
             {
-                String fileName = file.getName().substring(0, file.getName().lastIndexOf('.'));
-                String fileFormat = file.getName().substring(file.getName().lastIndexOf('.') + 1);
+                String fileName = FileStringConverter.getName(file);
+                String fileFormat = FileStringConverter.getExtension(file);
                 fileNamesMap.put(fileName, fileFormat);
-                allOriginalFileNames.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+                fileNamesMap.put(fileName, fileFormat);
+                allOriginalFileNames.add(FileStringConverter.getName(file));
 
-                if (imgExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
+                if (imgExtension.contains(FileStringConverter.getExtension(file))) {
                     allImgOriginalFilePath.add(file);
                 }
-                if (movieExtension.contains(file.getName().substring(file.getName().lastIndexOf('.') + 1))) {
+                if (movieExtension.contains(FileStringConverter.getExtension(file))) {
                     allMovieOriginalFilePath.add(file);
                 }
             }
