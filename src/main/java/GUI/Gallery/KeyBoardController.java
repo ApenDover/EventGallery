@@ -1,6 +1,6 @@
 package GUI.Gallery;
 
-import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.data.dao.baseDAO;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.runnable.SendMailProcess;
 import GUI.Gallery.setUp.SettingsLoader;
@@ -545,8 +545,8 @@ public class KeyBoardController implements Initializable {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
             MailBase.getMailStorage().add(mail.toLowerCase());
-            Event event = BaseConnection.getEventById(SetupWindowController.getIdEvent());
-            BaseConnection.setSender(mail.toLowerCase(), imagePath, event);
+            Event event = baseDAO.getEventById(SetupWindowController.getIdEvent());
+            baseDAO.setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
             executor.execute(() -> textForStatus = sendMailProcess.call());
             executor.shutdown();

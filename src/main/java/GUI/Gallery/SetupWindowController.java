@@ -1,6 +1,6 @@
 package GUI.Gallery;
 
-import GUI.Gallery.data.connections.BaseConnection;
+import GUI.Gallery.data.dao.baseDAO;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.runnable.ScalePreviewImagesProcess;
@@ -60,8 +60,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static GUI.Gallery.data.connections.BaseConnection.getEvents;
-import static GUI.Gallery.data.connections.BaseConnection.setEvent;
+import static GUI.Gallery.data.dao.baseDAO.getEvents;
+import static GUI.Gallery.data.dao.baseDAO.setEvent;
 
 public class SetupWindowController implements Initializable {
 
@@ -214,10 +214,10 @@ public class SetupWindowController implements Initializable {
     public void connectToDB() {
         companyListView.getItems().clear();
         try {
-            BaseConnection.openConnection(loginDB.getText(), passwordDB.getText());
+            baseDAO.openConnection(loginDB.getText(), passwordDB.getText());
             connectLabel.setText("SUCCESS");
             connectLabel.setVisible(true);
-            ArrayList<Company> companies = new ArrayList<>(BaseConnection.getCompany());
+            ArrayList<Company> companies = new ArrayList<>(baseDAO.getCompany());
             companies.forEach(company -> langs.add(company.getName()));
             companyListView.setItems(langs);
         } catch (Exception e) {
@@ -280,7 +280,7 @@ public class SetupWindowController implements Initializable {
     @FXML
     private void addCompany() {
         if (StringUtils.isNotBlank(companyField.getText())) {
-            BaseConnection.setCompany(companyField.getText());
+            baseDAO.setCompany(companyField.getText());
             langs.add(companyField.getText());
             companyField.setText("");
             companyField.setFocusTraversable(false);
@@ -291,7 +291,7 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void removeCompany() {
-        BaseConnection.removeCompany(companyField.getText());
+        baseDAO.removeCompany(companyField.getText());
         langs.remove(companyField.getText());
         companyField.setText("");
         companyField.setFocusTraversable(false);
@@ -303,7 +303,7 @@ public class SetupWindowController implements Initializable {
     private void getEventsFromListView() {
         try {
             String choose = companyListView.getFocusModel().getFocusedItem();
-            ArrayList<Event> now = new ArrayList<>(BaseConnection.getEventsFromCompany(choose));
+            ArrayList<Event> now = new ArrayList<>(baseDAO.getEventsFromCompany(choose));
             ObservableList<String> events = FXCollections.observableArrayList();
             now.forEach(event -> events.add(event.getDate().toString() + " : " + event.getDescription()));
             companyListView.getFocusModel().getFocusedItem();
@@ -458,7 +458,7 @@ public class SetupWindowController implements Initializable {
                 }
             });
             idEvent = atomicIdEvent.get();
-            MailBase.getMailsFromBase().addAll(BaseConnection.getMails());
+            MailBase.getMailsFromBase().addAll(baseDAO.getMails());
             MailBase.getMailsFromBase().forEach(sender -> MailBase.getMailStorage().add(sender.getMail()));
         }
 
