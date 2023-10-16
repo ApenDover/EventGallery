@@ -102,7 +102,7 @@ public class GalleryController implements Initializable {
 
 //      нужны размеры оригинального изображения чтобы создать плитку нужного размера
         if (FileViewBase.getImgExtension().contains(exFile)) {
-            Image imageOriginal = null;
+            Image imageOriginal;
             try {
                 imageOriginal = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e) {
@@ -123,7 +123,6 @@ public class GalleryController implements Initializable {
             fileH = media.getHeight();
         }
 
-//      создаем плитку
         ImageView imageView = new ImageView();
         Image imagePlitka;
         try {
@@ -304,7 +303,7 @@ public class GalleryController implements Initializable {
         /**
          * добавляем плашки при первой загрузке и перезагрузке
          * */
-        if ((SettingsLoader.isByAddTime()) && (SettingsLoader.isNewDown()) && (Objects.nonNull(galleryPane))) {
+        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown() && Objects.nonNull(galleryPane)) {
             if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
                 if (NodeBase.getImageViewLinkedHashContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
                     NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
@@ -321,7 +320,9 @@ public class GalleryController implements Initializable {
             Collections.reverse(setReversed);
 
             if (Objects.nonNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                final var t = galleryPane.getChildren().size();
+                final var s = FileViewBase.getAllNamesPreviewResized().size();
+//                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
                     if (setReversed.size() == FileViewBase.getAllNamesPreviewResized().size()) {
                         setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
@@ -334,7 +335,7 @@ public class GalleryController implements Initializable {
                         Main.start = false;
                     }
                     galleryPane.requestLayout();
-                }
+//                }
             }
         }
         if (SettingsLoader.isByName() && (Objects.isNull(galleryPane))) {

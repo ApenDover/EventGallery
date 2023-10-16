@@ -8,19 +8,13 @@ import javafx.scene.image.ImageView;
 
 public class PictureBuilder {
 
-    private final ImageView imageView;
-
-    public PictureBuilder(ImageView imageView) {
-        this.imageView = imageView;
+    public ImageView buildImageView(String file) {
+        return createPictureImageView(file);
     }
 
-    public void buildImageView(String file) {
-        createPictureImageView(file);
-        LinkTransfer.setLink(file);
-    }
-
-    public void createPictureImageView(String file) {
+    public ImageView createPictureImageView(String file) {
         Image image = new Image(FileStringConverter.getFileInputString(SettingsLoader.getSourceFolder(), file));
+        ImageView imageView = new ImageView();
         imageView.setImage(image);
         final var difSize = image.getWidth() / image.getHeight();
         if (difSize > 1) {
@@ -31,6 +25,7 @@ public class PictureBuilder {
             imageView.setFitHeight(800);
         }
         imageView.setId(file);
+        return imageView;
     }
 
 }

@@ -23,18 +23,18 @@ public class ImgScaleProcessor {
         File fileDst = new File(SettingsLoader.getQualityResizeFolder());
         fileDst.mkdir();
 
-        imgFiles.parallelStream().forEach(file -> {
+        imgFiles.forEach(file -> {
             try {
                 if (file.getAbsolutePath().endsWith(".jpg")) {
                     BufferedImage image = ImageIO.read(file);
                     if (Objects.nonNull(image)) {
-                        BufferedImage newImage;
-                        newImage = Scalr.resize(image, newWidth);
+                        BufferedImage newImage = Scalr.resize(image, newWidth);
                         File newFile = new File(SettingsLoader.getQualityResizeFolder(), file.getName());
                         ImageIO.write(newImage, "jpg", newFile);
                     }
                 }
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

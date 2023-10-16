@@ -1,9 +1,7 @@
 package GUI.Gallery;
 
 import GUI.Gallery.imageResizer.ImageDarkProcessor;
-import GUI.Gallery.imageViewProcess.MovieBuilder;
 import GUI.Gallery.imageViewProcess.NextImageProcessor;
-import GUI.Gallery.imageViewProcess.PictureBuilder;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.storage.FileViewBase;
 import GUI.Gallery.storage.LinkTransfer;
@@ -13,8 +11,8 @@ import GUI.Gallery.utils.FileStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,19 +57,13 @@ public class ImageMediaController implements Initializable {
     @Getter
     private static Image image;
 
-    private final ImageView imageView = new ImageView();
-
-    private MediaView mediaView;
-
-    private MediaPlayer mediaPlayer;
-
     private final ArrayList<String> allGalleryImageView = new ArrayList<>();
 
     private NextImageProcessor nextImageProcessor;
 
 
     public void goToGallery() {
-        stopMediaPlayer();
+        borderPane.setCenter(null);
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
@@ -83,7 +75,7 @@ public class ImageMediaController implements Initializable {
     }
 
     public void sentToDB() {
-        stopMediaPlayer();
+        borderPane.setCenter(null);
         Rectangle2D r = Screen.getPrimary().getBounds();
         Robot robot;
         try {
@@ -94,7 +86,6 @@ public class ImageMediaController implements Initializable {
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
-
         try {
             StageContainer.getStage().getScene().setRoot(FXMLLoader.load(getClass().getResource("KeyBoard.fxml")));
         } catch (IOException e) {
@@ -104,17 +95,11 @@ public class ImageMediaController implements Initializable {
     }
 
     public void leftPClick() {
-        stopMediaPlayer();
-        nextImageProcessor.secondImage(false, allGalleryImageView);
-        borderPane.setCenter(imageView);
-        borderPane.requestLayout();
+        buildNextNode(false);
     }
 
     public void rightPClick() {
-        stopMediaPlayer();
-        nextImageProcessor.secondImage(true, allGalleryImageView);
-        borderPane.setCenter(imageView);
-        borderPane.requestLayout();
+        buildNextNode(true);
     }
 
     public void nextKeyPress(KeyEvent keyEvent) {
@@ -128,45 +113,58 @@ public class ImageMediaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nextImageProcessor = new NextImageProcessor(imageView, mediaView);
-        if (SetupWindowController.isResultBgImageCheck2()) {
-            mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.getImageForBackGround2(),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        }
-        if (List.of(6, 7).contains(colorNumber.length())) {
-            mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
-        } else {
-            mainPane.setStyle("-fx-background: rgb(20,20,30);");
-        }
+        try {
+            nextImageProcessor = new NextImageProcessor();
+            if (SetupWindowController.isResultBgImageCheck2()) {
+                mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.getImageForBackGround2(),
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+            }
+            if (List.of(6, 7).contains(colorNumber.length())) {
+                mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
+            } else {
+                mainPane.setStyle("-fx-background: rgb(20,20,30);");
+            }
 
-        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
-            ArrayList<ImageView> allImageView = new ArrayList<>(NodeBase.getImageViewLinkedHashContainer());
-            Collections.reverse(allImageView);
-            allImageView.forEach(iv -> this.allGalleryImageView.add(iv.getId()));
-        }
-        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
-            NodeBase.getImageViewLinkedHashContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
-        }
-        if (SettingsLoader.isByName()) {
-            NodeBase.getImageViewTreeContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
-        }
+            if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
+                ArrayList<ImageView> allImageView = new ArrayList<>(NodeBase.getImageViewLinkedHashContainer());
+                Collections.reverse(allImageView);
+                allImageView.forEach(iv -> this.allGalleryImageView.add(iv.getId()));
+            }
+            if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
+                NodeBase.getImageViewLinkedHashContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
+            }
+            if (SettingsLoader.isByName()) {
+                NodeBase.getImageViewTreeContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
+            }
 
-        if (FileViewBase.getImgExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
-            nextImageProcessor.createImage(LinkTransfer.getLink());
-            borderPane.setCenter(imageView);
-            borderPane.requestLayout();
-        }
-        BorderPane.setAlignment(imageView, Pos.CENTER);
-        if (FileViewBase.getMovieExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
-            nextImageProcessor.createMovie(LinkTransfer.getLink());
-            borderPane.setCenter(imageView);
-            borderPane.requestLayout();
+            if (FileViewBase.getImgExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
+                ImageView imageView = nextImageProcessor.createImage(LinkTransfer.getLink());
+                setCenterNode(imageView);
+            }
+            if (FileViewBase.getMovieExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
+                MediaView mediaView = nextImageProcessor.createMovie(LinkTransfer.getLink());
+                setCenterNode(mediaView);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void stopMediaPlayer() {
+    private String buildNextNode(boolean target) {
+        borderPane.setCenter(null);
+        Node node = nextImageProcessor.secondImage(target, allGalleryImageView);
+        setCenterNode(node);
+        return node.getId();
+    }
+
+    private void setCenterNode(Node node) {
+        borderPane.setCenter(node);
+        borderPane.requestLayout();
+    }
+
+    private void stopMediaPlayer(MediaPlayer mediaPlayer) {
         if (Objects.nonNull(mediaPlayer)) {
             mediaPlayer.stop();
         }
