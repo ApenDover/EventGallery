@@ -177,10 +177,10 @@ public class GalleryController implements Initializable {
             namesWithoutResize.forEach(s -> {
                 String ex = FileViewBase.getFileNamesMap().get(s);
                 if (FileViewBase.getMovieExtension().contains(ex)) {
-                    filesMovieWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s ,ex));
+                    filesMovieWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s, ex));
                 }
                 if (FileViewBase.getImgExtension().contains(ex)) {
-                    filesImageWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s ,ex));
+                    filesImageWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s, ex));
                 }
             });
             if (!filesImageWithoutResize.isEmpty()) {
@@ -245,7 +245,7 @@ public class GalleryController implements Initializable {
          *  Если удалили из источника какой-то файл находим конкретный,
          *  удаляем ресайз и плашку
          * */
-        if ((FileViewBase.getAllOriginalFileNames().size()) < FileViewBase.getAllNamesPreviewResized().size()) {
+        if (FileViewBase.getAllOriginalFileNames().size() < FileViewBase.getAllNamesPreviewResized().size()) {
             TreeSet<String> deletedFilesName = new TreeSet<>(FileViewBase.getAllNamesPreviewResized());
             ArrayList<ImageView> nodeForDelete = new ArrayList<>();
             deletedFilesName.removeAll(FileViewBase.getAllOriginalFileNames());
@@ -298,12 +298,15 @@ public class GalleryController implements Initializable {
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
+
+        File dirResize = new File(SettingsLoader.getQualityResizeFolder());
+        dirResize.mkdir();
         FileViewBase.init();
 
         /**
          * добавляем плашки при первой загрузке и перезагрузке
          * */
-        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown() && Objects.nonNull(galleryPane)) {
+        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
             if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
                 if (NodeBase.getImageViewLinkedHashContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
                     NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
@@ -318,54 +321,45 @@ public class GalleryController implements Initializable {
         if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
             ArrayList<Node> setReversed = new ArrayList<>(NodeBase.getImageViewLinkedHashContainer());
             Collections.reverse(setReversed);
-
-            if (Objects.nonNull(galleryPane)) {
-                final var t = galleryPane.getChildren().size();
-                final var s = FileViewBase.getAllNamesPreviewResized().size();
-//                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
-                    if (setReversed.size() == FileViewBase.getAllNamesPreviewResized().size()) {
-                        setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
-                        galleryPane.requestLayout();
-                    } else {
-                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
-                        setReversed.clear();
-                        setReversed.addAll(NodeBase.getImageViewLinkedHashContainer());
-                        Collections.reverse(setReversed);
-                        setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
-                        Main.start = false;
-                    }
-                    galleryPane.requestLayout();
-//                }
+            if (setReversed.size() == FileViewBase.getAllNamesPreviewResized().size()) {
+                setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
+                galleryPane.requestLayout();
+            } else {
+                FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
+                setReversed.clear();
+                setReversed.addAll(NodeBase.getImageViewLinkedHashContainer());
+                Collections.reverse(setReversed);
+                setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
+                Main.start = false;
+            }
+            galleryPane.requestLayout();
+        }
+        if (SettingsLoader.isByName() && (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size())) {
+            if (NodeBase.getImageViewTreeContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
+                NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
+                galleryPane.requestLayout();
+            } else {
+                FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
+                NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
             }
         }
-        if (SettingsLoader.isByName() && (Objects.isNull(galleryPane))) {
-            if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
-                if (NodeBase.getImageViewTreeContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
-                    NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                    galleryPane.requestLayout();
-                } else {
-                    FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
-                    NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                }
-            }
-
-        }
-
-
-        /**
-         *  запускаем поток мониторинга папки каждые N секунд
-         *  */
-        fiveSecondsWonder = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        event -> {
-                            try {
-                                repeated();
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }));
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
     }
+
+
+    /**
+     *  запускаем поток мониторинга папки каждые N секунд
+     *  */
+//        fiveSecondsWonder = new Timeline(
+//                new KeyFrame(Duration.seconds(1),
+//                        event -> {
+//                            try {
+//                                repeated();
+//                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }));
+//        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+//        fiveSecondsWonder.play();
+//    }
 
 }
