@@ -24,7 +24,6 @@ public class VideoResizerJpg {
             try (final var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
                 fFmpegFrameGrabber.start();
                 Frame frame = fFmpegFrameGrabber.grabImage();
-
                 targetFilePath = getImagePath(filePath);
                 doExecuteFrame(frame, targetFilePath, newWidth, videoSign);
             } catch (IOException e) {

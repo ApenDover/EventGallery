@@ -9,13 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="load bag fix">
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring">
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/MovieBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +31,7 @@
       <list>
         <option value="Kotlin Class" />
         <option value="FxmlFile" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -34,7 +39,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="f92824bc25c1519a010ce80ea1454b6a48e9c895" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,20 +82,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.12180269&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.27394208&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "extract.method.default.visibility": "private",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.12180269",
+    "project.structure.side.proportion": "0.27394208",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -106,10 +114,16 @@
       <recent name="$PROJECT_DIR$/Images" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="GUI.Gallery" />
       <recent name="" />
       <recent name="com.example.guisender" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="GUI.Gallery.utils" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -119,26 +133,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="ImageBrightener" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Storage.ImageBrightener" />
-      <module name="GUISender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Main" />
       <module name="GallerySender" />
-      <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
+          <option name="PATTERN" value="GUI.Gallery.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -159,46 +159,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SuperMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.SuperMain" />
-      <module name="GUISender" />
-      <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=org.controlsfx.controls -Dcom.sun.javafx.vk.adjustwindow=true" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="please" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Storage.please" />
-      <module name="GUISender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="psp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Storage.psp" />
-      <module name="GUISender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.storage.FileViewBase" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in GUISender" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="GUISender" />
       <option name="PACKAGE_NAME" value="" />
@@ -210,25 +170,91 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FileStringConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GallerySender" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.Gallery.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
+      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileStringConverterTest.getFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GallerySender" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.Gallery.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
+      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
+      <option name="METHOD_NAME" value="getFile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileStringConverterTest.getFilePath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GallerySender" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.Gallery.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
+      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
+      <option name="METHOD_NAME" value="getFilePath" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileStringConverterTest.getNameWithEx" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="GallerySender" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.Gallery.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
+      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
+      <option name="METHOD_NAME" value="getNameWithEx" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Application.SuperMain" />
-      <item itemvalue="Application.ImageBrightener" />
-      <item itemvalue="Application.please" />
-      <item itemvalue="Application.psp" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.All in GUISender" />
+      <item itemvalue="JUnit.FileStringConverterTest" />
+      <item itemvalue="JUnit.FileStringConverterTest.getFile" />
+      <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
+      <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.psp" />
-        <item itemvalue="Application.please" />
-        <item itemvalue="Application.ImageBrightener" />
-        <item itemvalue="Application.SuperMain" />
+        <item itemvalue="JUnit.FileStringConverterTest" />
+        <item itemvalue="JUnit.FileStringConverterTest.getFile" />
+        <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
+        <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="" />
@@ -256,6 +282,7 @@
       <workItem from="1686498822139" duration="4568000" />
       <workItem from="1696951357566" duration="1551000" />
       <workItem from="1696975141144" duration="6472000" />
+      <workItem from="1697320386536" duration="24643000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -299,13 +326,56 @@
       <option name="project" value="LOCAL" />
       <updated>1697214265132</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactoring info fix">
+      <created>1697318921893</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697318921893</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refactoring info fix">
+      <created>1697320535436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697320535436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="refactoring">
+      <created>1697357920136</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697357920136</updated>
+    </task>
+    <task id="LOCAL-00010" summary="refactoring">
+      <created>1697407146946</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1697407146946</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -319,35 +389,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix gallery center image" />
     <MESSAGE value="start refactoring" />
-    <MESSAGE value="refactoring" />
     <MESSAGE value="load bag fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="load bag fix" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
-          <line>442</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
-          <line>437</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
-          <line>450</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java</url>
-          <line>440</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="refactoring info fix" />
+    <MESSAGE value="refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

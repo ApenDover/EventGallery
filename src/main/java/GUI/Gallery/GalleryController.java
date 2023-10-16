@@ -6,6 +6,7 @@ import GUI.Gallery.storage.FileViewBase;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.NodeBase;
 import GUI.Gallery.storage.StageContainer;
+import GUI.Gallery.utils.FileStringConverter;
 import GUI.Gallery.videoResizer.VideoResizerJpg;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -92,16 +93,16 @@ public class GalleryController implements Initializable {
      * Создаем новые ImageView - плашки
      */
     private void createImageView(String fileName) {
-        String plitkaPath = SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + fileName + ".jpg";
+        String plitkaPath = FileStringConverter.getFilePath(SettingsLoader.getQualityResizeFolder(), fileName, "jpg");
         String exFile = FileViewBase.getFileNamesMap().get(fileName);
-        String filePath = SettingsLoader.getSourceFolder() + "/" + fileName + "." + exFile;
+        String filePath = FileStringConverter.getFilePath(SettingsLoader.getSourceFolder(), fileName, exFile);
 
         double fileW = 0;
         double fileH = 0;
 
 //      нужны размеры оригинального изображения чтобы создать плитку нужного размера
         if (FileViewBase.getImgExtension().contains(exFile)) {
-            Image imageOriginal = null;
+            Image imageOriginal;
             try {
                 imageOriginal = new Image(new FileInputStream(filePath));
             } catch (FileNotFoundException e) {
@@ -122,7 +123,6 @@ public class GalleryController implements Initializable {
             fileH = media.getHeight();
         }
 
-//      создаем плитку
         ImageView imageView = new ImageView();
         Image imagePlitka;
         try {
@@ -137,8 +137,8 @@ public class GalleryController implements Initializable {
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                LinkTransfer.setLink(imageView.getId());
-                goToImage();
+            LinkTransfer.setLink(imageView.getId());
+            goToImage();
         });
         if (SettingsLoader.isByAddTime()) {
             AtomicBoolean k = new AtomicBoolean(true);
@@ -160,7 +160,7 @@ public class GalleryController implements Initializable {
      */
     private void repeated() {
 
-        File dirResize = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer());
+        File dirResize = new File(SettingsLoader.getQualityResizeFolder());
         dirResize.mkdir();
         FileViewBase.init();
 
@@ -177,10 +177,10 @@ public class GalleryController implements Initializable {
             namesWithoutResize.forEach(s -> {
                 String ex = FileViewBase.getFileNamesMap().get(s);
                 if (FileViewBase.getMovieExtension().contains(ex)) {
-                    filesMovieWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
+                    filesMovieWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s ,ex));
                 }
                 if (FileViewBase.getImgExtension().contains(ex)) {
-                    filesImageWithoutResize.add(new File(SettingsLoader.getSourceFolder() + "/" + s + "." + ex));
+                    filesImageWithoutResize.add(FileStringConverter.getFile(SettingsLoader.getSourceFolder(), s ,ex));
                 }
             });
             if (!filesImageWithoutResize.isEmpty()) {
@@ -198,7 +198,7 @@ public class GalleryController implements Initializable {
                 NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> {  //для каждой ноды
                     namesWithoutResize.forEach(s -> {  // перебираем список новых имен
                         String ex = FileViewBase.getFileNamesMap().get(s); // у имени находим расширение
-                        String fileName = s + "." + ex; //и сам файл
+                        String fileName = FileStringConverter.getNameWithEx(s, ex); //и сам файл
                         if (fileName.equals(imageView.getId())) // если имя совпало с ID ноды
                         {
                             galleryPane.getChildren().add(imageView); //добавляем ноду в галлерею
@@ -213,8 +213,7 @@ public class GalleryController implements Initializable {
                 LinkedHashSet<Node> linkedHashImageViewReverse = new LinkedHashSet<>(listFromLinkedHashForReverse);
                 linkedHashImageViewReverse.forEach(imageView -> namesWithoutResize.forEach(s -> {
                     String ex = FileViewBase.getFileNamesMap().get(s);
-                    String fileName = s + "." + ex;
-                    if (fileName.equals(imageView.getId())) {
+                    if (FileStringConverter.getNameWithEx(s, ex).equals(imageView.getId())) {
                         if (Main.start) {
                             galleryPane.getChildren().add(imageView);
                         } else {
@@ -232,7 +231,7 @@ public class GalleryController implements Initializable {
                     i.incrementAndGet();
                     namesWithoutResize.forEach(s -> {
                         String ex = FileViewBase.getFileNamesMap().get(s);
-                        String fileName = s + "." + ex;
+                        String fileName = FileStringConverter.getNameWithEx(s, ex);
                         if (fileName.equals(imageView.getId())) {
                             galleryPane.getChildren().add(i.get() - 1, imageView);
                         }
@@ -251,8 +250,7 @@ public class GalleryController implements Initializable {
             ArrayList<ImageView> nodeForDelete = new ArrayList<>();
             deletedFilesName.removeAll(FileViewBase.getAllOriginalFileNames());
             deletedFilesName.forEach(s -> {
-                File file = new File(SettingsLoader.getSourceFolder() + "/" + SettingsLoader.getQualityResizer() + "/" + s + ".jpg");
-                file.delete();
+                FileStringConverter.getFile(SettingsLoader.getQualityResizeFolder(), s, "jpg").delete();
                 galleryPane.getChildren().forEach(node -> {
                     if (node.getId().startsWith(s)) {
                         nodeForDelete.add((ImageView) node);
@@ -305,16 +303,16 @@ public class GalleryController implements Initializable {
         /**
          * добавляем плашки при первой загрузке и перезагрузке
          * */
-        if ((SettingsLoader.isByAddTime()) && (SettingsLoader.isNewDown()) && (Objects.nonNull(galleryPane))) {
-                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
-                    if (NodeBase.getImageViewLinkedHashContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
-                        NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                        galleryPane.requestLayout();
-                    } else {
-                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
-                        NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                    }
+        if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown() && Objects.nonNull(galleryPane)) {
+            if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                if (NodeBase.getImageViewLinkedHashContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
+                    NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
+                    galleryPane.requestLayout();
+                } else {
+                    FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
+                    NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
                 }
+            }
 
         }
         if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
@@ -322,7 +320,9 @@ public class GalleryController implements Initializable {
             Collections.reverse(setReversed);
 
             if (Objects.nonNull(galleryPane)) {
-                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                final var t = galleryPane.getChildren().size();
+                final var s = FileViewBase.getAllNamesPreviewResized().size();
+//                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
                     if (setReversed.size() == FileViewBase.getAllNamesPreviewResized().size()) {
                         setReversed.forEach(imageView -> galleryPane.getChildren().add(imageView));
                         galleryPane.requestLayout();
@@ -335,19 +335,19 @@ public class GalleryController implements Initializable {
                         Main.start = false;
                     }
                     galleryPane.requestLayout();
-                }
+//                }
             }
         }
         if (SettingsLoader.isByName() && (Objects.isNull(galleryPane))) {
-                if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
-                    if (NodeBase.getImageViewTreeContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
-                        NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                        galleryPane.requestLayout();
-                    } else {
-                        FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
-                        NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
-                    }
+            if (galleryPane.getChildren().size() < FileViewBase.getAllNamesPreviewResized().size()) {
+                if (NodeBase.getImageViewTreeContainer().size() == FileViewBase.getAllNamesPreviewResized().size()) {
+                    NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
+                    galleryPane.requestLayout();
+                } else {
+                    FileViewBase.getAllNamesPreviewResized().forEach(this::createImageView);
+                    NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
                 }
+            }
 
         }
 

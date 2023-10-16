@@ -1,11 +1,14 @@
 package GUI.Gallery.setUp;
 
+import GUI.Gallery.utils.FileStringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -36,6 +39,9 @@ public class SettingsLoader {
 
     @Getter
     private static String qualityResizer;
+
+    @Getter
+    private static String qualityResizeFolder;
 
     @Getter
     @Setter
@@ -72,6 +78,7 @@ public class SettingsLoader {
             String ps = (String) jsonObject.get("folderPath");
             sourceFolder = ps.replaceAll("\\\\", "");
             qualityResizer = (String) jsonObject.get("qualityResizer");
+            qualityResizeFolder = sourceFolder + "/" + qualityResizer;
             dbLogin = (String) jsonObject.get("sqlLogin");
             dbPassword = (String) jsonObject.get("sqlPassword");
         } catch (IOException | ParseException e) {
@@ -92,7 +99,7 @@ public class SettingsLoader {
         jsonObject.put("qualityResizer", qualityResizer);
         jsonObject.put("sqlLogin", sqlLogin);
         jsonObject.put("sqlPassword", sqlPassword);
-        try (FileWriter file = new FileWriter(srcPath + "/" + "config.json");) {
+        try (FileWriter file = new FileWriter(FileStringConverter.getFilePath(srcPath, "config", "json"))) {
             file.write(jsonObject.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();

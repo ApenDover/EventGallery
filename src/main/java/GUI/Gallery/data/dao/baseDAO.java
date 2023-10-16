@@ -1,4 +1,4 @@
-package GUI.Gallery.data.connections;
+package GUI.Gallery.data.dao;
 
 import GUI.Gallery.SetupWindowController;
 import GUI.Gallery.data.entity.Company;
@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BaseConnection {
+public class baseDAO {
 
-    private BaseConnection() {
+    private baseDAO() {
     }
 
     static Session session;
@@ -100,7 +100,7 @@ public class BaseConnection {
         event.setDescription(text);
         java.sql.Date sqlDate = new java.sql.Date(dateEvent.getTime());
         event.setDate(sqlDate);
-        ArrayList<Company> findCompany = new ArrayList<>(BaseConnection.getCompany());
+        ArrayList<Company> findCompany = new ArrayList<>(baseDAO.getCompany());
         findCompany.stream().filter(company -> company.getName().equals(companyName)).forEach(event::setCompany);
         session.beginTransaction();
         session.save(event);
