@@ -23,7 +23,7 @@ public class ImgScaleProcessor {
         File fileDst = new File(SettingsLoader.getQualityResizeFolder());
         fileDst.mkdir();
 
-        imgFiles.forEach(file -> {
+        imgFiles.parallelStream().forEach(file -> {
             try {
                 if (file.getAbsolutePath().endsWith(".jpg")) {
                     BufferedImage image = ImageIO.read(file);

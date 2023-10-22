@@ -16,9 +16,12 @@ import java.util.Set;
 
 public class VideoResizerJpg {
 
+    private VideoResizerJpg() {
+    }
+
     public static void getImageFromVideo(Set<File> filesToResize, int newWidth, boolean videoSign) {
 
-        for (File file : filesToResize) {
+        filesToResize.parallelStream().forEach(file -> {
             final var filePath = file.getAbsolutePath();
             String targetFilePath;
             try (final var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
@@ -29,7 +32,7 @@ public class VideoResizerJpg {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
 
     }
 
@@ -47,29 +50,29 @@ public class VideoResizerJpg {
 
     private static void doExecuteFrame(@NonNull Frame frame, String targetFilePath, int newWidth, boolean videoSign) throws IOException {
         if (Objects.nonNull(frame.image)) {
-            Java2DFrameConverter converter = new Java2DFrameConverter();
-            BufferedImage biFromMovie = converter.getBufferedImage(frame);
-            biFromMovie = Scalr.resize(biFromMovie, newWidth);
-            String filePath = targetFilePath.substring(0, targetFilePath.lastIndexOf(".")) + ".jpg";
-            File output = new File(filePath);
+            try (Java2DFrameConverter converter = new Java2DFrameConverter()) {
+                BufferedImage biFromMovie = converter.getBufferedImage(frame);
+                biFromMovie = Scalr.resize(biFromMovie, newWidth);
+                String filePath = targetFilePath.substring(0, targetFilePath.lastIndexOf(".")) + ".jpg";
+                File output = new File(filePath);
 
-            if (videoSign) {
-                BufferedImage overlay = ImageIO.read(new File("Images/WatermarkPlay.png"));
-                int w = Math.max(biFromMovie.getWidth(), overlay.getWidth());
-                int h = Math.max(biFromMovie.getHeight(), overlay.getHeight());
-                int x = (int) (biFromMovie.getWidth() - biFromMovie.getWidth() * 0.125);
-                int y = (int) (biFromMovie.getHeight() * 0.125);
-                BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-                Graphics2D g = combined.createGraphics();
-                g.drawImage(biFromMovie, 0, 0, null);
-                g.drawImage(overlay, x - 14, y - 14, null);
-                g.dispose();
-                ImageIO.write(combined, "jpg", output);
-            } else {
-                ImageIO.write(biFromMovie, "jpg", output);
+                if (videoSign) {
+                    BufferedImage overlay = ImageIO.read(new File("Images/WatermarkPlay.png"));
+                    int w = Math.max(biFromMovie.getWidth(), overlay.getWidth());
+                    int h = Math.max(biFromMovie.getHeight(), overlay.getHeight());
+                    int x = (int) (biFromMovie.getWidth() - biFromMovie.getWidth() * 0.125);
+                    int y = (int) (biFromMovie.getHeight() * 0.125);
+                    BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g = combined.createGraphics();
+                    g.drawImage(biFromMovie, 0, 0, null);
+                    g.drawImage(overlay, x - 14, y - 14, null);
+                    g.dispose();
+                    ImageIO.write(combined, "jpg", output);
+                } else {
+                    ImageIO.write(biFromMovie, "jpg", output);
+                }
             }
         }
     }
-
 
 }

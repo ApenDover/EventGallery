@@ -343,23 +343,21 @@ public class GalleryController implements Initializable {
                 NodeBase.getImageViewTreeContainer().forEach(imageView -> galleryPane.getChildren().add(imageView));
             }
         }
+
+        /**
+         *  запускаем поток мониторинга папки каждые N секунд
+         *  */
+        fiveSecondsWonder = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            try {
+                                repeated();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
+        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondsWonder.play();
     }
-
-
-    /**
-     *  запускаем поток мониторинга папки каждые N секунд
-     *  */
-//        fiveSecondsWonder = new Timeline(
-//                new KeyFrame(Duration.seconds(1),
-//                        event -> {
-//                            try {
-//                                repeated();
-//                            } catch (Exception e) {
-//                                throw new RuntimeException(e);
-//                            }
-//                        }));
-//        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-//        fiveSecondsWonder.play();
-//    }
 
 }
