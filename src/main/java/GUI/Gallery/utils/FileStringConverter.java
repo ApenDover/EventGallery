@@ -9,9 +9,9 @@ import java.io.FileNotFoundException;
 @UtilityClass
 public class FileStringConverter {
 
-    private static final String SLASH = "/";
+    private final String SLASH = "/";
 
-    private static final String POINT = ".";
+    private final String POINT = ".";
 
     public String getName(File file) {
         return file.getName().substring(0, file.getName().lastIndexOf('.'));
