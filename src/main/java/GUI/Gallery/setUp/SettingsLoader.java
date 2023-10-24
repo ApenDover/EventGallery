@@ -13,54 +13,42 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
+@Getter
+@Setter
 public class SettingsLoader {
 
     private static SettingsLoader instance;
 
-    @Getter
     private String login;
 
-    @Getter
     private String password;
 
-    @Getter
     private String dbLogin;
 
-    @Getter
     private String dbPassword;
 
-    @Getter
     private String subject;
 
-    @Getter
     private String text;
 
-    @Getter
     private String sourceFolder;
 
-    @Getter
     private String qualityResizer;
 
-    @Getter
     private String qualityResizeFolder;
 
-    @Getter
     @Setter
     private boolean byAddTime;
 
-    @Getter
     @Setter
     private boolean byName;
 
-    @Getter
     @Setter
     private boolean newUp;
 
-    @Getter
     @Setter
     private boolean newDown;
 
-    @Getter
     @Setter
     private boolean isItTouch;
 
@@ -95,7 +83,7 @@ public class SettingsLoader {
     }
 
     public void saveSettingsToJsonFile(String login, String password, String subject, String text,
-                                              String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) {
+                                       String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("login", login);
