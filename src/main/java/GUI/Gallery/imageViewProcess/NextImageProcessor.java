@@ -29,7 +29,7 @@ public class NextImageProcessor {
     }
 
     public Node secondImage(boolean target, List<String> allGalleryImageView) {
-        int num = allGalleryImageView.indexOf(LinkTransfer.getLink());
+        int num = allGalleryImageView.indexOf(LinkTransfer.getInstance().getLink());
         final String exNext;
         final int next;
         final int lastNumber;
@@ -48,21 +48,21 @@ public class NextImageProcessor {
         final String file;
         if (num != find) {
             file = allGalleryImageView.get(next);
-            LinkTransfer.setLink(file);
+            LinkTransfer.getInstance().setLink(file);
             exNext = FileStringConverter.getExtension(file);
-            if (FileViewBase.getImgExtension().contains(exNext)) {
-                LinkTransfer.setLink(file);
+            if (FileViewBase.getInstance().getImgExtension().contains(exNext)) {
+                LinkTransfer.getInstance().setLink(file);
                 return pictureBuilder.buildImageView(file);
             }
         } else {
             file = allGalleryImageView.get(lastNumber);
-            LinkTransfer.setLink(file);
+            LinkTransfer.getInstance().setLink(file);
             exNext = FileStringConverter.getExtension(file);
-            if (FileViewBase.getImgExtension().contains(exNext)) {
+            if (FileViewBase.getInstance().getImgExtension().contains(exNext)) {
                 return pictureBuilder.buildImageView(file);
             }
         }
-        if (FileViewBase.getMovieExtension().contains(exNext)) {
+        if (FileViewBase.getInstance().getMovieExtension().contains(exNext)) {
             return movieBuilder.createMovie(file);
         }
         throw new RuntimeException();

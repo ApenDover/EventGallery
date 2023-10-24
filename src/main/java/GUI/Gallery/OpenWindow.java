@@ -1,6 +1,5 @@
 package GUI.Gallery;
 
-import GUI.Gallery.storage.StageContainer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import lombok.experimental.UtilityClass;

@@ -75,8 +75,8 @@ public class ImageMediaController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        StageContainer.getStage().centerOnScreen();
-        StageContainer.getStage().getScene().setRoot(root);
+        StageContainer.getInstance().getStage().centerOnScreen();
+        StageContainer.getInstance().getStage().getScene().setRoot(root);
     }
 
     public void sentToDB() {
@@ -91,8 +91,8 @@ public class ImageMediaController implements Initializable {
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
-        StageContainer.getStage().getScene().setRoot(OpenWindow.open("KeyBoard.fxml"));
-        StageContainer.getStage().centerOnScreen();
+        StageContainer.getInstance().getStage().getScene().setRoot(OpenWindow.open("KeyBoard.fxml"));
+        StageContainer.getInstance().getStage().centerOnScreen();
     }
 
     public void leftPClick() {
@@ -123,29 +123,29 @@ public class ImageMediaController implements Initializable {
                         BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
             }
             if (List.of(6, 7).contains(colorNumber.length())) {
-                mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
+                mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed() + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
             } else {
                 mainPane.setStyle("-fx-background: rgb(20,20,30);");
             }
 
-            if (SettingsLoader.isByAddTime() && SettingsLoader.isNewUp()) {
-                ArrayList<ImageView> allImageView = new ArrayList<>(NodeBase.getImageViewLinkedHashContainer());
+            if (SettingsLoader.getInstance().isByAddTime() && SettingsLoader.getInstance().isNewUp()) {
+                ArrayList<ImageView> allImageView = new ArrayList<>(NodeBase.getInstance().getImageViewLinkedHashContainer());
                 Collections.reverse(allImageView);
                 allImageView.forEach(iv -> this.allGalleryImageView.add(iv.getId()));
             }
-            if (SettingsLoader.isByAddTime() && SettingsLoader.isNewDown()) {
-                NodeBase.getImageViewLinkedHashContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
+            if (SettingsLoader.getInstance().isByAddTime() && SettingsLoader.getInstance().isNewDown()) {
+                NodeBase.getInstance().getImageViewLinkedHashContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
             }
-            if (SettingsLoader.isByName()) {
-                NodeBase.getImageViewTreeContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
+            if (SettingsLoader.getInstance().isByName()) {
+                NodeBase.getInstance().getImageViewTreeContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
             }
 
-            if (FileViewBase.getImgExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
-                ImageView imageView = nextImageProcessor.createImage(LinkTransfer.getLink());
+            if (FileViewBase.getInstance().getImgExtension().contains(FileStringConverter.getExtension(LinkTransfer.getInstance().getLink()))) {
+                ImageView imageView = nextImageProcessor.createImage(LinkTransfer.getInstance().getLink());
                 setCenterNode(imageView);
             }
-            if (FileViewBase.getMovieExtension().contains(FileStringConverter.getExtension(LinkTransfer.getLink()))) {
-                MediaView mediaView = nextImageProcessor.createMovie(LinkTransfer.getLink());
+            if (FileViewBase.getInstance().getMovieExtension().contains(FileStringConverter.getExtension(LinkTransfer.getInstance().getLink()))) {
+                MediaView mediaView = nextImageProcessor.createMovie(LinkTransfer.getInstance().getLink());
                 setCenterNode(mediaView);
             }
         } catch (Exception e) {

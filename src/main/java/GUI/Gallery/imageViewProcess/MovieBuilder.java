@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 public class MovieBuilder {
 
     public MediaView createMovie(String file) {
-        File mediaFile = FileStringConverter.getFile(SettingsLoader.getSourceFolder(), file);
+        File mediaFile = FileStringConverter.getFile(SettingsLoader.getInstance().getSourceFolder(), file);
         Media media;
         try {
             media = new Media(mediaFile.toURI().toURL().toString());

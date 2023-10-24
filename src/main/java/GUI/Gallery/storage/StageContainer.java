@@ -5,17 +5,26 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
+@Getter
+@Setter
 public class StageContainer {
 
-    @Getter
-    @Setter
-    private static Stage stage;
+    private static StageContainer instance;
 
-    @Getter
-    @Setter
-    private static Scene scene;
+    private Stage stage;
+
+    private Scene scene;
 
     private StageContainer() {
+    }
+
+    public static StageContainer getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new StageContainer();
+        }
+        return instance;
     }
 
 }

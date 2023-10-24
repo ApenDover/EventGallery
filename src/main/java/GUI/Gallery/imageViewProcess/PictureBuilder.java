@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 public class PictureBuilder {
 
     public ImageView buildImageView(String file) {
-        Image image = new Image(FileStringConverter.getFileInputString(SettingsLoader.getSourceFolder(), file));
+        Image image = new Image(FileStringConverter.getFileInputString(SettingsLoader.getInstance().getSourceFolder(), file));
         ImageView imageView = new ImageView();
         imageView.setImage(image);
         final var difSize = image.getWidth() / image.getHeight();

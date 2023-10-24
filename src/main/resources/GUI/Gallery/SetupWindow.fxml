@@ -44,7 +44,7 @@
                                                 <Font name="System" size="13.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="pathSettings" editable="false" onKeyTyped="#pathFieldClick"
+                                        <TextField fx:id="pathSettings" editable="false" onKeyTyped="#fieldClick"
                                                    prefHeight="27.0" prefWidth="317.0" promptText="config.json">
                                             <font>
                                                 <Font name="System" size="10.0"/>
@@ -142,7 +142,7 @@
                                                 <Font name="System" size="13.0"/>
                                             </font>
                                         </Label>
-                                        <TextField fx:id="pathField" editable="false" onKeyTyped="#pathFieldClick"
+                                        <TextField fx:id="pathField" editable="false" onKeyTyped="#fieldClick"
                                                    prefHeight="27.0" prefWidth="227.0">
                                             <font>
                                                 <Font name="System" size="10.0"/>
@@ -335,7 +335,7 @@
                                             onMouseClicked="#datePickerORTextAreaClick" prefHeight="27.0"
                                             prefWidth="210.0" styleClass="-fx-font: 13pt &quot;System&quot;;"/>
                                 <Pane prefHeight="4.0" prefWidth="210.0"/>
-                                <TextArea fx:id="eventText" onKeyTyped="#typeEventText"
+                                <TextArea fx:id="eventText" onKeyTyped="#fieldClick"
                                           onMouseClicked="#datePickerORTextAreaClick" prefHeight="100.0"
                                           prefWidth="210.0">
                                     <font>
@@ -377,13 +377,13 @@
                         </VBox>
                         <VBox alignment="TOP_RIGHT" prefHeight="73.0" prefWidth="110.0">
                             <children>
-                                <TextField fx:id="login" onKeyTyped="#loginTyped" prefHeight="27.0">
+                                <TextField fx:id="login" onKeyTyped="#fieldClick" prefHeight="27.0">
                                     <font>
                                         <Font size="12.0"/>
                                     </font>
                                 </TextField>
                                 <Pane prefHeight="7.0" prefWidth="157.0"/>
-                                <PasswordField fx:id="password" onKeyPressed="#passwordPressKey" prefHeight="27.0">
+                                <PasswordField fx:id="password" onKeyPressed="#fieldClick" prefHeight="27.0">
                                     <font>
                                         <Font size="12.0"/>
                                     </font>
@@ -408,13 +408,13 @@
                         </VBox>
                         <VBox alignment="TOP_RIGHT" prefHeight="73.0" prefWidth="210.0">
                             <children>
-                                <TextField fx:id="subject" onKeyTyped="#subjectClick" prefHeight="27.0">
+                                <TextField fx:id="subject" onKeyTyped="#fieldClick" prefHeight="27.0">
                                     <font>
                                         <Font size="12.0"/>
                                     </font>
                                 </TextField>
                                 <Pane prefHeight="7.0" prefWidth="157.0"/>
-                                <TextField fx:id="text" onKeyTyped="#textClick" prefHeight="27.0">
+                                <TextField fx:id="text" onKeyTyped="#fieldClick" prefHeight="27.0">
                                     <font>
                                         <Font size="12.0"/>
                                     </font>

@@ -3,17 +3,27 @@ package GUI.Gallery.storage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
+@Getter
+@Setter
 public class LinkTransfer {
 
-    @Getter
-    @Setter
-    private static String link;
+    private static LinkTransfer instance;
 
-    @Getter
-    @Setter
-    private static boolean flag;
+    private String link;
+
+    private boolean flag;
 
     private LinkTransfer() {
     }
+
+    public static LinkTransfer getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new LinkTransfer();
+        }
+        return instance;
+    }
+
 
 }

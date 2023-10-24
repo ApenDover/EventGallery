@@ -1,5 +1,6 @@
 package GUI.Gallery;
 
+import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.StageContainer;
 import javafx.application.Application;
@@ -18,9 +19,15 @@ public class Main extends Application {
     public static boolean start = true;
 
     @Override
+    public void stop() throws Exception {
+        BaseDAO.getInstance().getInstance().closeConnection();
+        super.stop();
+    }
+
+    @Override
     public void start(Stage stage) throws Exception {
-        LinkTransfer.setFlag(false);
-        StageContainer.setStage(stage);
+        LinkTransfer.getInstance().setFlag(false);
+        StageContainer.getInstance().setStage(stage);
         stage.requestFocus();
         Parent root = FXMLLoader.load(getClass().getResource("SetupWindow.fxml"));
         Scene scene = new Scene(root);
@@ -46,8 +53,8 @@ public class Main extends Application {
 //
 //    @Override
 //    public void start(Stage stage) {
-//        LinkTransfer.setFlag(false);
-//        StageContainer.setStage(stage);
+//        LinkTransfer.getInstance().setFlag(false);
+//        StageContainer.getInstance().setStage(stage);
 //        stage.requestFocus();
 //        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
 //        Parent root = fxWeaver.loadView(SetupWindowController.class);

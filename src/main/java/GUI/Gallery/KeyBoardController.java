@@ -1,6 +1,6 @@
 package GUI.Gallery;
 
-import GUI.Gallery.data.dao.baseDAO;
+import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.runnable.SendMailProcess;
 import GUI.Gallery.setUp.SettingsLoader;
@@ -230,7 +230,7 @@ public class KeyBoardController implements Initializable {
             tileMails.setHgap(10);
             tileMails.setVgap(10);
             ArrayList<String> serched = new ArrayList<>();
-            MailBase.getMailStorage().forEach(mail -> {
+            MailBase.getInstance().getMailStorage().forEach(mail -> {
                 if (mail.startsWith(finalText)) {
                     serched.add(mail);
                 }
@@ -252,8 +252,8 @@ public class KeyBoardController implements Initializable {
 
     public void goToMedia() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
-        StageContainer.getStage().centerOnScreen();
-        StageContainer.getStage().getScene().setRoot(root);
+        StageContainer.getInstance().getStage().centerOnScreen();
+        StageContainer.getInstance().getStage().getScene().setRoot(root);
     }
 
     /**
@@ -541,16 +541,16 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
-        String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.getLink();
+        String imagePath = SettingsLoader.getInstance().getSourceFolder() + "/" + LinkTransfer.getInstance().getLink();
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);
         if (!matcher.find()) {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
-            MailBase.getMailStorage().add(mail.toLowerCase());
-            Event event = baseDAO.getEventById(SetupWindowController.getIdEvent());
-            baseDAO.setSender(mail.toLowerCase(), imagePath, event);
+            MailBase.getInstance().getMailStorage().add(mail.toLowerCase());
+            Event event = BaseDAO.getInstance().getEventById(SetupWindowController.getIdEvent());
+            BaseDAO.getInstance().setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
             SendMailProcess sendMailProcess = new SendMailProcess();
             executor.execute(() -> textForStatus = sendMailProcess.call());

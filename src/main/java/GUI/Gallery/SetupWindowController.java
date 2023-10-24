@@ -2,7 +2,7 @@ package GUI.Gallery;
 
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
-import GUI.Gallery.data.dao.baseDAO;
+import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.runnable.ScalePreviewImagesProcess;
@@ -60,9 +60,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static GUI.Gallery.data.dao.baseDAO.getEvents;
-import static GUI.Gallery.data.dao.baseDAO.setEvent;
 
 @Component
 @FxmlView("SetupWindow.fxml")
@@ -137,13 +134,10 @@ public class SetupWindowController implements Initializable {
     @FXML
     private Button remButton;
 
-    @FXML
     private final ObservableList<String> companyNames = FXCollections.observableArrayList();
 
-    @FXML
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
 
-    @FXML
     private static Stage stage;
 
     @Getter
@@ -153,13 +147,13 @@ public class SetupWindowController implements Initializable {
     private static boolean resultBgImageCheck2 = false;
 
     @Getter
-    private static String RED;
+    private static String red;
 
     @Getter
-    private static String GREEN;
+    private static String green;
 
     @Getter
-    private static String BLUE;
+    private static String blue;
 
     @Getter
     private static int idEvent = 0;
@@ -172,36 +166,30 @@ public class SetupWindowController implements Initializable {
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
-//    private final FileChooser fileChooser;
-//
-//    public SetupWindowController(FileChooser fileChooser) {
-//        this.fileChooser = fileChooser;
-//    }
-
     /**
      * Настройки
      */
     @FXML
     private void settingsPath() {
         Platform.runLater(() -> {
-            FileChooser fileChooser = new FileChooser();
+            final var fileChooser = new FileChooser();
             fileChooser.setTitle("Open config.json File");
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON", "config.json"));
-            File selectedFile = fileChooser.showOpenDialog(stage);
+            final var selectedFile = fileChooser.showOpenDialog(stage);
             if (Objects.nonNull(selectedFile)) {
                 pathSettings.setText(selectedFile.getAbsolutePath());
                 if (StringUtils.isNotEmpty(pathSettings.getText())) {
-                    SettingsLoader.setLoad(pathSettings.getText());
+                    SettingsLoader.getInstance().loadSettingsFromJsonFile(pathSettings.getText());
                     String ap = selectedFile.getAbsolutePath();
                     pathField.setText(ap.substring(0, ap.length() - 12));
                     pathField.setStyle("-fx-faint-focus-color: #00СС22;");
                     pathField.requestFocus();
-                    login.setText(SettingsLoader.getLogin());
-                    password.setText(SettingsLoader.getPassword());
-                    subject.setText(SettingsLoader.getSubject());
-                    text.setText(SettingsLoader.getText());
-                    loginDB.setText(SettingsLoader.getDbLogin());
-                    passwordDB.setText(SettingsLoader.getDbPassword());
+                    login.setText(SettingsLoader.getInstance().getLogin());
+                    password.setText(SettingsLoader.getInstance().getPassword());
+                    subject.setText(SettingsLoader.getInstance().getSubject());
+                    text.setText(SettingsLoader.getInstance().getText());
+                    loginDB.setText(SettingsLoader.getInstance().getDbLogin());
+                    passwordDB.setText(SettingsLoader.getInstance().getDbPassword());
                     final var check = (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
                             companyListView.getSelectionModel().getSelectedItem(),
                             allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))
@@ -220,9 +208,9 @@ public class SetupWindowController implements Initializable {
     @FXML
     public void connectToDb() {
         companyListView.getItems().clear();
-        connectLabel.setText(baseDAO.openConnection(loginDB.getText(), passwordDB.getText()));
+        connectLabel.setText(BaseDAO.getInstance().openConnection(loginDB.getText(), passwordDB.getText()));
         connectLabel.setVisible(true);
-        companyNames.addAll(baseDAO.getCompany().stream().map(Company::getName).toList());
+        companyNames.addAll(BaseDAO.getInstance().getCompany().stream().map(Company::getName).toList());
         companyListView.setItems(companyNames);
     }
 
@@ -241,14 +229,6 @@ public class SetupWindowController implements Initializable {
     }
 
     @FXML
-    private void pathFieldClick() {
-        final var check = (checkAllFields() && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem()))
-                || (checkFileFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (StringUtils.isNotBlank(pathSettings.getText()) && isCompanyListViewAllEventPersist());
-        startButton.disableProperty().set(!check);
-    }
-
-    @FXML
     private void folderResize() {
         if (StringUtils.isNotBlank(pathField.getText())) {
             final var scalePreviewImagesProcess = new ScalePreviewImagesProcess(pathField);
@@ -259,12 +239,12 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void findPicForBackground(ActionEvent event) {
-        findPic(bgImageCheck, "background gallery Image");
+        findPicture(bgImageCheck, "background gallery Image");
     }
 
     @FXML
     private void findPicForBackground2(ActionEvent event) {
-        findPic(bgImageCheck2, "background sender Image");
+        findPicture(bgImageCheck2, "background sender Image");
     }
 
     public void typingColor(KeyEvent event) {
@@ -280,7 +260,7 @@ public class SetupWindowController implements Initializable {
     @FXML
     private void addCompany() {
         if (StringUtils.isNotBlank(companyField.getText())) {
-            baseDAO.setCompany(companyField.getText());
+            BaseDAO.getInstance().setCompany(companyField.getText());
             companyNames.add(companyField.getText());
             companyField.setText(StringUtils.EMPTY);
             companyField.setFocusTraversable(false);
@@ -290,7 +270,7 @@ public class SetupWindowController implements Initializable {
 
     @FXML
     private void removeCompany() {
-        baseDAO.removeCompany(companyField.getText());
+        BaseDAO.getInstance().removeCompany(companyField.getText());
         companyNames.remove(companyField.getText());
         companyField.setText(StringUtils.EMPTY);
         companyField.setFocusTraversable(false);
@@ -302,16 +282,18 @@ public class SetupWindowController implements Initializable {
     private void getEventsFromListView() {
         try {
             String choose = companyListView.getFocusModel().getFocusedItem();
-            ArrayList<Event> now = new ArrayList<>(baseDAO.getEventsFromCompany(choose));
+            final var now = new ArrayList<>(BaseDAO.getInstance().getEventsFromCompany(choose));
             ObservableList<String> events = FXCollections.observableArrayList();
             now.forEach(event -> events.add(event.getDate().toString() + " : " + event.getDescription()));
             companyListView.getFocusModel().getFocusedItem();
             allEvents.setItems(events);
-            final var check = ((checkAllFields() || checkFileFields() || StringUtils.isNotBlank(pathSettings.getText()))
+            final var check = (checkAllFields() || checkFileFields() || StringUtils.isNotBlank(pathSettings.getText())
                     || Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
                     || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText())));
             startButton.disableProperty().set(!check);
-        } catch (Exception ignored) {
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
 
     }
@@ -322,44 +304,10 @@ public class SetupWindowController implements Initializable {
     }
 
     @FXML
-    private void typeEventText() {
+    private void fieldClick() {
         final var check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
                 || (checkTextFields() && isCompanyListViewAllEventPersist());
         startButton.disableProperty().set(!check);
-    }
-
-    /**
-     * Почта
-     */
-    @FXML
-    private void passwordPressKey() {
-        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (checkTextFields() && EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel().getSelectedItem(),
-                companyListView.getSelectionModel().getSelectedItem(), allEvents.getSelectionModel().getSelectedItem())));
-        startButton.disableProperty().set(!check);
-    }
-
-    @FXML
-    private void loginTyped() {
-        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (checkTextFields() && isCompanyListViewAllEventPersist());
-        startButton.disableProperty().set(!check);
-    }
-
-    @FXML
-    private void subjectClick() {
-        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (checkTextFields() && isCompanyListViewAllEventPersist());
-        startButton.disableProperty().set(!check);
-    }
-
-    @FXML
-    private void textClick() {
-        final boolean check = (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                || (checkAllFields() && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
-                || (checkTextFields() && isCompanyListViewAllEventPersist()));
-        startButton.disableProperty().set(!check);
-
     }
 
     private boolean isCompanyListViewAllEventPersist() {
@@ -371,11 +319,8 @@ public class SetupWindowController implements Initializable {
         if (Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
             eventDate.getEditor().clear();
             eventText.setText(StringUtils.EMPTY);
-            final var check = ((StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
-                    || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()) && checkTextFields()));
-            startButton.disableProperty().set(!check);
+            fieldClick();
         }
-
     }
 
     @FXML
@@ -391,32 +336,32 @@ public class SetupWindowController implements Initializable {
         if (colorNumber.getText().length() == 6) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
-            RED = colorNumber.getText().substring(0, 2);
-            GREEN = colorNumber.getText().substring(2, 4);
-            BLUE = colorNumber.getText().substring(4, 6);
+            red = colorNumber.getText().substring(0, 2);
+            green = colorNumber.getText().substring(2, 4);
+            blue = colorNumber.getText().substring(4, 6);
         }
 
         if (colorNumber.getText().length() == 7) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
-            RED = colorNumber.getText().substring(1, 3);
-            GREEN = colorNumber.getText().substring(3, 5);
-            BLUE = colorNumber.getText().substring(5, 7);
+            red = colorNumber.getText().substring(1, 3);
+            green = colorNumber.getText().substring(3, 5);
+            blue = colorNumber.getText().substring(5, 7);
         }
         /**
          * Запишем настройки сортировки в SettingsLoader
          * */
-        SettingsLoader.setByAddTime(byAddTime.isSelected());
-        SettingsLoader.setByName(byName.isSelected());
-        SettingsLoader.setNewUp(newUp.isSelected());
-        SettingsLoader.setNewDown(newDown.isSelected());
+        SettingsLoader.getInstance().setByAddTime(byAddTime.isSelected());
+        SettingsLoader.getInstance().setByName(byName.isSelected());
+        SettingsLoader.getInstance().setNewUp(newUp.isSelected());
+        SettingsLoader.getInstance().setNewDown(newDown.isSelected());
 
         /**
          * Провери пустая ли папка, если нет - запустим ресайзер (а если пустая?)
          * */
 
         /** Записываем настройки в config.json */
-        SettingsLoader.saveLoad(login.getText(), password.getText(), subject.getText(), text.getText(),
+        SettingsLoader.getInstance().saveSettingsToJsonFile(login.getText(), password.getText(), subject.getText(), text.getText(),
                 pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
 
 
@@ -426,8 +371,8 @@ public class SetupWindowController implements Initializable {
         if (StringUtils.isNotBlank(eventDate.getEditor().getText()) && StringUtils.isNotBlank(eventText.getText())) {
             //создаем новое мероприятие
             Date date = Date.from(eventDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            setEvent(date, eventText.getText(), companyListView.getFocusModel().getFocusedItem());
-            ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
+            BaseDAO.getInstance().setEvent(date, eventText.getText(), companyListView.getFocusModel().getFocusedItem());
+            ArrayList<Event> eventArrayList = new ArrayList<>(BaseDAO.getInstance().getEvents());
             String description = eventText.getText();
             DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                     .appendPattern("dd.MM.yyyy")
@@ -455,31 +400,31 @@ public class SetupWindowController implements Initializable {
                 throw new RuntimeException(e);
             }
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
+            ArrayList<Event> eventArrayList = new ArrayList<>(BaseDAO.getInstance().getEvents());
             eventArrayList.forEach(event -> {
                 if ((event.getDate().equals(sqlDate)) && event.getDescription().equals(description)) {
                     atomicIdEvent.set(event.getIdEvent());
                 }
             });
             idEvent = atomicIdEvent.get();
-            MailBase.getMailsFromBase().addAll(baseDAO.getMails());
-            MailBase.getMailsFromBase().forEach(sender -> MailBase.getMailStorage().add(sender.getMail()));
+            MailBase.getInstance().getMailsFromBase().addAll(BaseDAO.getInstance().getMails());
+            MailBase.getInstance().getMailsFromBase().forEach(sender -> MailBase.getInstance().getMailStorage().add(sender.getMail()));
         }
 
 /**
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
-        SettingsLoader.setLoad(FileStringConverter.getFilePath(pathField.getText(), "config", "json"));
+        SettingsLoader.getInstance().loadSettingsFromJsonFile(FileStringConverter.getFilePath(pathField.getText(), "config", "json"));
         Parent root = OpenWindow.open("Gallery-view.fxml");
-        StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
+        StageContainer.getInstance().setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();
-        StageContainer.getStage().setWidth(r.getWidth());
-        StageContainer.getStage().setHeight(r.getHeight());
-        StageContainer.getStage().centerOnScreen();
-        StageContainer.getStage().getScene().setRoot(root);
-        StageContainer.getStage().setFullScreenExitHint(StringUtils.EMPTY);
-        StageContainer.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        StageContainer.getStage().setFullScreen(true);
+        StageContainer.getInstance().getStage().setWidth(r.getWidth());
+        StageContainer.getInstance().getStage().setHeight(r.getHeight());
+        StageContainer.getInstance().getStage().centerOnScreen();
+        StageContainer.getInstance().getStage().getScene().setRoot(root);
+        StageContainer.getInstance().getStage().setFullScreenExitHint(StringUtils.EMPTY);
+        StageContainer.getInstance().getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        StageContainer.getInstance().getStage().setFullScreen(true);
     }
 
     @Override
@@ -487,7 +432,7 @@ public class SetupWindowController implements Initializable {
         eventDate.setValue(LocalDate.now());
     }
 
-    private void findPic(CheckBox bgImageCheck, String title) {
+    private void findPicture(CheckBox bgImageCheck, String title) {
         colorNumber.setText(StringUtils.EMPTY);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);

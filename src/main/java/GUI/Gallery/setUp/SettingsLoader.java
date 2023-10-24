@@ -8,66 +8,73 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 public class SettingsLoader {
 
-    @Getter
-    private static String login;
+    private static SettingsLoader instance;
 
     @Getter
-    private static String password;
+    private String login;
 
     @Getter
-    private static String dbLogin;
+    private String password;
 
     @Getter
-    private static String dbPassword;
+    private String dbLogin;
 
     @Getter
-    private static String subject;
+    private String dbPassword;
 
     @Getter
-    private static String text;
+    private String subject;
 
     @Getter
-    private static String sourceFolder;
+    private String text;
 
     @Getter
-    private static String qualityResizer;
+    private String sourceFolder;
 
     @Getter
-    private static String qualityResizeFolder;
+    private String qualityResizer;
 
     @Getter
-    @Setter
-    private static boolean byAddTime;
-
-    @Getter
-    @Setter
-    private static boolean byName;
+    private String qualityResizeFolder;
 
     @Getter
     @Setter
-    private static boolean newUp;
+    private boolean byAddTime;
 
     @Getter
     @Setter
-    private static boolean newDown;
+    private boolean byName;
 
     @Getter
     @Setter
-    private static boolean isItTouch;
+    private boolean newUp;
+
+    @Getter
+    @Setter
+    private boolean newDown;
+
+    @Getter
+    @Setter
+    private boolean isItTouch;
 
     private SettingsLoader() {
     }
 
-    public static void setLoad(String pathSettings) {
+    public static SettingsLoader getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new SettingsLoader();
+        }
+        return instance;
+    }
+
+    public void loadSettingsFromJsonFile(String pathSettings) {
         try {
             FileReader reader = new FileReader(pathSettings);
             JSONParser jsonParser = new JSONParser();
@@ -87,11 +94,10 @@ public class SettingsLoader {
         }
     }
 
-    public static void saveLoad(String login, String password, String subject, String text,
-                                String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) {
-        //Creating a JSONObject object
+    public void saveSettingsToJsonFile(String login, String password, String subject, String text,
+                                              String srcPath, String qualityResizer, String sqlLogin, String sqlPassword) {
+
         JSONObject jsonObject = new JSONObject();
-        //Inserting key-value pairs into the json object
         jsonObject.put("login", login);
         jsonObject.put("password", password);
         jsonObject.put("subject", subject);

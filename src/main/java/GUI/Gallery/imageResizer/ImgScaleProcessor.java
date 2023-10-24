@@ -15,12 +15,12 @@ public class ImgScaleProcessor {
     }
 
     public static void scale(Set<File> imgFiles) {
-        int newWidth = Integer.parseInt(SettingsLoader.getQualityResizer());
+        int newWidth = Integer.parseInt(SettingsLoader.getInstance().getQualityResizer());
         if (Objects.isNull(imgFiles)) {
             return;
         }
 
-        File fileDst = new File(SettingsLoader.getQualityResizeFolder());
+        File fileDst = new File(SettingsLoader.getInstance().getQualityResizeFolder());
         fileDst.mkdir();
 
         imgFiles.parallelStream().forEach(file -> {
@@ -29,7 +29,7 @@ public class ImgScaleProcessor {
                     BufferedImage image = ImageIO.read(file);
                     if (Objects.nonNull(image)) {
                         BufferedImage newImage = Scalr.resize(image, newWidth);
-                        File newFile = new File(SettingsLoader.getQualityResizeFolder(), file.getName());
+                        File newFile = new File(SettingsLoader.getInstance().getQualityResizeFolder(), file.getName());
                         ImageIO.write(newImage, "jpg", newFile);
                     }
                 }

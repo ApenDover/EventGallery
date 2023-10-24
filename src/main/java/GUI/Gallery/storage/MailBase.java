@@ -5,18 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.TreeSet;
 
+@Getter
+@Setter
 public class MailBase {
 
-    @Getter
-    @Setter
-    private static ArrayList<Sender> mailsFromBase = new ArrayList<>();
+    private static MailBase instance;
 
-    @Getter
-    @Setter
-    private static TreeSet<String> mailStorage = new TreeSet<>();
+    private ArrayList<Sender> mailsFromBase = new ArrayList<>();
+
+    private TreeSet<String> mailStorage = new TreeSet<>();
 
     private MailBase() {
     }
+
+    public static MailBase getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new MailBase();
+        }
+        return instance;
+    }
+
+
 }

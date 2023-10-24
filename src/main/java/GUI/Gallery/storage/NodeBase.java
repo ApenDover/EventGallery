@@ -5,16 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.TreeSet;
 
+@Getter
+@Setter
 public class NodeBase{
 
-    @Getter
-    @Setter
-    private static TreeSet<ImageView> imageViewTreeContainer = new TreeSet<>(new ImageViewComparator());
+    private static NodeBase instance;
 
-    @Getter
-    @Setter
-    private static LinkedHashSet<ImageView> imageViewLinkedHashContainer = new LinkedHashSet<>();
+    private TreeSet<ImageView> imageViewTreeContainer = new TreeSet<>(new ImageViewComparator());
+
+    private LinkedHashSet<ImageView> imageViewLinkedHashContainer = new LinkedHashSet<>();
+
+    private NodeBase() {
+    }
+
+    public static NodeBase getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new NodeBase();
+        }
+        return instance;
+    }
+
 }
 

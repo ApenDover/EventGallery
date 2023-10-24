@@ -15,7 +15,7 @@ public class ScrollSetup {
         scrollPane.setPrefWidth(r.getWidth());
         scrollPane.setStyle("-fx-background: transparent;");
         if (colorNumber.length() == 6 || colorNumber.length() == 7) {
-            scrollPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
+            scrollPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed() + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
         } else {
             if (!SetupWindowController.isResultBgImageCheck()) {
                 scrollPane.setStyle("-fx-background: rgb(20,20,30);");

@@ -4,28 +4,36 @@ import GUI.Gallery.SetupWindowController;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.data.entity.Sender;
-import javafx.scene.Parent;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.spi.ServiceException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class baseDAO {
+public class BaseDAO {
 
-    private baseDAO() {
+    private static BaseDAO instance;
+
+    private BaseDAO() {
     }
 
-    static Session session;
+    public static BaseDAO getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new BaseDAO();
+        }
+        return instance;
+    }
 
-    public static String openConnection(String user, String password) {
+    private Session session;
+
+    public String openConnection(String user, String password) {
         Properties settings = new Properties();
         settings.put(AvailableSettings.DRIVER, "org.postgresql.Driver");
         settings.put(AvailableSettings.URL, "jdbc:postgresql://localhost:5432/mailsender");
@@ -43,7 +51,7 @@ public class baseDAO {
         return "ERROR";
     }
 
-    private static Session openSession(Properties settings) {
+    private Session openSession(Properties settings) {
         SessionFactory sessionFactory = new Configuration()
                 .setProperties(settings)
                 .addAnnotatedClass(Company.class)
@@ -53,7 +61,7 @@ public class baseDAO {
         return sessionFactory.openSession();
     }
 
-    private static void createDatabase() {
+    private void createDatabase() {
         try {
             String command = "createdb mailsender";
             Process process = Runtime.getRuntime().exec(command);
@@ -63,7 +71,7 @@ public class baseDAO {
         }
     }
 
-    public static List<Sender> getSender() {
+    public List<Sender> getSender() {
         session.beginTransaction();
         final var result = session.createQuery("FROM Sender s WHERE s.status = :status", Sender.class)
                 .setParameter("status", "NEW")
@@ -72,21 +80,21 @@ public class baseDAO {
         return result;
     }
 
-    public static List<Event> getEvents() {
+    public List<Event> getEvents() {
         session.beginTransaction();
         final var result = session.createQuery("FROM Event", Event.class).getResultList();
         session.getTransaction().commit();
         return result;
     }
 
-    public static Event getEventById(int id) {
+    public Event getEventById(int id) {
         session.beginTransaction();
         final var result = session.createQuery("FROM Event WHERE id = :id", Event.class).setParameter("id", id).getSingleResult();
         session.getTransaction().commit();
         return result;
     }
 
-    public static void updateSenderStatus(String status, Sender sender) {
+    public void updateSenderStatus(String status, Sender sender) {
         session.beginTransaction();
         session.createQuery("UPDATE Sender SET status = :status WHERE idSender = :sender")
                 .setParameter("status", status)
@@ -95,19 +103,19 @@ public class baseDAO {
         session.getTransaction().commit();
     }
 
-    public static void setEvent(Date dateEvent, String text, String companyName) {
+    public void setEvent(Date dateEvent, String text, String companyName) {
         Event event = new Event();
         event.setDescription(text);
         java.sql.Date sqlDate = new java.sql.Date(dateEvent.getTime());
         event.setDate(sqlDate);
-        ArrayList<Company> findCompany = new ArrayList<>(baseDAO.getCompany());
+        ArrayList<Company> findCompany = new ArrayList<>(BaseDAO.getInstance().getCompany());
         findCompany.stream().filter(company -> company.getName().equals(companyName)).forEach(event::setCompany);
         session.beginTransaction();
         session.save(event);
         session.getTransaction().commit();
     }
 
-    public static boolean setSender(String mail, String path, Event event) {
+    public boolean setSender(String mail, String path, Event event) {
         Sender sender = new Sender();
         sender.setPath(path);
         sender.setMail(mail);
@@ -119,7 +127,7 @@ public class baseDAO {
         return true;
     }
 
-    public static List<Event> getEventsFromCompany(String companyName) {
+    public List<Event> getEventsFromCompany(String companyName) {
         AtomicInteger companyId = new AtomicInteger();
         ArrayList<Company> companies = new ArrayList<>(getCompany());
         companies.stream().filter(company -> company.getName().equals(companyName)).forEach(company -> companyId.set(company.getIdCompany()));
@@ -131,14 +139,14 @@ public class baseDAO {
         return result;
     }
 
-    public static List<Company> getCompany() {
+    public List<Company> getCompany() {
         session.beginTransaction();
         final var result = session.createQuery("FROM Company", Company.class).getResultList();
         session.getTransaction().commit();
         return result;
     }
 
-    public static void setCompany(String name) {
+    public void setCompany(String name) {
         Company company = new Company();
         company.setName(name);
         session.beginTransaction();
@@ -146,13 +154,13 @@ public class baseDAO {
         session.getTransaction().commit();
     }
 
-    public static void removeCompany(String name) {
+    public void removeCompany(String name) {
         session.beginTransaction();
         session.createQuery("DELETE FROM Company WHERE name = :name").setParameter("name", name).executeUpdate();
         session.getTransaction().commit();
     }
 
-    public static List<Sender> getMails() {
+    public List<Sender> getMails() {
         session.beginTransaction();
         final var result = session.createQuery("FROM Sender s WHERE s.event.idEvent = :eventId", Sender.class)
                 .setParameter("eventId", SetupWindowController.getIdEvent())
@@ -161,7 +169,7 @@ public class baseDAO {
         return result;
     }
 
-    public static void closeConnection() {
+    public void closeConnection() {
         session.close();
     }
 
