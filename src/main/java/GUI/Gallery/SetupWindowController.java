@@ -14,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -135,7 +134,7 @@ public class SetupWindowController implements Initializable {
     private Button remButton;
 
     @FXML
-    private final ObservableList<String> langs = FXCollections.observableArrayList();
+    private final ObservableList<String> companyNames = FXCollections.observableArrayList();
 
     @FXML
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -193,16 +192,13 @@ public class SetupWindowController implements Initializable {
                     text.setText(SettingsLoader.getText());
                     loginDB.setText(SettingsLoader.getDbLogin());
                     passwordDB.setText(SettingsLoader.getDbPassword());
-                    try {
-                        final var check = (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
-                                companyListView.getSelectionModel().getSelectedItem(),
-                                allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))
-                                || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
-                                && EmptyChecker.isStringListValid(List.of(eventText.getText(),
-                                eventDate.getEditor().getText()))));
-                        startButton.disableProperty().set(!check);
-                    } catch (Exception ignored) {
-                    }
+                    final var check = (EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel(),
+                            companyListView.getSelectionModel().getSelectedItem(),
+                            allEvents.getSelectionModel(), allEvents.getSelectionModel().getSelectedItem()))
+                            || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem())
+                            && EmptyChecker.isStringListValid(List.of(eventText.getText(),
+                            eventDate.getEditor().getText()))));
+                    startButton.disableProperty().set(!check);
                 }
             }
         });
@@ -211,19 +207,13 @@ public class SetupWindowController implements Initializable {
     /**
      * DataBase
      */
-    public void connectToDB() {
+    @FXML
+    public void connectToDb() {
         companyListView.getItems().clear();
-        try {
-            baseDAO.openConnection(loginDB.getText(), passwordDB.getText());
-            connectLabel.setText("SUCCESS");
-            connectLabel.setVisible(true);
-            ArrayList<Company> companies = new ArrayList<>(baseDAO.getCompany());
-            companies.forEach(company -> langs.add(company.getName()));
-            companyListView.setItems(langs);
-        } catch (Exception e) {
-            connectLabel.setVisible(true);
-            connectLabel.setText("ERROR");
-        }
+        connectLabel.setText(baseDAO.openConnection(loginDB.getText(), passwordDB.getText()));
+        connectLabel.setVisible(true);
+        companyNames.addAll(baseDAO.getCompany().stream().map(Company::getName).toList());
+        companyListView.setItems(companyNames);
     }
 
     /**
@@ -281,21 +271,20 @@ public class SetupWindowController implements Initializable {
     private void addCompany() {
         if (StringUtils.isNotBlank(companyField.getText())) {
             baseDAO.setCompany(companyField.getText());
-            langs.add(companyField.getText());
-            companyField.setText("");
+            companyNames.add(companyField.getText());
+            companyField.setText(StringUtils.EMPTY);
             companyField.setFocusTraversable(false);
-            companyListView.setItems(langs);
-
+            companyListView.setItems(companyNames);
         }
     }
 
     @FXML
     private void removeCompany() {
         baseDAO.removeCompany(companyField.getText());
-        langs.remove(companyField.getText());
-        companyField.setText("");
+        companyNames.remove(companyField.getText());
+        companyField.setText(StringUtils.EMPTY);
         companyField.setFocusTraversable(false);
-        companyListView.setItems(langs);
+        companyListView.setItems(companyNames);
         allEvents.getItems().clear();
     }
 
@@ -371,7 +360,7 @@ public class SetupWindowController implements Initializable {
     private void allEventsClick() {
         if (Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())) {
             eventDate.getEditor().clear();
-            eventText.setText("");
+            eventText.setText(StringUtils.EMPTY);
             final var check = ((StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()))
                     || (Objects.nonNull(companyListView.getSelectionModel().getSelectedItem()) && checkTextFields()));
             startButton.disableProperty().set(!check);
@@ -466,14 +455,14 @@ public class SetupWindowController implements Initializable {
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
         SettingsLoader.setLoad(FileStringConverter.getFilePath(pathField.getText(), "config", "json"));
-        Parent root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
+        Parent root = OpenWindow.open("Gallery-view.fxml");
         StageContainer.setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();
         StageContainer.getStage().setWidth(r.getWidth());
         StageContainer.getStage().setHeight(r.getHeight());
         StageContainer.getStage().centerOnScreen();
         StageContainer.getStage().getScene().setRoot(root);
-        StageContainer.getStage().setFullScreenExitHint("");
+        StageContainer.getStage().setFullScreenExitHint(StringUtils.EMPTY);
         StageContainer.getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         StageContainer.getStage().setFullScreen(true);
     }
@@ -484,7 +473,7 @@ public class SetupWindowController implements Initializable {
     }
 
     private void findPic(CheckBox bgImageCheck, String title) {
-        colorNumber.setText("");
+        colorNumber.setText(StringUtils.EMPTY);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"));

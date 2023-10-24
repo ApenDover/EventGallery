@@ -1,7 +1,6 @@
 package GUI.Gallery.imageViewProcess;
 
 import GUI.Gallery.setUp.SettingsLoader;
-import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,10 +8,6 @@ import javafx.scene.image.ImageView;
 public class PictureBuilder {
 
     public ImageView buildImageView(String file) {
-        return createPictureImageView(file);
-    }
-
-    public ImageView createPictureImageView(String file) {
         Image image = new Image(FileStringConverter.getFileInputString(SettingsLoader.getSourceFolder(), file));
         ImageView imageView = new ImageView();
         imageView.setImage(image);

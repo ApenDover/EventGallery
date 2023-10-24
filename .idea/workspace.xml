@@ -9,17 +9,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring">
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/MovieBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" afterDir="false" />
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="video can work">
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ContentForGallery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/OpenWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/videoResizer/ScrollSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/KeyBoard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/KeyBoard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +56,16 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="video can work" />
+        <option name="rewordedMessage" value="video can work" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="ac57820559dc7c0800b3d20c0831ec8901053a85" />
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -84,6 +101,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
@@ -159,6 +177,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TST" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TST" />
+      <module name="GallerySender" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="GallerySender" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in GUISender" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="GUISender" />
       <option name="PACKAGE_NAME" value="" />
@@ -201,53 +233,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileStringConverterTest.getFilePath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="METHOD_NAME" value="getFilePath" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileStringConverterTest.getNameWithEx" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="METHOD_NAME" value="getNameWithEx" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="Application.TST" />
+      <item itemvalue="Application.test" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.All in GUISender" />
       <item itemvalue="JUnit.FileStringConverterTest" />
       <item itemvalue="JUnit.FileStringConverterTest.getFile" />
-      <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
-      <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.TST" />
+        <item itemvalue="Application.test" />
         <item itemvalue="JUnit.FileStringConverterTest" />
         <item itemvalue="JUnit.FileStringConverterTest.getFile" />
-        <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
-        <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
       </list>
     </recent_temporary>
   </component>
@@ -283,6 +283,10 @@
       <workItem from="1696951357566" duration="1551000" />
       <workItem from="1696975141144" duration="6472000" />
       <workItem from="1697320386536" duration="24643000" />
+      <workItem from="1697632521211" duration="613000" />
+      <workItem from="1697842488303" duration="596000" />
+      <workItem from="1697990402948" duration="6696000" />
+      <workItem from="1698132234968" duration="6247000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -354,7 +358,21 @@
       <option name="project" value="LOCAL" />
       <updated>1697407146946</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="video can work">
+      <created>1697486156812</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1697486156812</updated>
+    </task>
+    <task id="LOCAL-00012" summary="video can work">
+      <created>1697993193933</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1697993193933</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +410,8 @@
     <MESSAGE value="load bag fix" />
     <MESSAGE value="refactoring info fix" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="video can work" />
+    <option name="LAST_COMMIT_MESSAGE" value="video can work" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,5 +1,7 @@
 package GUI.Gallery.mail;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -47,7 +49,7 @@ public class GmailSender {
         message.setSubject(subject);
         BodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText(text);
-        if (!path.equals("")) {
+        if (StringUtils.isNotBlank(path)) {
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(new File(path));
             Multipart multipart = new MimeMultipart();

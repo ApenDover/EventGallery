@@ -4,6 +4,7 @@ import GUI.Gallery.SetupWindowController;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.data.entity.Sender;
+import javafx.scene.Parent;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
@@ -24,7 +25,7 @@ public class baseDAO {
 
     static Session session;
 
-    public static void openConnection(String user, String password) {
+    public static String openConnection(String user, String password) {
         Properties settings = new Properties();
         settings.put(AvailableSettings.DRIVER, "org.postgresql.Driver");
         settings.put(AvailableSettings.URL, "jdbc:postgresql://localhost:5432/mailsender");
@@ -35,22 +36,21 @@ public class baseDAO {
         settings.put(AvailableSettings.POOL_SIZE, "10");
         settings.put(AvailableSettings.SHOW_SQL, "true");
         settings.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        try {
-            openSession(settings);
-        } catch (ServiceException exception) {
-            createDatabase();
-            openSession(settings);
+        session = openSession(settings);
+        if (session.isOpen()) {
+            return "SUCCESS";
         }
+        return "ERROR";
     }
 
-    private static void openSession(Properties settings) {
+    private static Session openSession(Properties settings) {
         SessionFactory sessionFactory = new Configuration()
                 .setProperties(settings)
                 .addAnnotatedClass(Company.class)
                 .addAnnotatedClass(Event.class)
                 .addAnnotatedClass(Sender.class)
                 .buildSessionFactory();
-        session = sessionFactory.openSession();
+        return sessionFactory.openSession();
     }
 
     private static void createDatabase() {

@@ -30,6 +30,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -52,7 +53,7 @@ public class ImageMediaController implements Initializable {
     private Pane mainPane;
 
     @Setter
-    private static String colorNumber = "";
+    private static String colorNumber = StringUtils.EMPTY;
 
     @Getter
     private static Image image;

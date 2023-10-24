@@ -3,17 +3,18 @@ package GUI.Gallery.mail;
 import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.data.dao.baseDAO;
 import GUI.Gallery.data.entity.Sender;
+import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+@NoArgsConstructor
 public class SendEmails {
 
-    public static String send(List<Sender> senderList) {
-        AtomicReference<String> status = new AtomicReference<>("");
-        String subject = SettingsLoader.getSubject();
-        String text = SettingsLoader.getText();
+    public String send(List<Sender> senderList, String subject, String text) {
+        AtomicReference<String> status = new AtomicReference<>(StringUtils.EMPTY);
         senderList.forEach(sender -> {
             String mailTO = sender.getMail();
             String attachedPath = sender.getPath();

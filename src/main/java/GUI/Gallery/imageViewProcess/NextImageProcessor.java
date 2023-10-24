@@ -21,7 +21,7 @@ public class NextImageProcessor {
     }
 
     public ImageView createImage(String file) {
-        return pictureBuilder.createPictureImageView(file);
+        return pictureBuilder.buildImageView(file);
     }
 
     public MediaView createMovie(String file) {
@@ -45,27 +45,25 @@ public class NextImageProcessor {
             find = 0;
         }
 
+        final String file;
         if (num != find) {
-            final var file = allGalleryImageView.get(next);
+            file = allGalleryImageView.get(next);
             LinkTransfer.setLink(file);
             exNext = FileStringConverter.getExtension(file);
             if (FileViewBase.getImgExtension().contains(exNext)) {
                 LinkTransfer.setLink(file);
                 return pictureBuilder.buildImageView(file);
             }
-            if (FileViewBase.getMovieExtension().contains(exNext)) {
-                return movieBuilder.createMovie(file);
-            }
         } else {
-            final var file = allGalleryImageView.get(lastNumber);
+            file = allGalleryImageView.get(lastNumber);
             LinkTransfer.setLink(file);
             exNext = FileStringConverter.getExtension(file);
             if (FileViewBase.getImgExtension().contains(exNext)) {
                 return pictureBuilder.buildImageView(file);
             }
-            if (FileViewBase.getMovieExtension().contains(exNext)) {
-                return movieBuilder.createMovie(file);
-            }
+        }
+        if (FileViewBase.getMovieExtension().contains(exNext)) {
+            return movieBuilder.createMovie(file);
         }
         throw new RuntimeException();
     }

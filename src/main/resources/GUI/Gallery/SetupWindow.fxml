@@ -111,7 +111,7 @@
                                                disable="true" prefHeight="17.0" prefWidth="372.0" text="Label"
                                                visible="false"/>
                                         <Pane prefHeight="44.0" prefWidth="16.0"/>
-                                        <Button mnemonicParsing="false" onAction="#connectToDB" prefHeight="26.0"
+                                        <Button mnemonicParsing="false" onAction="#connectToDb" prefHeight="26.0"
                                                 prefWidth="90.0" text="Connect">
                                             <font>
                                                 <Font size="10.0"/>

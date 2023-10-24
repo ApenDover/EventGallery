@@ -193,14 +193,14 @@ public class KeyBoardController implements Initializable {
     @FXML
     private VBox back;
 
-    private String finalText = "";
+    private String finalText = StringUtils.EMPTY;
 
     private final SendMailProcess sendMailProcess = new SendMailProcess();
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     @Getter
-    private String textForStatus = "";
+    private String textForStatus = StringUtils.EMPTY;
 
     private Timeline statusCheck = new Timeline(
             new KeyFrame(Duration.millis(1000),
@@ -208,7 +208,7 @@ public class KeyBoardController implements Initializable {
                         if (StringUtils.isNotBlank(textForStatus)) {
                             sendRezultLabel.setText(textForStatus);
                             sendRezultLabel.setVisible(true);
-                            textForStatus = "";
+                            textForStatus = StringUtils.EMPTY;
                         }
                     }));
 
@@ -216,7 +216,7 @@ public class KeyBoardController implements Initializable {
         if (StringUtils.isNotBlank(textForStatus)) {
             statusCheck.stop();
         }
-        textForStatus = "";
+        textForStatus = StringUtils.EMPTY;
         sendRezultLabel.setVisible(false);
         mailField.setStyle("-fx-text-fill: black;");
         tileMails.getChildren().clear();
@@ -498,7 +498,7 @@ public class KeyBoardController implements Initializable {
     }
 
     public void clearAction(ActionEvent event) {
-        finalText = "";
+        finalText = StringUtils.EMPTY;
         mailField.setText(finalText);
         searchMail();
     }
@@ -555,7 +555,7 @@ public class KeyBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sendRezultLabel.setText("");
+        sendRezultLabel.setText(StringUtils.EMPTY);
         Background background = new Background(new BackgroundImage(ImageMediaController.getImage(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         back.setBackground(background);

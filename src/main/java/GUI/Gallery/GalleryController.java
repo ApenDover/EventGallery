@@ -7,6 +7,7 @@ import GUI.Gallery.storage.LinkTransfer;
 import GUI.Gallery.storage.NodeBase;
 import GUI.Gallery.storage.StageContainer;
 import GUI.Gallery.utils.FileStringConverter;
+import GUI.Gallery.videoResizer.ScrollSetup;
 import GUI.Gallery.videoResizer.VideoResizerJpg;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -32,6 +33,7 @@ import javafx.scene.media.Media;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,7 +44,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -57,7 +58,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GalleryController implements Initializable {
 
     @Setter
-    private static String colorNumber = "";
+    private static String colorNumber = StringUtils.EMPTY;
 
     @FXML
     private Pane mainPane;
@@ -76,24 +77,10 @@ public class GalleryController implements Initializable {
     static Timeline fiveSecondsWonder;
 
     /**
-     * Переход в конкретную картинку
-     */
-    private void goToImage() {
-        try {
-            root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        StageContainer.getStage().centerOnScreen();
-        StageContainer.getStage().getScene().setRoot(root);
-        fiveSecondsWonder.stop();
-    }
-
-    /**
      * Создаем новые ImageView - плашки
      */
     private void createImageView(String fileName) {
-        String plitkaPath = FileStringConverter.getFilePath(SettingsLoader.getQualityResizeFolder(), fileName, "jpg");
+        String cubeImagePath = FileStringConverter.getFilePath(SettingsLoader.getQualityResizeFolder(), fileName, "jpg");
         String exFile = FileViewBase.getFileNamesMap().get(fileName);
         String filePath = FileStringConverter.getFilePath(SettingsLoader.getSourceFolder(), fileName, exFile);
 
@@ -102,35 +89,34 @@ public class GalleryController implements Initializable {
 
 //      нужны размеры оригинального изображения чтобы создать плитку нужного размера
         if (FileViewBase.getImgExtension().contains(exFile)) {
-            Image imageOriginal;
             try {
-                imageOriginal = new Image(new FileInputStream(filePath));
+                Image imageOriginal = new Image(new FileInputStream(filePath));
+                fileW = imageOriginal.getWidth();
+                fileH = imageOriginal.getHeight();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            fileW = imageOriginal.getWidth();
-            fileH = imageOriginal.getHeight();
         }
+
         if (FileViewBase.getMovieExtension().contains(exFile)) {
             File mediaFile = new File(filePath);
-            Media media;
             try {
-                media = new Media(mediaFile.toURI().toURL().toString());
+                Media media = new Media(mediaFile.toURI().toURL().toString());
+                fileW = media.getWidth();
+                fileH = media.getHeight();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
-            fileW = media.getWidth();
-            fileH = media.getHeight();
         }
 
         ImageView imageView = new ImageView();
-        Image imagePlitka;
+        Image imageCube;
         try {
-            imagePlitka = new Image(new FileInputStream(plitkaPath));
+            imageCube = new Image(new FileInputStream(cubeImagePath));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        imageView.setImage(imagePlitka);
+        imageView.setImage(imageCube);
         imageView.setId(fileName + "." + exFile);
         double width = Integer.parseInt(SettingsLoader.getQualityResizer());
         double height = (fileH * width) / fileW;
@@ -138,7 +124,10 @@ public class GalleryController implements Initializable {
         imageView.setFitHeight(height);
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             LinkTransfer.setLink(imageView.getId());
-            goToImage();
+            root = OpenWindow.open("ImageMedia-view.fxml");
+            StageContainer.getStage().centerOnScreen();
+            StageContainer.getStage().getScene().setRoot(root);
+            fiveSecondsWonder.stop();
         });
         if (SettingsLoader.isByAddTime()) {
             AtomicBoolean k = new AtomicBoolean(true);
@@ -193,7 +182,7 @@ public class GalleryController implements Initializable {
 
             /**
              * берем эти новые , находим новые ноды и создаем плашки
-             * */
+             **/
             if ((SettingsLoader.isByAddTime()) && (SettingsLoader.isNewDown())) {
                 NodeBase.getImageViewLinkedHashContainer().forEach(imageView -> {  //для каждой ноды
                     namesWithoutResize.forEach(s -> {  // перебираем список новых имен
@@ -280,17 +269,8 @@ public class GalleryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Rectangle2D r = Screen.getPrimary().getBounds();
-        scroll.setPrefHeight(r.getHeight());
-        scroll.setPrefWidth(r.getWidth());
-        scroll.setStyle("-fx-background: transparent;");
-        if (colorNumber.length() == 6 || colorNumber.length() == 7) {
-            scroll.setStyle("-fx-background: rgb(" + SetupWindowController.getRED() + "," + SetupWindowController.getGREEN() + "," + SetupWindowController.getBLUE() + ");");
-        } else {
-            if (!SetupWindowController.isResultBgImageCheck()) {
-                scroll.setStyle("-fx-background: rgb(20,20,30);");
-            }
-        }
+
+        ScrollSetup.setup(scroll, colorNumber);
 
         if (SetupWindowController.isResultBgImageCheck()) {
             mainPane.setBackground(new Background(new BackgroundImage(SetupWindowController.getImageForBackGround(),

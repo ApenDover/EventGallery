@@ -3,6 +3,7 @@ package GUI.Gallery.setUp;
 import GUI.Gallery.utils.FileStringConverter;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -76,7 +77,7 @@ public class SettingsLoader {
             subject = (String) jsonObject.get("subject");
             text = (String) jsonObject.get("text");
             String ps = (String) jsonObject.get("folderPath");
-            sourceFolder = ps.replaceAll("\\\\", "");
+            sourceFolder = ps.replaceAll("\\\\", StringUtils.EMPTY);
             qualityResizer = (String) jsonObject.get("qualityResizer");
             qualityResizeFolder = sourceFolder + "/" + qualityResizer;
             dbLogin = (String) jsonObject.get("sqlLogin");
