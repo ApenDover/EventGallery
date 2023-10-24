@@ -1,6 +1,6 @@
 package GUI.Gallery.imageResizer;
 
-import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.singleton.SettingsLoader;
 import org.imgscalr.Scalr;
 
 import javax.imageio.ImageIO;

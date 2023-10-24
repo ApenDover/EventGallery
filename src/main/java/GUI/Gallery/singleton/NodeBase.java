@@ -1,4 +1,4 @@
-package GUI.Gallery.storage;
+package GUI.Gallery.singleton;
 
 import javafx.scene.image.ImageView;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package GUI.Gallery.imageViewProcess;
 
-import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

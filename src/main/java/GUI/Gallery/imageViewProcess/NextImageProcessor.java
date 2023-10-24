@@ -1,7 +1,7 @@
 package GUI.Gallery.imageViewProcess;
 
-import GUI.Gallery.storage.FileViewBase;
-import GUI.Gallery.storage.LinkTransfer;
+import GUI.Gallery.singleton.FileViewBase;
+import GUI.Gallery.singleton.LinkTransfer;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;

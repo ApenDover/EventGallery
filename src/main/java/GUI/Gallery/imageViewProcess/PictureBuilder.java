@@ -1,6 +1,6 @@
 package GUI.Gallery.imageViewProcess;
 
-import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

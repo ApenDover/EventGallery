@@ -1,4 +1,4 @@
-package GUI.Gallery.storage;
+package GUI.Gallery.singleton;
 
 import GUI.Gallery.data.entity.Sender;
 import lombok.Getter;

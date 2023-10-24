@@ -1,11 +1,11 @@
 package GUI.Gallery;
 
 import GUI.Gallery.imageResizer.ImgScaleProcessor;
-import GUI.Gallery.setUp.SettingsLoader;
-import GUI.Gallery.storage.FileViewBase;
-import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.storage.NodeBase;
-import GUI.Gallery.storage.StageContainer;
+import GUI.Gallery.singleton.SettingsLoader;
+import GUI.Gallery.singleton.FileViewBase;
+import GUI.Gallery.singleton.LinkTransfer;
+import GUI.Gallery.singleton.NodeBase;
+import GUI.Gallery.singleton.StageContainer;
 import GUI.Gallery.utils.FileStringConverter;
 import GUI.Gallery.videoResizer.ScrollSetup;
 import GUI.Gallery.videoResizer.VideoResizerJpg;

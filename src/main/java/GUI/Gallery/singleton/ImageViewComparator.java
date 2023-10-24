@@ -1,6 +1,5 @@
-package GUI.Gallery.storage;
+package GUI.Gallery.singleton;
 
-import GUI.Gallery.setUp.SettingsLoader;
 import javafx.scene.image.ImageView;
 
 import java.util.Comparator;

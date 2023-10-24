@@ -2,11 +2,11 @@ package GUI.Gallery;
 
 import GUI.Gallery.imageResizer.ImageDarkProcessor;
 import GUI.Gallery.imageViewProcess.NextImageProcessor;
-import GUI.Gallery.setUp.SettingsLoader;
-import GUI.Gallery.storage.FileViewBase;
-import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.storage.NodeBase;
-import GUI.Gallery.storage.StageContainer;
+import GUI.Gallery.singleton.SettingsLoader;
+import GUI.Gallery.singleton.FileViewBase;
+import GUI.Gallery.singleton.LinkTransfer;
+import GUI.Gallery.singleton.NodeBase;
+import GUI.Gallery.singleton.StageContainer;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

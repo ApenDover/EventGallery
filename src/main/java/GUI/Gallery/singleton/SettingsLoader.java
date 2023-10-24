@@ -1,4 +1,4 @@
-package GUI.Gallery.setUp;
+package GUI.Gallery.singleton;
 
 import GUI.Gallery.utils.FileStringConverter;
 import lombok.Getter;

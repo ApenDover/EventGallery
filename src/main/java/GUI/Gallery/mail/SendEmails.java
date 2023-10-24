@@ -1,6 +1,6 @@
 package GUI.Gallery.mail;
 
-import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Sender;
 import lombok.NoArgsConstructor;

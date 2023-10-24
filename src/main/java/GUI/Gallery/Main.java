@@ -1,17 +1,13 @@
 package GUI.Gallery;
 
 import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.storage.StageContainer;
+import GUI.Gallery.singleton.LinkTransfer;
+import GUI.Gallery.singleton.StageContainer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import net.rgielen.fxweaver.core.FxWeaver;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 
 
 public class Main extends Application {

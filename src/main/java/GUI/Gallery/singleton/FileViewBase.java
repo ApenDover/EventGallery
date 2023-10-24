@@ -1,6 +1,5 @@
-package GUI.Gallery.storage;
+package GUI.Gallery.singleton;
 
-import GUI.Gallery.setUp.SettingsLoader;
 import GUI.Gallery.utils.FileStringConverter;
 import lombok.Getter;
 

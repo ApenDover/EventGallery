@@ -3,7 +3,7 @@ package GUI.Gallery.runnable;
 import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Sender;
 import GUI.Gallery.mail.SendEmails;
-import GUI.Gallery.setUp.SettingsLoader;
+import GUI.Gallery.singleton.SettingsLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
