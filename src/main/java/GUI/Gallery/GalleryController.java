@@ -12,9 +12,7 @@ import GUI.Gallery.videoResizer.VideoResizerJpg;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
@@ -30,15 +28,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
-import javafx.stage.Screen;
 import javafx.util.Duration;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,6 +54,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * В нем происходит ресайз новых, удаление старых, актуализация NodeBase, чтобы при загрузке просто
  * подгрузить недостающие, а не начинать делать.
  */
+
+@Component
+@FxmlView("Gallery-view.fxml")
+@RequiredArgsConstructor
 public class GalleryController implements Initializable {
 
     @Setter

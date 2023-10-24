@@ -27,7 +27,9 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import lombok.Getter;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +40,8 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
+@FxmlView("KeyBoard.fxml")
 public class KeyBoardController implements Initializable {
 
     @FXML
@@ -195,7 +199,7 @@ public class KeyBoardController implements Initializable {
 
     private String finalText = StringUtils.EMPTY;
 
-    private final SendMailProcess sendMailProcess = new SendMailProcess();
+//    private final SendMailProcess sendMailProcess;
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -548,6 +552,7 @@ public class KeyBoardController implements Initializable {
             Event event = baseDAO.getEventById(SetupWindowController.getIdEvent());
             baseDAO.setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
+            SendMailProcess sendMailProcess = new SendMailProcess();
             executor.execute(() -> textForStatus = sendMailProcess.call());
             executor.shutdown();
         }

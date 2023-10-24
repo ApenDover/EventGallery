@@ -332,11 +332,11 @@
                             <children>
                                 <Pane prefHeight="17.0"/>
                                 <DatePicker fx:id="eventDate" editable="false"
-                                            onMouseClicked="#DatePickerORTextAreaClick" prefHeight="27.0"
+                                            onMouseClicked="#datePickerORTextAreaClick" prefHeight="27.0"
                                             prefWidth="210.0" styleClass="-fx-font: 13pt &quot;System&quot;;"/>
                                 <Pane prefHeight="4.0" prefWidth="210.0"/>
                                 <TextArea fx:id="eventText" onKeyTyped="#typeEventText"
-                                          onMouseClicked="#DatePickerORTextAreaClick" prefHeight="100.0"
+                                          onMouseClicked="#datePickerORTextAreaClick" prefHeight="100.0"
                                           prefWidth="210.0">
                                     <font>
                                         <Font size="12.0"/>

@@ -1,5 +1,7 @@
 package GUI.Gallery;
 
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
 import GUI.Gallery.data.dao.baseDAO;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
@@ -42,9 +44,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -62,6 +64,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static GUI.Gallery.data.dao.baseDAO.getEvents;
 import static GUI.Gallery.data.dao.baseDAO.setEvent;
 
+@Component
+@FxmlView("SetupWindow.fxml")
 public class SetupWindowController implements Initializable {
 
     @FXML
@@ -167,6 +171,12 @@ public class SetupWindowController implements Initializable {
     private static Image imageForBackGround2;
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
+
+//    private final FileChooser fileChooser;
+//
+//    public SetupWindowController(FileChooser fileChooser) {
+//        this.fileChooser = fileChooser;
+//    }
 
     /**
      * Настройки
@@ -307,7 +317,7 @@ public class SetupWindowController implements Initializable {
     }
 
     @FXML
-    private void DatePickerORTextAreaClick() {
+    private void datePickerORTextAreaClick() {
         allEvents.getSelectionModel().clearSelection();
     }
 
@@ -374,7 +384,7 @@ public class SetupWindowController implements Initializable {
     }
 
     @FXML
-    private void start(MouseEvent click) throws IOException, java.text.ParseException {
+    private void start(MouseEvent click) {
         resultBgImageCheck = bgImageCheck.isSelected();
         resultBgImageCheck2 = bgImageCheck2.isSelected();
 
@@ -438,7 +448,12 @@ public class SetupWindowController implements Initializable {
             AtomicInteger atomicIdEvent = new AtomicInteger();
             String description = pole[1];
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date utilDate = df.parse(pole[0]);
+            Date utilDate;
+            try {
+                utilDate = df.parse(pole[0]);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             ArrayList<Event> eventArrayList = new ArrayList<>(getEvents());
             eventArrayList.forEach(event -> {

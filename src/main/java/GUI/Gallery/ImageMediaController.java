@@ -30,7 +30,9 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -44,6 +46,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+@Component
+@FxmlView("ImageMedia-view.fxml")
 public class ImageMediaController implements Initializable {
 
     @FXML
@@ -87,11 +91,7 @@ public class ImageMediaController implements Initializable {
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, 0.7);
-        try {
-            StageContainer.getStage().getScene().setRoot(FXMLLoader.load(getClass().getResource("KeyBoard.fxml")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StageContainer.getStage().getScene().setRoot(OpenWindow.open("KeyBoard.fxml"));
         StageContainer.getStage().centerOnScreen();
     }
 
