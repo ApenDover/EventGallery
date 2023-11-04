@@ -22,6 +22,7 @@ import java.util.Objects;
 @Setter
 public class ResizedImageContainer extends AbstractContainer {
 
+    // resizable
     private AbstractContainer originalContainer;
 
     private Image image;
@@ -44,6 +45,10 @@ public class ResizedImageContainer extends AbstractContainer {
             return false;
         }
         return originalContainer.getFile().exists();
+    }
+
+    public boolean isAlive() {
+        return getFile().exists();
     }
 
     private ImageView createImageView() {

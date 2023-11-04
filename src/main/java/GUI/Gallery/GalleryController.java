@@ -1,7 +1,8 @@
 package GUI.Gallery;
 
-import GUI.Gallery.model.Comparator.ImageViewComparatorifNeed;
+import GUI.Gallery.model.Comparator.ImageViewComparatorIfNeed;
 import GUI.Gallery.singleton.ContainerLibrary;
+import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.utils.LoadAllFiles;
 import GUI.Gallery.utils.ScrollSetup;
 import javafx.animation.Animation;
@@ -22,12 +23,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-//import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
-//import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 /**
@@ -55,11 +56,13 @@ public class GalleryController implements Initializable {
     @FXML
     private VBox vBox;
 
-    ImageViewComparatorifNeed imageViewComparatorifNeed = new ImageViewComparatorifNeed();
+    ImageViewComparatorIfNeed imageViewComparatorifNeed = new ImageViewComparatorIfNeed();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println(LocalTime.now() + " : " + galleryPane.getChildren().size());
 
         ScrollSetup.setup(scroll, colorNumber);
         if (SetupWindowController.isResultBgImageCheck()) {
@@ -73,7 +76,12 @@ public class GalleryController implements Initializable {
 
         final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
         actual.sort(imageViewComparatorifNeed);
-        galleryPane.getChildren().addAll(actual);
+        if (!SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
+            Collections.reverse(actual);
+            galleryPane.getChildren().addAll(0, actual);
+        } else {
+            galleryPane.getChildren().addAll(actual);
+        }
 
         mainPane.requestLayout();
         vBox.requestLayout();
@@ -83,7 +91,7 @@ public class GalleryController implements Initializable {
          *  запускаем поток мониторинга папки каждые N секунд
          *  */
         final var fiveSecondsWonder = new Timeline(
-                new KeyFrame(Duration.seconds(3),
+                new KeyFrame(Duration.seconds(1),
                         event -> repeated()));
         fiveSecondsWonder.setCycleCount(Animation.INDEFINITE);
         fiveSecondsWonder.play();
@@ -95,6 +103,8 @@ public class GalleryController implements Initializable {
      * мониторинг папок
      */
     private void repeated() {
+
+        System.out.println(LocalTime.now() + " : " + galleryPane.getChildren().size());
 
         final var beforeReload = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
 
@@ -109,12 +119,18 @@ public class GalleryController implements Initializable {
         removed.removeAll(actual);
 
         if (!added.isEmpty()) {
-            System.out.println("added " + added.size());
-            galleryPane.getChildren().addAll(added);
+            System.out.println(LocalTime.now() + " added " + added.size());
+            added.sort(imageViewComparatorifNeed);
+            if (!SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
+                Collections.reverse(added);
+                galleryPane.getChildren().addAll(0, added);
+            } else {
+                galleryPane.getChildren().addAll(added);
+            }
             galleryPane.requestLayout();
         }
         if (!removed.isEmpty()) {
-            System.out.println("removed " + removed.size());
+            System.out.println(LocalTime.now() + " removed " + removed.size());
             galleryPane.getChildren().removeAll(removed);
             galleryPane.requestLayout();
         }

@@ -5,7 +5,7 @@ import javafx.scene.Node;
 
 import java.util.Comparator;
 
-public class ImageViewComparatorifNeed implements Comparator<Node> {
+public class ImageViewComparatorIfNeed implements Comparator<Node> {
 
     @Override
     public int compare(Node n1, Node n2) {

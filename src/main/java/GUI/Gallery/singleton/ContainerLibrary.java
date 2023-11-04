@@ -3,13 +3,15 @@ package GUI.Gallery.singleton;
 import GUI.Gallery.model.AbstractContainer;
 import GUI.Gallery.model.ImageContainer;
 import GUI.Gallery.model.Resizeable;
-import GUI.Gallery.model.ResizedImageContainer;
 import GUI.Gallery.model.VideoContainer;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -43,8 +45,15 @@ public class ContainerLibrary {
 
     public void removeResizedWithoutOriginal() {
         final var forRemoveResized = resizeableLinkedHashSet.stream()
-                .filter(resizeable -> !resizeable.isAlive()).toList();
-        forRemoveResized.forEach(resizeableLinkedHashSet::remove);
+                .filter(resizeable -> !resizeable.isOriginalAlive()).toList();
+        forRemoveResized.forEach(resizeable -> {
+            try {
+                resizeableLinkedHashSet.remove(resizeable);
+                Files.delete(resizeable.getResizedImageContainer().getFile().toPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public Set<Resizeable> getResizeableLinkedHashSet() {

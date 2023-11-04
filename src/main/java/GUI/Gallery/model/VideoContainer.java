@@ -57,7 +57,7 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         return resized;
     }
 
-    public boolean isResized() {
+    public boolean isResizedAlive() {
         if (Objects.isNull(resized)) {
             return false;
         }
@@ -66,7 +66,7 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
 
     @Override
     public void createResizePreview() {
-        if (!isResized()) {
+        if (!isResizedAlive()) {
             resized = new ResizedImageContainer(VideoResizerJpg.getImageFromVideo(this.getFile(),
                     Integer.parseInt(SettingsLoader.getInstance().getResizeQuality()),
                     true), this);
@@ -74,7 +74,7 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
     }
 
     @Override
-    public boolean isAlive() {
+    public boolean isOriginalAlive() {
         return getFile().exists();
     }
 

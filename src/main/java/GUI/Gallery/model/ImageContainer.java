@@ -50,7 +50,7 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
     }
 
 
-    public boolean isResized() {
+    public boolean isResizedAlive() {
         if (Objects.isNull(resized)) {
             return false;
         }
@@ -59,7 +59,7 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
 
     @Override
     public void createResizePreview() {
-        if (!isResized()) {
+        if (!isResizedAlive()) {
             resized = new ResizedImageContainer(ImgScaleProcessor.scale(this.getFile()), this);
         }
     }
@@ -70,7 +70,7 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
     }
 
     @Override
-    public boolean isAlive() {
+    public boolean isOriginalAlive() {
         return getFile().exists();
     }
 
