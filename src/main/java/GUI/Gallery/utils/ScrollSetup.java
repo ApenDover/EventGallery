@@ -1,4 +1,4 @@
-package GUI.Gallery.videoResizer;
+package GUI.Gallery.utils;
 
 import GUI.Gallery.SetupWindowController;
 import javafx.geometry.Rectangle2D;

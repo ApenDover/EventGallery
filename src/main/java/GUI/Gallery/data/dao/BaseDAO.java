@@ -4,6 +4,7 @@ import GUI.Gallery.SetupWindowController;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.data.entity.Sender;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
@@ -34,7 +35,8 @@ public class BaseDAO {
     private Session session;
 
     public String openConnection(String user, String password) {
-        Properties settings = new Properties();
+        var result = "ERROR";
+        final var settings = new Properties();
         settings.put(AvailableSettings.DRIVER, "org.postgresql.Driver");
         settings.put(AvailableSettings.URL, "jdbc:postgresql://localhost:5432/mailsender");
         settings.put(AvailableSettings.USER, user);
@@ -44,15 +46,21 @@ public class BaseDAO {
         settings.put(AvailableSettings.POOL_SIZE, "10");
         settings.put(AvailableSettings.SHOW_SQL, "true");
         settings.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        session = openSession(settings);
-        if (session.isOpen()) {
-            return "SUCCESS";
+        try {
+            session = openSession(settings);
+        } catch (Exception e) {
+            createDatabase();
+            session = openSession(settings);
+        } finally {
+            if (session.isOpen()) {
+                result = "SUCCESS";
+            }
         }
-        return "ERROR";
+        return result;
     }
 
     private Session openSession(Properties settings) {
-        SessionFactory sessionFactory = new Configuration()
+        final var sessionFactory = new Configuration()
                 .setProperties(settings)
                 .addAnnotatedClass(Company.class)
                 .addAnnotatedClass(Event.class)
@@ -63,8 +71,8 @@ public class BaseDAO {
 
     private void createDatabase() {
         try {
-            String command = "createdb mailsender";
-            Process process = Runtime.getRuntime().exec(command);
+            final var command = "createdb mailsender";
+            final var process = Runtime.getRuntime().exec(command);
             process.waitFor();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -104,11 +112,11 @@ public class BaseDAO {
     }
 
     public void setEvent(Date dateEvent, String text, String companyName) {
-        Event event = new Event();
+        final var event = new Event();
         event.setDescription(text);
-        java.sql.Date sqlDate = new java.sql.Date(dateEvent.getTime());
+        final var sqlDate = new java.sql.Date(dateEvent.getTime());
         event.setDate(sqlDate);
-        ArrayList<Company> findCompany = new ArrayList<>(BaseDAO.getInstance().getCompany());
+        final var findCompany = new ArrayList<>(BaseDAO.getInstance().getCompany());
         findCompany.stream().filter(company -> company.getName().equals(companyName)).forEach(event::setCompany);
         session.beginTransaction();
         session.save(event);
@@ -116,7 +124,7 @@ public class BaseDAO {
     }
 
     public boolean setSender(String mail, String path, Event event) {
-        Sender sender = new Sender();
+        final var sender = new Sender();
         sender.setPath(path);
         sender.setMail(mail);
         sender.setEvent(event);
@@ -128,8 +136,8 @@ public class BaseDAO {
     }
 
     public List<Event> getEventsFromCompany(String companyName) {
-        AtomicInteger companyId = new AtomicInteger();
-        ArrayList<Company> companies = new ArrayList<>(getCompany());
+        final var companyId = new AtomicInteger();
+        final var companies = new ArrayList<>(getCompany());
         companies.stream().filter(company -> company.getName().equals(companyName)).forEach(company -> companyId.set(company.getIdCompany()));
         session.beginTransaction();
         final var result = session.createQuery("FROM Event e WHERE e.company.idCompany = :companyId", Event.class)
@@ -147,7 +155,7 @@ public class BaseDAO {
     }
 
     public void setCompany(String name) {
-        Company company = new Company();
+        final var company = new Company();
         company.setName(name);
         session.beginTransaction();
         session.save(company);

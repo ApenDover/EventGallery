@@ -1,19 +1,18 @@
-package GUI.Gallery.imageResizer;
+package GUI.Gallery.utils.imageResizer;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import lombok.experimental.UtilityClass;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+@UtilityClass
 public class ImageDarkProcessor {
 
-    private ImageDarkProcessor() {
-    }
-
-    public static Image darker(BufferedImage imageToDark, double factor) {
+    public Image darker(BufferedImage imageToDark, double factor) {
         BufferedImage darkImage = new BufferedImage(imageToDark.getWidth(), imageToDark.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < imageToDark.getHeight(); y++) {
             for (int x = 0; x < imageToDark.getWidth(); x++) {
@@ -27,7 +26,7 @@ public class ImageDarkProcessor {
         return convertToFxImage(darkImage);
     }
 
-    private static Image convertToFxImage(BufferedImage image) {
+    private Image convertToFxImage(BufferedImage image) {
         if (Objects.isNull(image)) {
             return null;
         }

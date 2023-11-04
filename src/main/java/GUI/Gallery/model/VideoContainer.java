@@ -2,7 +2,7 @@ package GUI.Gallery.model;
 
 import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.utils.FileStringConverter;
-import GUI.Gallery.videoResizer.VideoResizerJpg;
+import GUI.Gallery.utils.videoResizer.VideoResizerJpg;
 import javafx.scene.Node;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

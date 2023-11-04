@@ -1,8 +1,8 @@
 package GUI.Gallery.model;
 
 import GUI.Gallery.OpenWindow;
+import GUI.Gallery.singleton.ContainerLibrary;
 import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.RepeatableTimeline;
 import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.singleton.StageContainer;
 import GUI.Gallery.utils.FileStringConverter;
@@ -27,17 +27,6 @@ public class ResizedImageContainer extends AbstractContainer {
     private Image image;
 
     private ImageView imageView;
-
-    public ResizedImageContainer(String path, AbstractContainer originalContainer) {
-        super(new File(path), path, FileStringConverter.getName(path), FileStringConverter.getExtension(path));
-        this.originalContainer = originalContainer;
-        try {
-            image = new Image(new FileInputStream(getFile()));
-            imageView = createImageView();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public ResizedImageContainer(File file, AbstractContainer originalContainer) {
         super(file, file.getAbsolutePath(), FileStringConverter.getName(file), FileStringConverter.getExtension(file));
@@ -66,11 +55,11 @@ public class ResizedImageContainer extends AbstractContainer {
         iv.setFitWidth(width);
         iv.setFitHeight(height);
         iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            LinkTransfer.getInstance().setResizeable(originalContainer);
+            LinkTransfer.getInstance().setResizeable((Resizeable) originalContainer);
             final var root = OpenWindow.open("ImageMedia-view.fxml");
             StageContainer.getInstance().getStage().centerOnScreen();
             StageContainer.getInstance().getStage().getScene().setRoot(root);
-//            RepeatableTimeline.getInstance().stop();
+            ContainerLibrary.getInstance().getFiveSecondsWonder().stop();
         });
         return iv;
     }

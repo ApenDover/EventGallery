@@ -1,10 +1,12 @@
 package GUI.Gallery;
 
-import GUI.Gallery.model.Comparator.ImageViewComparatorByName;
+import GUI.Gallery.model.Comparator.ImageViewComparatorifNeed;
 import GUI.Gallery.singleton.ContainerLibrary;
-import GUI.Gallery.singleton.RepeatableTimeline;
 import GUI.Gallery.utils.LoadAllFiles;
-import GUI.Gallery.videoResizer.ScrollSetup;
+import GUI.Gallery.utils.ScrollSetup;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -17,11 +19,12 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.rgielen.fxweaver.core.FxmlView;
+//import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,8 +37,6 @@ import java.util.ResourceBundle;
  * подгрузить недостающие, а не начинать делать.
  */
 
-@Component
-@FxmlView("Gallery-view.fxml")
 @RequiredArgsConstructor
 public class GalleryController implements Initializable {
 
@@ -54,13 +55,11 @@ public class GalleryController implements Initializable {
     @FXML
     private VBox vBox;
 
-    ImageViewComparatorByName imageViewComparatorByName = new ImageViewComparatorByName();
+    ImageViewComparatorifNeed imageViewComparatorifNeed = new ImageViewComparatorifNeed();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        ContainerLibrary.getInstance().getSaveImageView().clear();
 
         ScrollSetup.setup(scroll, colorNumber);
         if (SetupWindowController.isResultBgImageCheck()) {
@@ -69,20 +68,26 @@ public class GalleryController implements Initializable {
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
+
         LoadAllFiles.load();
-        final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableLinkedHashSet()
-                .stream().map(resizeable -> resizeable.getResizedImageContainer().getImageView()).toList());
-        actual.sort(imageViewComparatorByName);
-        actual.forEach(imageView -> galleryPane.getChildren().add(imageView));
+
+        final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
+        actual.sort(imageViewComparatorifNeed);
+        galleryPane.getChildren().addAll(actual);
 
         mainPane.requestLayout();
         vBox.requestLayout();
         galleryPane.requestLayout();
 
-        RepeatableTimeline.getInstance(actionEvent -> repeated()).start();
-
-        galleryPane.getChildren().forEach(node -> ContainerLibrary.getInstance().getSaveImageView().add((ImageView) node));
-
+        /**
+         *  запускаем поток мониторинга папки каждые N секунд
+         *  */
+        final var fiveSecondsWonder = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        event -> repeated()));
+        fiveSecondsWonder.setCycleCount(Animation.INDEFINITE);
+        fiveSecondsWonder.play();
+        ContainerLibrary.getInstance().setFiveSecondsWonder(fiveSecondsWonder);
     }
 
 
@@ -91,39 +96,26 @@ public class GalleryController implements Initializable {
      */
     private void repeated() {
 
-        mainPane.requestLayout();
-        vBox.requestLayout();
-        galleryPane.requestLayout();
-
-        System.out.println(galleryPane.getChildren() + ":" + ContainerLibrary.getInstance().getSaveImageView().size());
-
-        final var beforeReload = new ArrayList<>(ContainerLibrary.getInstance().getResizeableLinkedHashSet()
-                .stream().map(resizeable -> resizeable.getResizedImageContainer().getImageView()).toList());
-
-        final var removed = new ArrayList<>(beforeReload);
+        final var beforeReload = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
 
         LoadAllFiles.load();
 
-        final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableLinkedHashSet()
-                .stream().map(resizeable -> resizeable.getResizedImageContainer().getImageView()).toList());
+        final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
 
         final var added = new ArrayList<>(actual);
+        final var removed = new ArrayList<>(beforeReload);
 
         added.removeAll(beforeReload);
         removed.removeAll(actual);
 
-        /**
-         *  Если добавились файлы, то определяем конкретные и их тип,
-         *  а далее отправляем на ресайз + сразу сделаем им imageView
-         * */
         if (!added.isEmpty()) {
             System.out.println("added " + added.size());
-            added.forEach(imageView -> galleryPane.getChildren().add(imageView));  //добавляем ноды в галлерею
+            galleryPane.getChildren().addAll(added);
             galleryPane.requestLayout();
         }
         if (!removed.isEmpty()) {
             System.out.println("removed " + removed.size());
-            removed.forEach(imageView -> galleryPane.getChildren().remove(imageView));  //добавляем ноды в галлерею
+            galleryPane.getChildren().removeAll(removed);
             galleryPane.requestLayout();
         }
 
@@ -140,8 +132,6 @@ public class GalleryController implements Initializable {
             galleryPane.setPrefColumns(Math.min(galleryPane.getChildren().size(),
                     Math.max(1, (int) (newValue.doubleValue() / (maxWidth + galleryPane.getHgap())))));
         });
-
-        galleryPane.getChildren().forEach(node -> ContainerLibrary.getInstance().getSaveImageView().add((ImageView) node));
 
     }
 

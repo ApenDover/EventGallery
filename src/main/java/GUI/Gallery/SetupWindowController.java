@@ -1,7 +1,5 @@
 package GUI.Gallery;
 
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.stereotype.Component;
 import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Company;
 import GUI.Gallery.data.entity.Event;
@@ -61,8 +59,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Component
-@FxmlView("SetupWindow.fxml")
 public class SetupWindowController implements Initializable {
 
     @FXML

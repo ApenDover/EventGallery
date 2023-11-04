@@ -17,12 +17,6 @@ module GUI.Gallery {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.controls;
-    requires javafx.weaver.spring.boot.starter;
-    requires spring.boot.autoconfigure;
-    requires spring.boot;
-    requires net.rgielen.fxweaver.core;
-    requires spring.context;
-    requires spring.beans;
 
     exports GUI.Gallery;
     opens GUI.Gallery to javafx.fxml;

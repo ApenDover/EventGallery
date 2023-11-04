@@ -1,7 +1,6 @@
 package GUI.Gallery.model.Comparator;
 
 import GUI.Gallery.singleton.SettingsLoader;
-import javafx.scene.Node;
 
 import java.io.File;
 import java.util.Comparator;
@@ -9,14 +8,12 @@ import java.util.Comparator;
 public class FileComparatorByName implements Comparator<File> {
 
     @Override
-    public int compare(File o1, File o2) {
-        if (SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewDown()) {
-            return (o1.getName().compareTo(o2.getName()));
+    public int compare(File n1, File n2) {
+        final int compareResult = n1.getName().compareTo(n2.getName());
+        if (SettingsLoader.getInstance().isNewUp()) {
+            return compareResult * -1;
         }
-        if (SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
-            return (o1.getName().compareTo(o2.getName()) * -1);
-        }
-        return 0;
+        return compareResult;
     }
 
 }

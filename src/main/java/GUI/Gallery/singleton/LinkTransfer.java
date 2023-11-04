@@ -1,6 +1,6 @@
 package GUI.Gallery.singleton;
 
-import GUI.Gallery.model.AbstractContainer;
+import GUI.Gallery.model.Resizeable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ public class LinkTransfer {
 
     private static LinkTransfer instance;
 
-    private AbstractContainer resizeable;
+    private Resizeable resizeable;
 
     private boolean flag;
 

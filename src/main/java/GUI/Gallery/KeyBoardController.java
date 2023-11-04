@@ -3,7 +3,6 @@ package GUI.Gallery;
 import GUI.Gallery.data.dao.BaseDAO;
 import GUI.Gallery.data.entity.Event;
 import GUI.Gallery.runnable.SendMailProcess;
-import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.singleton.LinkTransfer;
 import GUI.Gallery.singleton.MailBase;
 import GUI.Gallery.singleton.StageContainer;
@@ -27,9 +26,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import lombok.Getter;
-import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,8 +37,6 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
-@FxmlView("KeyBoard.fxml")
 public class KeyBoardController implements Initializable {
 
     @FXML
@@ -541,7 +536,8 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
-        String imagePath = LinkTransfer.getInstance().getResizeable().getPath();
+        String imagePath = LinkTransfer.getInstance().getResizeable()
+                .getResizedImageContainer().getOriginalContainer().getPath();
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);

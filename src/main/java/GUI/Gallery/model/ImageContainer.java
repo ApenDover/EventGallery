@@ -1,6 +1,6 @@
 package GUI.Gallery.model;
 
-import GUI.Gallery.imageResizer.ImgScaleProcessor;
+import GUI.Gallery.utils.imageResizer.ImgScaleProcessor;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.Node;
 import javafx.scene.image.Image;

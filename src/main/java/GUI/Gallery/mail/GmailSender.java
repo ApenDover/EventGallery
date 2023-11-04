@@ -38,16 +38,16 @@ public class GmailSender {
     }
 
     public String send(String subject, String text, String path, String toEmail) throws MessagingException, IOException {
-        Session session = Session.getDefaultInstance(props, new Authenticator() {
+        final var session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
         });
-        Message message = new MimeMessage(session);
+        final var message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         message.setSubject(subject);
-        BodyPart messageBodyPart = new MimeBodyPart();
+        final var messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText(text);
         if (StringUtils.isNotBlank(path)) {
             MimeBodyPart attachmentPart = new MimeBodyPart();

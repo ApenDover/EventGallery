@@ -1,11 +1,10 @@
 package GUI.Gallery;
 
-import GUI.Gallery.imageResizer.ImageDarkProcessor;
+import GUI.Gallery.utils.imageResizer.ImageDarkProcessor;
 import GUI.Gallery.imageViewProcess.NextImageProcessor;
 import GUI.Gallery.model.ImageContainer;
 import GUI.Gallery.model.VideoContainer;
 import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.RepeatableTimeline;
 import GUI.Gallery.singleton.StageContainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,13 +22,12 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
-import net.rgielen.fxweaver.core.FxmlView;
+//import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;
@@ -37,13 +35,9 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("ImageMedia-view.fxml")
 public class ImageMediaController implements Initializable {
 
     @FXML

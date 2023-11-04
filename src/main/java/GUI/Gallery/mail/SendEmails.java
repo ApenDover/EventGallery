@@ -14,18 +14,18 @@ import java.util.concurrent.atomic.AtomicReference;
 public class SendEmails {
 
     public String send(List<Sender> senderList, String subject, String text) {
-        AtomicReference<String> status = new AtomicReference<>(StringUtils.EMPTY);
+        final var status = new AtomicReference<>(StringUtils.EMPTY);
         senderList.forEach(sender -> {
-            String mailTO = sender.getMail();
-            String attachedPath = sender.getPath();
+            final var mailTO = sender.getMail();
+            final var attachedPath = sender.getPath();
 //          если вложение > 25Mb, то abort, добавив запись в базу
-            if ((new File(sender.getPath()).length()) > 25000000) {
+            if (new File(sender.getPath()).length() > 25000000) {
                 BaseDAO.getInstance().updateSenderStatus("too big", sender);
                 status.set(mailTO + ": " + "file is too big");
             } else {
-                GmailSender sslSender = new GmailSender(SettingsLoader.getInstance().getLogin(), SettingsLoader.getInstance().getPassword());
+                final var sslSender = new GmailSender(SettingsLoader.getInstance().getLogin(), SettingsLoader.getInstance().getPassword());
                 try {
-                    String statusSender = sslSender.send(subject, text, attachedPath, mailTO);
+                    final var statusSender = sslSender.send(subject, text, attachedPath, mailTO);
                     BaseDAO.getInstance().updateSenderStatus(statusSender, sender);
                     status.set(mailTO + ": " + statusSender);
                 } catch (Exception e) {
