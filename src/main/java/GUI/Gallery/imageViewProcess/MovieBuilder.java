@@ -5,10 +5,12 @@ import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.net.MalformedURLException;
 
+@UtilityClass
 public class MovieBuilder {
 
     public MediaView createMovie(String file) {

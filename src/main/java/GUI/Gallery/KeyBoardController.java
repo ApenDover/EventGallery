@@ -541,7 +541,7 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
-        String imagePath = SettingsLoader.getInstance().getSourceFolder() + "/" + LinkTransfer.getInstance().getLink();
+        String imagePath = LinkTransfer.getInstance().getResizeable().getPath();
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);

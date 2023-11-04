@@ -2,12 +2,11 @@ package GUI.Gallery;
 
 import GUI.Gallery.imageResizer.ImageDarkProcessor;
 import GUI.Gallery.imageViewProcess.NextImageProcessor;
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.singleton.FileViewBase;
+import GUI.Gallery.model.ImageContainer;
+import GUI.Gallery.model.VideoContainer;
 import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.NodeBase;
+import GUI.Gallery.singleton.RepeatableTimeline;
 import GUI.Gallery.singleton.StageContainer;
-import GUI.Gallery.utils.FileStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +14,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
@@ -26,7 +24,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +38,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -62,8 +58,6 @@ public class ImageMediaController implements Initializable {
     @Getter
     private static Image image;
 
-    private final ArrayList<String> allGalleryImageView = new ArrayList<>();
-
     private NextImageProcessor nextImageProcessor;
 
 
@@ -73,6 +67,7 @@ public class ImageMediaController implements Initializable {
         try {
             root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
         StageContainer.getInstance().getStage().centerOnScreen();
@@ -128,34 +123,23 @@ public class ImageMediaController implements Initializable {
                 mainPane.setStyle("-fx-background: rgb(20,20,30);");
             }
 
-            if (SettingsLoader.getInstance().isByAddTime() && SettingsLoader.getInstance().isNewUp()) {
-                ArrayList<ImageView> allImageView = new ArrayList<>(NodeBase.getInstance().getImageViewLinkedHashContainer());
-                Collections.reverse(allImageView);
-                allImageView.forEach(iv -> this.allGalleryImageView.add(iv.getId()));
+            if (LinkTransfer.getInstance().getResizeable() instanceof ImageContainer imageContainer) {
+                setCenterNode(imageContainer.getImageView());
             }
-            if (SettingsLoader.getInstance().isByAddTime() && SettingsLoader.getInstance().isNewDown()) {
-                NodeBase.getInstance().getImageViewLinkedHashContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
-            }
-            if (SettingsLoader.getInstance().isByName()) {
-                NodeBase.getInstance().getImageViewTreeContainer().forEach(iv -> allGalleryImageView.add(iv.getId()));
-            }
-
-            if (FileViewBase.getInstance().getImgExtension().contains(FileStringConverter.getExtension(LinkTransfer.getInstance().getLink()))) {
-                ImageView imageView = nextImageProcessor.createImage(LinkTransfer.getInstance().getLink());
-                setCenterNode(imageView);
-            }
-            if (FileViewBase.getInstance().getMovieExtension().contains(FileStringConverter.getExtension(LinkTransfer.getInstance().getLink()))) {
-                MediaView mediaView = nextImageProcessor.createMovie(LinkTransfer.getInstance().getLink());
+            if (LinkTransfer.getInstance().getResizeable() instanceof VideoContainer videoContainer) {
+                final var mediaView = videoContainer.getMediaView();
+                mediaView.getMediaPlayer().play();
                 setCenterNode(mediaView);
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
     private String buildNextNode(boolean target) {
         borderPane.setCenter(null);
-        Node node = nextImageProcessor.secondImage(target, allGalleryImageView);
+        Node node = nextImageProcessor.secondImage(target);
         setCenterNode(node);
         return node.getId();
     }
@@ -163,12 +147,6 @@ public class ImageMediaController implements Initializable {
     private void setCenterNode(Node node) {
         borderPane.setCenter(node);
         borderPane.requestLayout();
-    }
-
-    private void stopMediaPlayer(MediaPlayer mediaPlayer) {
-        if (Objects.nonNull(mediaPlayer)) {
-            mediaPlayer.stop();
-        }
     }
 
 }

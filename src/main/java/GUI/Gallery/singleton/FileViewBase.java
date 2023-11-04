@@ -64,9 +64,9 @@ public class FileViewBase {
     }
 
     private void findPreviewImages() {
-        File folder = new File(SettingsLoader.getInstance().getSourceFolder(), SettingsLoader.getInstance().getQualityResizer()); //перебираем все файлы в dstFolder
+        File folder = new File(SettingsLoader.getInstance().getSourceFolder(), SettingsLoader.getInstance().getResizeQuality()); //перебираем все файлы в dstFolder
         if (folder.exists()) {
-            File[] previewFiles = new File(SettingsLoader.getInstance().getSourceFolder(), SettingsLoader.getInstance().getQualityResizer()).listFiles();
+            File[] previewFiles = new File(SettingsLoader.getInstance().getSourceFolder(), SettingsLoader.getInstance().getResizeQuality()).listFiles();
             if (Objects.nonNull(previewFiles)) {
                 for (File file : previewFiles) {
                     if (imgExtension.contains(FileStringConverter.getExtension(file))) {

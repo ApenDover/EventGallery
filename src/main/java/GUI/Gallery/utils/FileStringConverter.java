@@ -1,5 +1,6 @@
 package GUI.Gallery.utils;
 
+import GUI.Gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
@@ -15,6 +16,18 @@ public class FileStringConverter {
 
     public String getName(File file) {
         return file.getName().substring(0, file.getName().lastIndexOf('.'));
+    }
+
+    public String getName(String path) {
+        return path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
+    }
+
+    public String getFullNameFromPath(String path) {
+        return path.substring(path.lastIndexOf('/') + 1);
+    }
+
+    public String getResizeFileFromOriginal(String originalPath) {
+        return getFilePath(SettingsLoader.getInstance().getQualityResizeFolder(), getName(originalPath), "jpg");
     }
 
     public String getExtension(File file) {

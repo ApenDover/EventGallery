@@ -1,6 +1,8 @@
 package GUI.Gallery.videoResizer;
 
+import GUI.Gallery.utils.FileStringConverter;
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
@@ -14,41 +16,31 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
 
+@UtilityClass
 public class VideoResizerJpg {
 
-    private VideoResizerJpg() {
-    }
-
     public static void getImageFromVideo(Set<File> filesToResize, int newWidth, boolean videoSign) {
-
-        filesToResize.parallelStream().forEach(file -> {
-            final var filePath = file.getAbsolutePath();
-            String targetFilePath;
-            try (final var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
-                fFmpegFrameGrabber.start();
-                Frame frame = fFmpegFrameGrabber.grabImage();
-                targetFilePath = getImagePath(filePath);
-                doExecuteFrame(frame, targetFilePath, newWidth, videoSign);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
+        filesToResize.parallelStream().forEach(file -> getImageFromVideo(file, newWidth, videoSign));
     }
 
-    private static String getImagePath(String filePath) {
-        if (filePath.contains(".") && filePath.lastIndexOf(".") < filePath.length() - 1) {
-            String[] fileArray = filePath.split("/");
-            String fileNameFull = fileArray[fileArray.length - 1];
-            String fileName = fileNameFull.substring(0, fileNameFull.length() - 4);
-            File dir = new File(filePath.substring(0, filePath.lastIndexOf("/")).concat("/300"));
-            dir.mkdir();
-            filePath = filePath.substring(0, filePath.lastIndexOf("/")).concat("/300/").concat(fileName).concat(".").concat("png");
+    public static File getImageFromVideo(File file, int newWidth, boolean videoSign) {
+        final var filePath = file.getAbsolutePath();
+        String targetFilePath = FileStringConverter.getResizeFileFromOriginal(filePath);
+        File fileResized = new File(targetFilePath);
+        if (fileResized.exists()) {
+            return fileResized;
         }
-        return filePath;
+        System.out.println("RESIZE " + file.getAbsolutePath());
+        try (final var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
+            fFmpegFrameGrabber.start();
+            Frame frame = fFmpegFrameGrabber.grabImage();
+            return doExecuteFrame(frame, targetFilePath, newWidth, videoSign);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static void doExecuteFrame(@NonNull Frame frame, String targetFilePath, int newWidth, boolean videoSign) throws IOException {
+    private static File doExecuteFrame(@NonNull Frame frame, String targetFilePath, int newWidth, boolean videoSign) throws IOException {
         if (Objects.nonNull(frame.image)) {
             try (Java2DFrameConverter converter = new Java2DFrameConverter()) {
                 BufferedImage biFromMovie = converter.getBufferedImage(frame);
@@ -71,8 +63,10 @@ public class VideoResizerJpg {
                 } else {
                     ImageIO.write(biFromMovie, "jpg", output);
                 }
+                return output;
             }
         }
+        return null;
     }
 
 }

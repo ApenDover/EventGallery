@@ -1,13 +1,14 @@
-package GUI.Gallery.singleton;
+package GUI.Gallery.model.Comparator;
 
-import javafx.scene.image.ImageView;
+import GUI.Gallery.singleton.SettingsLoader;
+import javafx.scene.Node;
 
 import java.util.Comparator;
 
-public class ImageViewComparator implements Comparator<ImageView> {
+public class ImageViewComparatorByName implements Comparator<Node> {
 
     @Override
-    public int compare(ImageView o1, ImageView o2) {
+    public int compare(Node o1, Node o2) {
         if (SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewDown()) {
             return (o1.getId().compareTo(o2.getId()));
         }

@@ -4,7 +4,9 @@ import GUI.Gallery.singleton.SettingsLoader;
 import GUI.Gallery.utils.FileStringConverter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class PictureBuilder {
 
     public ImageView buildImageView(String file) {
