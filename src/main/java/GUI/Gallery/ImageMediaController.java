@@ -25,9 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
-//import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.StringUtils;
-//import org.springframework.stereotype.Component;
 
 import java.awt.AWTException;
 import java.awt.Rectangle;

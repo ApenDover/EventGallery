@@ -332,17 +332,17 @@ public class SetupWindowController implements Initializable {
         if (colorNumber.getText().length() == 6) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
-            red = colorNumber.getText().substring(0, 2);
-            green = colorNumber.getText().substring(2, 4);
-            blue = colorNumber.getText().substring(4, 6);
+            red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(0, 2), 16));
+            green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(2, 4), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(4, 6), 16));
         }
 
         if (colorNumber.getText().length() == 7) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
-            red = colorNumber.getText().substring(1, 3);
-            green = colorNumber.getText().substring(3, 5);
-            blue = colorNumber.getText().substring(5, 7);
+            red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(1, 3), 16));
+            green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(3, 5), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(5, 7), 16));
         }
         /**
          * Запишем настройки сортировки в SettingsLoader

@@ -194,8 +194,6 @@ public class KeyBoardController implements Initializable {
 
     private String finalText = StringUtils.EMPTY;
 
-//    private final SendMailProcess sendMailProcess;
-
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     @Getter
