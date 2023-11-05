@@ -33,8 +33,6 @@ public final class SettingsLoader {
 
     private String sourceFolder;
 
-    private String resizeQuality;
-
     private String qualityResizeFolder;
 
     private boolean byAddTime;
@@ -68,8 +66,7 @@ public final class SettingsLoader {
             text = (String) jsonObject.get("text");
             String ps = (String) jsonObject.get("folderPath");
             sourceFolder = ps.replaceAll("\\\\", StringUtils.EMPTY);
-            resizeQuality = (String) jsonObject.get("resizeQuality");
-            qualityResizeFolder = sourceFolder + "/" + resizeQuality;
+            qualityResizeFolder = sourceFolder + "/" + SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue();
             dbLogin = (String) jsonObject.get("sqlLogin");
             dbPassword = (String) jsonObject.get("sqlPassword");
         } catch (IOException | ParseException e) {
@@ -78,7 +75,7 @@ public final class SettingsLoader {
     }
 
     public void saveSettingsToJsonFile(String login, String password, String subject, String text,
-                                       String srcPath, String resizeQuality, String sqlLogin, String sqlPassword) {
+                                       String srcPath, String sqlLogin, String sqlPassword) {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("login", login);
@@ -86,7 +83,6 @@ public final class SettingsLoader {
         jsonObject.put("subject", subject);
         jsonObject.put("text", text);
         jsonObject.put("folderPath", srcPath);
-        jsonObject.put("resizeQuality", resizeQuality);
         jsonObject.put("sqlLogin", sqlLogin);
         jsonObject.put("sqlPassword", sqlPassword);
         try (FileWriter file = new FileWriter(FileStringConverter.getFilePath(srcPath, "config", "json"))) {

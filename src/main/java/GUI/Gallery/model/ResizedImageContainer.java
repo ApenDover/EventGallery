@@ -3,7 +3,7 @@ package gui.gallery.model;
 import gui.gallery.OpenWindow;
 import gui.gallery.singleton.ContainerLibrary;
 import gui.gallery.singleton.LinkTransfer;
-import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.StageContainer;
 import gui.gallery.utils.FileStringConverter;
 import javafx.scene.image.Image;
@@ -55,7 +55,7 @@ public class ResizedImageContainer extends AbstractContainer {
         final var iv = new ImageView();
         iv.setImage(image);
         iv.setId(FileStringConverter.getFullNameFromPath(originalContainer.getPath()));
-        double width = Integer.parseInt(SettingsLoader.getInstance().getResizeQuality());
+        double width = SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue();
         double height = (originalContainer.getHeight() * width) / originalContainer.getWidth();
         iv.setFitWidth(width);
         iv.setFitHeight(height);

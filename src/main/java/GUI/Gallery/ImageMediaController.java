@@ -1,5 +1,6 @@
 package gui.gallery;
 
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.utils.imageResizer.ImageDarkProcessor;
 import gui.gallery.imageViewProcess.NextImageProcessor;
 import gui.gallery.model.ImageContainer;
@@ -33,7 +34,6 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @SuppressWarnings("checkstyle:AvoidInlineConditionals")
@@ -54,8 +54,6 @@ public class ImageMediaController implements Initializable {
     private NextImageProcessor nextImageProcessor;
 
     private static final double FACTOR = 0.7;
-
-    private static final List<Integer> COLOR_CHAR_SIZE = List.of(6, 7);
 
 
     public void goToGallery() {
@@ -114,7 +112,8 @@ public class ImageMediaController implements Initializable {
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
             }
-            if (COLOR_CHAR_SIZE.contains(colorNumber.length())) {
+            if (colorNumber.length() == SettingsConst.COLOR_LENGTH.getValue()
+                    || colorNumber.length() == SettingsConst.COLOR_LENGTH_SHARP.getValue()) {
                 mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed()
                         + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
             } else {

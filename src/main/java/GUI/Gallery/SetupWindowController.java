@@ -4,6 +4,7 @@ import gui.gallery.data.dao.BaseDAO;
 import gui.gallery.data.entity.Company;
 import gui.gallery.data.entity.Event;
 import gui.gallery.runnable.ScalePreviewImagesProcess;
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.SettingsLoader;
 import gui.gallery.singleton.MailBase;
 import gui.gallery.singleton.StageContainer;
@@ -60,6 +61,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SetupWindowController implements Initializable {
+
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+
+    private static final String CONFIG_JSON = "config.json";
+
+    private static final int PATH_LENGTH = CONFIG_JSON.length() + 1;
 
     @FXML
     private ToggleButton byAddTime;
@@ -160,16 +167,6 @@ public class SetupWindowController implements Initializable {
     @Getter
     private static Image imageForBackGround2;
 
-    private final ExecutorService executor = Executors.newCachedThreadPool();
-
-    private static final String CONFIG_JSON = "config.json";
-
-    private static final int PATH_LENGTH = CONFIG_JSON.length() + 1;
-
-    private static final int COLOR_LENGTH_SHARP = 7;
-
-    private static final int COLOR_LENGTH = COLOR_LENGTH_SHARP - 1;
-
     /**
      * Настройки
      */
@@ -238,8 +235,8 @@ public class SetupWindowController implements Initializable {
     private void folderResize() {
         if (StringUtils.isNotBlank(pathField.getText())) {
             final var scalePreviewImagesProcess = new ScalePreviewImagesProcess(pathField);
-            executor.execute(scalePreviewImagesProcess);
-            executor.shutdown();
+            EXECUTOR_SERVICE.execute(scalePreviewImagesProcess);
+            EXECUTOR_SERVICE.shutdown();
         }
     }
 
@@ -340,20 +337,20 @@ public class SetupWindowController implements Initializable {
         resultBgImageCheck = bgImageCheck.isSelected();
         resultBgImageCheck2 = bgImageCheck2.isSelected();
 
-        if (colorNumber.getText().length() == COLOR_LENGTH) {
+        if (colorNumber.getText().length() == SettingsConst.COLOR_LENGTH.getValue()) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
             red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(0, 2), 16));
             green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(2, 4), 16));
-            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(4, COLOR_LENGTH), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(4, SettingsConst.COLOR_LENGTH.getValue()), 16));
         }
 
-        if (colorNumber.getText().length() == COLOR_LENGTH_SHARP) {
+        if (colorNumber.getText().length() == SettingsConst.COLOR_LENGTH_SHARP.getValue()) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
             red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(1, 3), 16));
             green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(3, 5), 16));
-            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(5, COLOR_LENGTH_SHARP), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(5, SettingsConst.COLOR_LENGTH_SHARP.getValue()), 16));
         }
         /**
          * Запишем настройки сортировки в SettingsLoader
@@ -368,8 +365,9 @@ public class SetupWindowController implements Initializable {
          * */
 
         /** Записываем настройки в config.json */
-        SettingsLoader.getInstance().saveSettingsToJsonFile(login.getText(), password.getText(), subject.getText(), text.getText(),
-                pathField.getText(), "300", loginDB.getText(), passwordDB.getText());
+        SettingsLoader.getInstance().saveSettingsToJsonFile(login.getText(), password.getText(),
+                subject.getText(), text.getText(), pathField.getText(),
+                loginDB.getText(), passwordDB.getText());
 
 
         /**

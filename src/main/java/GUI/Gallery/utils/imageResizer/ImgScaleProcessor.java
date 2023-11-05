@@ -1,5 +1,6 @@
 package gui.gallery.utils.imageResizer;
 
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 import org.imgscalr.Scalr;
@@ -11,8 +12,6 @@ import java.util.Set;
 
 @UtilityClass
 public class ImgScaleProcessor {
-
-    private static final int NEW_WIDTH = Integer.parseInt(SettingsLoader.getInstance().getResizeQuality());
 
     public void scale(Set<File> imgFiles) {
         if (Objects.isNull(imgFiles)) {
@@ -31,7 +30,7 @@ public class ImgScaleProcessor {
                 if (Objects.nonNull(image)) {
                     final var newFile = new File(SettingsLoader.getInstance().getQualityResizeFolder(), imgFile.getName());
                     if (!newFile.exists()) {
-                        final var newImage = Scalr.resize(image, NEW_WIDTH);
+                        final var newImage = Scalr.resize(image, SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue());
                         ImageIO.write(newImage, "jpg", newFile);
                     }
                     return newFile;

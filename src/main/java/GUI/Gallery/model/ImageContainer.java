@@ -1,5 +1,6 @@
 package gui.gallery.model;
 
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.utils.imageResizer.ImgScaleProcessor;
 import gui.gallery.utils.FileStringConverter;
 import javafx.scene.Node;
@@ -17,9 +18,6 @@ import java.util.Objects;
 @Setter
 public class ImageContainer extends AbstractContainer implements Resizeable {
 
-    public static final int WIDTH = 1200;
-    public static final int HEIGHT = 1200;
-    public static final int SQAURE_SIZE = 800;
     private ResizedImageContainer resized;
 
     private Image image;
@@ -87,11 +85,11 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
         iv.setImage(image);
         final var difSize = image.getWidth() / image.getHeight();
         if (difSize > 1) {
-            iv.setFitWidth(WIDTH);
-            iv.setFitHeight(HEIGHT / difSize);
+            iv.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
+            iv.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue() / difSize);
         } else {
-            iv.setFitWidth(SQAURE_SIZE * difSize);
-            iv.setFitHeight(SQAURE_SIZE);
+            iv.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue() * difSize);
+            iv.setFitHeight(SettingsConst.WIDTH_RESIZE_NODE.getValue());
         }
         iv.setId(FileStringConverter.getFullNameFromPath(this.getPath()));
         return iv;

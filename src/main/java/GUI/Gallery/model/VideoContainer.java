@@ -1,6 +1,6 @@
 package gui.gallery.model;
 
-import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.utils.FileStringConverter;
 import gui.gallery.utils.videoResizer.VideoResizerJpg;
 import javafx.scene.Node;
@@ -17,8 +17,6 @@ import java.util.Objects;
 @Setter
 public class VideoContainer extends AbstractContainer implements Resizeable {
 
-    public static final int WIDTH = 1200;
-    public static final int HEIGHT = 800;
     private ResizedImageContainer resized;
 
     @Getter
@@ -31,8 +29,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(WIDTH);
-        mediaView.setFitHeight(HEIGHT);
+        mediaView.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
+        mediaView.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue());
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(path));
         setWidth(media.getWidth());
@@ -46,8 +44,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(WIDTH);
-        mediaView.setFitHeight(HEIGHT);
+        mediaView.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
+        mediaView.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue());
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(file.getAbsolutePath()));
         setWidth(media.getWidth());
@@ -70,8 +68,7 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
     public void createResizePreview() {
         if (!isResizedAlive()) {
             resized = new ResizedImageContainer(VideoResizerJpg.getImageFromVideo(this.getFile(),
-                    Integer.parseInt(SettingsLoader.getInstance().getResizeQuality()),
-                    true), this);
+                    SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue(), true), this);
         }
     }
 
