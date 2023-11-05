@@ -12,9 +12,21 @@
 + Сортировка галлереи (по названию файла, по времени добавления в папку);
 + Отображается статус отправления на почту, сразу ясно - успешно ли отправился документ;
 + Синхронизация галлереи с содержимым папки: для добавления (удаления) файлов в галерею нужно добавить (удалить) файлы в рабочую папку;
++ Сохранение настроек для выбранной папки в config.json
 
 #### Необходимое для работы приложения:
 + JVM
 + Postgres
 + Созданная пустая база данных
 + аккаунт gmail с разрешенным доступом внешних приложений
+<br>
+<br>
+<br>
+#### Окно настройки
+![SetupWindow.png](src%2Fmain%2Fresources%2FreadmeImages%2FSetupWindow.png)
+#### Окно галлереи
+![Gallery-view.png](src%2Fmain%2Fresources%2FreadmeImages%2FGallery-view.png)
+#### Окно просмотра
+![ImageMedia-view.png](src%2Fmain%2Fresources%2FreadmeImages%2FImageMedia-view.png)
+#### Окно отправки на почту
+![KeyBoard.png](src%2Fmain%2Fresources%2FreadmeImages%2FKeyBoard.png)
