@@ -85,11 +85,11 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
         iv.setImage(image);
         final var difSize = image.getWidth() / image.getHeight();
         if (difSize > 1) {
-            iv.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
-            iv.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue() / difSize);
+            iv.setFitWidth(SettingsConst.LONG_SIDE.getValue());
+            iv.setFitHeight(SettingsConst.LONG_SIDE.getValue() / difSize);
         } else {
-            iv.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue() * difSize);
-            iv.setFitHeight(SettingsConst.WIDTH_RESIZE_NODE.getValue());
+            iv.setFitHeight(SettingsConst.SHOT_SIDE.getValue());
+            iv.setFitWidth(SettingsConst.SHOT_SIDE.getValue() * difSize);
         }
         iv.setId(FileStringConverter.getFullNameFromPath(this.getPath()));
         return iv;

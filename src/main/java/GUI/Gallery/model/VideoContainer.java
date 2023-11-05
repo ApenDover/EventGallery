@@ -29,8 +29,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
-        mediaView.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue());
+        mediaView.setFitWidth(SettingsConst.SHOT_SIDE.getValue());
+        mediaView.setFitHeight(SettingsConst.LONG_SIDE.getValue());
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(path));
         setWidth(media.getWidth());
@@ -44,8 +44,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(SettingsConst.WIDTH_RESIZE_NODE.getValue());
-        mediaView.setFitHeight(SettingsConst.HEIGHT_RESIZE_NODE.getValue());
+        mediaView.setFitWidth(SettingsConst.LONG_SIDE.getValue());
+        mediaView.setFitHeight(SettingsConst.SHOT_SIDE.getValue());
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(file.getAbsolutePath()));
         setWidth(media.getWidth());

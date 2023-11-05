@@ -11,9 +11,9 @@ public enum SettingsConst {
 
     COLOR_LENGTH(6),
 
-    HEIGHT_RESIZE_NODE(1200),
+    LONG_SIDE(1200),
 
-    WIDTH_RESIZE_NODE(800),
+    SHOT_SIDE(800),
 
     SCALE_RESIZE_LONG_SIDE(300);
 
