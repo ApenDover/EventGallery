@@ -30,20 +30,21 @@
   <br>
   <br>
   Окно настройки:
-  <br><br>
-  <img src="src/main/resources/readmeImages/setupwindow.png" alt="Окно настройки" title="Окно настройки" />
   <br>
+  <img src="src/main/resources/readmeImages/setupwindow.png" alt="Окно настройки" title="Окно настройки" />
+  <br><br>
   Окно галереи:
   <br><br>
   <img src="src/main/resources/readmeImages/galleryview.png" alt="Окно галереи" title="Окно галереи" />
-  <br>
+  <br><br>
   Окно просмотра:
   <br><br>
   <img src="src/main/resources/readmeImages/imagemediaview.png" alt="Окно просмотра" title="Окно просмотра" />
-  <br>
+  <br><br>
   Окно отправки на почту:
   <br><br>
   <img src="src/main/resources/readmeImages/keyboard.png" alt="Окно отправки на почту" title="Окно отправки на почту" />
+  <br><br>
   Схема базы данных:
   <br><br>
   <img src="src/main/resources/readmeImages/database.png" alt="Схема базы данных" title="Схема базы данных" />
