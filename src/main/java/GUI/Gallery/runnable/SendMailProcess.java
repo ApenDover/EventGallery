@@ -1,8 +1,8 @@
-package GUI.Gallery.runnable;
+package gui.gallery.runnable;
 
-import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.mail.SendEmails;
-import GUI.Gallery.singleton.SettingsLoader;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.mail.SendEmails;
+import gui.gallery.singleton.SettingsLoader;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.Callable;
@@ -18,4 +18,5 @@ public class SendMailProcess implements Callable<String> {
         }
         return status;
     }
+
 }

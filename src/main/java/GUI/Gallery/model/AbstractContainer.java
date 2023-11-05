@@ -1,4 +1,4 @@
-package GUI.Gallery.model;
+package gui.gallery.model;
 
 import javafx.scene.Node;
 import lombok.Getter;
@@ -33,13 +33,20 @@ public class AbstractContainer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractContainer that)) return false;
-        return Objects.equals(getFile(), that.getFile()) && Objects.equals(getPath(), that.getPath()) && Objects.equals(getFileName(), that.getFileName()) && Objects.equals(getExtension(), that.getExtension());
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractContainer)) {
+            return false;
+        }
+        final var container = (AbstractContainer) o;
+        return Objects.equals(getFile(), container.getFile()) && Objects.equals(getPath(), container.getPath())
+                && Objects.equals(getFileName(), container.getFileName()) && Objects.equals(getExtension(), container.getExtension());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getFile(), getPath(), getFileName(), getExtension());
     }
+
 }

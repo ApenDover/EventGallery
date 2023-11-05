@@ -1,4 +1,4 @@
-package GUI.Gallery.utils;
+package gui.gallery.utils;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;

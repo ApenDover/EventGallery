@@ -1,6 +1,6 @@
-package GUI.Gallery.singleton;
+package gui.gallery.singleton;
 
-import GUI.Gallery.data.entity.Sender;
+import gui.gallery.data.entity.Sender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 @Getter
 @Setter
-public class MailBase {
+public final class MailBase {
 
     private static MailBase instance;
 

@@ -1,8 +1,8 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.StageContainer;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.StageContainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-
-    public static boolean start = true;
 
     @Override
     public void stop() throws Exception {

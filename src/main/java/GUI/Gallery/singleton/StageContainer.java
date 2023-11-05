@@ -1,4 +1,4 @@
-package GUI.Gallery.singleton;
+package gui.gallery.singleton;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class StageContainer {
+public final class StageContainer {
 
     private static StageContainer instance;
 

@@ -1,14 +1,14 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.data.entity.Company;
-import GUI.Gallery.data.entity.Event;
-import GUI.Gallery.runnable.ScalePreviewImagesProcess;
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.singleton.MailBase;
-import GUI.Gallery.singleton.StageContainer;
-import GUI.Gallery.utils.EmptyChecker;
-import GUI.Gallery.utils.FileStringConverter;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.data.entity.Company;
+import gui.gallery.data.entity.Event;
+import gui.gallery.runnable.ScalePreviewImagesProcess;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.MailBase;
+import gui.gallery.singleton.StageContainer;
+import gui.gallery.utils.EmptyChecker;
+import gui.gallery.utils.FileStringConverter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,7 +101,7 @@ public class SetupWindowController implements Initializable {
     private PasswordField password;
 
     @FXML
-    public TextField subject;
+    private TextField subject;
 
     @FXML
     private TextField text;
@@ -162,6 +162,14 @@ public class SetupWindowController implements Initializable {
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
+    private static final String CONFIG_JSON = "config.json";
+
+    private static final int PATH_LENGTH = CONFIG_JSON.length() + 1;
+
+    private static final int COLOR_LENGTH_SHARP = 7;
+
+    private static final int COLOR_LENGTH = COLOR_LENGTH_SHARP - 1;
+
     /**
      * Настройки
      */
@@ -170,14 +178,14 @@ public class SetupWindowController implements Initializable {
         Platform.runLater(() -> {
             final var fileChooser = new FileChooser();
             fileChooser.setTitle("Open config.json File");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON", "config.json"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON", CONFIG_JSON));
             final var selectedFile = fileChooser.showOpenDialog(stage);
             if (Objects.nonNull(selectedFile)) {
                 pathSettings.setText(selectedFile.getAbsolutePath());
                 if (StringUtils.isNotEmpty(pathSettings.getText())) {
                     SettingsLoader.getInstance().loadSettingsFromJsonFile(pathSettings.getText());
                     String ap = selectedFile.getAbsolutePath();
-                    pathField.setText(ap.substring(0, ap.length() - 12));
+                    pathField.setText(ap.substring(0, ap.length() - PATH_LENGTH));
                     pathField.setStyle("-fx-faint-focus-color: #00СС22;");
                     pathField.requestFocus();
                     login.setText(SettingsLoader.getInstance().getLogin());
@@ -218,8 +226,10 @@ public class SetupWindowController implements Initializable {
         File selectedFile = directoryChooser.showDialog(stage);
         if (Objects.nonNull(selectedFile)) {
             pathField.setText(selectedFile.getAbsolutePath());
-            final var check = checkAllFields() || EmptyChecker.isStringListValid(List.of(pathSettings.getText(), eventDate.getEditor().getText(), eventText.getText()))
-                    || (StringUtils.isNotBlank(pathSettings.getText()) && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem()));
+            final var check = checkAllFields() || EmptyChecker.isStringListValid(List.of(pathSettings.getText(),
+                    eventDate.getEditor().getText(), eventText.getText()))
+                    || (StringUtils.isNotBlank(pathSettings.getText())
+                    && Objects.nonNull(allEvents.getSelectionModel().getSelectedItem()));
             startButton.disableProperty().set(!check);
         }
     }
@@ -307,7 +317,8 @@ public class SetupWindowController implements Initializable {
     }
 
     private boolean isCompanyListViewAllEventPersist() {
-        return EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel().getSelectedItem(), allEvents.getSelectionModel().getSelectedItem()));
+        return EmptyChecker.isObjectListValid(List.of(companyListView.getSelectionModel().getSelectedItem(),
+                allEvents.getSelectionModel().getSelectedItem()));
     }
 
     @FXML
@@ -329,20 +340,20 @@ public class SetupWindowController implements Initializable {
         resultBgImageCheck = bgImageCheck.isSelected();
         resultBgImageCheck2 = bgImageCheck2.isSelected();
 
-        if (colorNumber.getText().length() == 6) {
+        if (colorNumber.getText().length() == COLOR_LENGTH) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
             red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(0, 2), 16));
             green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(2, 4), 16));
-            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(4, 6), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(4, COLOR_LENGTH), 16));
         }
 
-        if (colorNumber.getText().length() == 7) {
+        if (colorNumber.getText().length() == COLOR_LENGTH_SHARP) {
             ImageMediaController.setColorNumber(colorNumber.getText());
             GalleryController.setColorNumber(colorNumber.getText());
             red = String.valueOf(Integer.parseInt(colorNumber.getText().substring(1, 3), 16));
             green = String.valueOf(Integer.parseInt(colorNumber.getText().substring(3, 5), 16));
-            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(5, 7), 16));
+            blue = String.valueOf(Integer.parseInt(colorNumber.getText().substring(5, COLOR_LENGTH_SHARP), 16));
         }
         /**
          * Запишем настройки сортировки в SettingsLoader
@@ -411,7 +422,7 @@ public class SetupWindowController implements Initializable {
  * Грузим данные в статический класс из config.json и открываем Gallerey-view.fxml
  * */
         SettingsLoader.getInstance().loadSettingsFromJsonFile(FileStringConverter.getFilePath(pathField.getText(), "config", "json"));
-        Parent root = OpenWindow.open("Gallery-view.fxml");
+        Parent root = OpenWindow.open("gallery-view.fxml");
         StageContainer.getInstance().setStage((Stage) ((Node) click.getSource()).getScene().getWindow());
         Rectangle2D r = Screen.getPrimary().getBounds();
         StageContainer.getInstance().getStage().setWidth(r.getWidth());
@@ -428,7 +439,7 @@ public class SetupWindowController implements Initializable {
         eventDate.setValue(LocalDate.now());
     }
 
-    private void findPicture(CheckBox bgImageCheck, String title) {
+    private void findPicture(CheckBox backGroundImageCheck, String title) {
         colorNumber.setText(StringUtils.EMPTY);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
@@ -440,8 +451,8 @@ public class SetupWindowController implements Initializable {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            bgImageCheck.setSelected(true);
-            bgImageCheck.setDisable(false);
+            backGroundImageCheck.setSelected(true);
+            backGroundImageCheck.setDisable(false);
         }
     }
 

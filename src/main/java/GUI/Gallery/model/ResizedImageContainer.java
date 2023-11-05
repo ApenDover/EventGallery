@@ -1,11 +1,11 @@
-package GUI.Gallery.model;
+package gui.gallery.model;
 
-import GUI.Gallery.OpenWindow;
-import GUI.Gallery.singleton.ContainerLibrary;
-import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.singleton.StageContainer;
-import GUI.Gallery.utils.FileStringConverter;
+import gui.gallery.OpenWindow;
+import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.StageContainer;
+import gui.gallery.utils.FileStringConverter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;

@@ -1,4 +1,4 @@
-package GUI.Gallery.model;
+package gui.gallery.model;
 
 public interface Resizeable {
 

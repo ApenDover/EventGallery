@@ -1,4 +1,4 @@
-package GUI.Gallery;
+package gui.gallery;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

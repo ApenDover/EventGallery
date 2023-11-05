@@ -1,8 +1,8 @@
-package GUI.Gallery.mail;
+package gui.gallery.mail;
 
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.data.entity.Sender;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.data.entity.Sender;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,13 +13,15 @@ import java.util.concurrent.atomic.AtomicReference;
 @NoArgsConstructor
 public class SendEmails {
 
+    private static final long MAX_SIZE_BYTES = 25000000;
+
     public String send(List<Sender> senderList, String subject, String text) {
         final var status = new AtomicReference<>(StringUtils.EMPTY);
         senderList.forEach(sender -> {
             final var mailTO = sender.getMail();
             final var attachedPath = sender.getPath();
 //          если вложение > 25Mb, то abort, добавив запись в базу
-            if (new File(sender.getPath()).length() > 25000000) {
+            if (new File(sender.getPath()).length() > MAX_SIZE_BYTES) {
                 BaseDAO.getInstance().updateSenderStatus("too big", sender);
                 status.set(mailTO + ": " + "file is too big");
             } else {

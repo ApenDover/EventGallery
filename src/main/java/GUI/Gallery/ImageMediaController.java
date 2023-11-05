@@ -1,11 +1,11 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.utils.imageResizer.ImageDarkProcessor;
-import GUI.Gallery.imageViewProcess.NextImageProcessor;
-import GUI.Gallery.model.ImageContainer;
-import GUI.Gallery.model.VideoContainer;
-import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.StageContainer;
+import gui.gallery.utils.imageResizer.ImageDarkProcessor;
+import gui.gallery.imageViewProcess.NextImageProcessor;
+import gui.gallery.model.ImageContainer;
+import gui.gallery.model.VideoContainer;
+import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.StageContainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@SuppressWarnings("checkstyle:AvoidInlineConditionals")
 public class ImageMediaController implements Initializable {
 
     @FXML
@@ -52,12 +53,16 @@ public class ImageMediaController implements Initializable {
 
     private NextImageProcessor nextImageProcessor;
 
+    private static final double FACTOR = 0.7;
+
+    private static final List<Integer> COLOR_CHAR_SIZE = List.of(6, 7);
+
 
     public void goToGallery() {
         borderPane.setCenter(null);
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("Gallery-view.fxml"));
+            root = FXMLLoader.load(getClass().getResource("gallery-view.fxml"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -77,7 +82,7 @@ public class ImageMediaController implements Initializable {
         }
         Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
         BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
-        image = ImageDarkProcessor.darker(screenFullImage, 0.7);
+        image = ImageDarkProcessor.darker(screenFullImage, FACTOR);
         StageContainer.getInstance().getStage().getScene().setRoot(OpenWindow.open("KeyBoard.fxml"));
         StageContainer.getInstance().getStage().centerOnScreen();
     }
@@ -109,16 +114,19 @@ public class ImageMediaController implements Initializable {
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
             }
-            if (List.of(6, 7).contains(colorNumber.length())) {
-                mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed() + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
+            if (COLOR_CHAR_SIZE.contains(colorNumber.length())) {
+                mainPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed()
+                        + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
             } else {
                 mainPane.setStyle("-fx-background: rgb(20,20,30);");
             }
 
-            if (LinkTransfer.getInstance().getResizeable() instanceof ImageContainer imageContainer) {
+            if (LinkTransfer.getInstance().getResizeable() instanceof ImageContainer) {
+                final var imageContainer = (ImageContainer) LinkTransfer.getInstance().getResizeable();
                 setCenterNode(imageContainer.getImageView());
             }
-            if (LinkTransfer.getInstance().getResizeable() instanceof VideoContainer videoContainer) {
+            if (LinkTransfer.getInstance().getResizeable() instanceof VideoContainer) {
+                final var videoContainer = (VideoContainer) LinkTransfer.getInstance().getResizeable();
                 final var mediaView = videoContainer.getMediaView();
                 mediaView.getMediaPlayer().play();
                 setCenterNode(mediaView);

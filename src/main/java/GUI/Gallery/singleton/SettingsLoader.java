@@ -1,6 +1,6 @@
-package GUI.Gallery.singleton;
+package gui.gallery.singleton;
 
-import GUI.Gallery.utils.FileStringConverter;
+import gui.gallery.utils.FileStringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class SettingsLoader {
+public final class SettingsLoader {
 
     private static SettingsLoader instance;
 
@@ -37,19 +37,14 @@ public class SettingsLoader {
 
     private String qualityResizeFolder;
 
-    @Setter
     private boolean byAddTime;
 
-    @Setter
     private boolean byName;
 
-    @Setter
     private boolean newUp;
 
-    @Setter
     private boolean newDown;
 
-    @Setter
     private boolean isItTouch;
 
     private SettingsLoader() {
@@ -100,4 +95,5 @@ public class SettingsLoader {
             e.printStackTrace();
         }
     }
+
 }

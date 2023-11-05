@@ -9,30 +9,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="add spring is it need?">
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring with new pojo">
+      <change afterPath="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/checkstyle/suppressions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/OpenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/OpenWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/BaseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageResizer/ImgScaleProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/MovieBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/MovieBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SuperMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SuperMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/BaseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/AbstractContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/AbstractContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/FileComparatorByName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/FileComparatorByName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/ImageViewComparatorIfNeed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/ImageViewComparatorIfNeed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ContainerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ContainerFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ImageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ImageContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Resizeable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Resizeable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ResizedImageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ResizedImageContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/VideoContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/VideoContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/ScalePreviewImagesProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/ScalePreviewImagesProcess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/setUp/SettingsLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/FileViewBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/ImageViewComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/LinkTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/MailBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/NodeBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/storage/StageContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/videoResizer/ScrollSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/videoResizer/ScrollSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/ContainerLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/ContainerLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/LinkTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/MailBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/SettingsLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/StageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/StageContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/EmptyChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/EmptyChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/LoadAllFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/LoadAllFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/ScrollSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/ScrollSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImageDarkProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImageDarkProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImgScaleProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImgScaleProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/videoResizer/VideoResizerJpg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/videoResizer/VideoResizerJpg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/Gallery-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/ImageMedia-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/ImageMedia-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/KeyBoard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/KeyBoard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/SetupWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GUI/Gallery/utils/FileStringConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverterTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,17 +136,21 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "extract.method.default.visibility": "private",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_directory_selection": "/Users/andrey/IdeaProjects/JavaJFXGalleryMailSender/src/main/java/gui/gallery/utils",
+    "last_opened_file_path": "/Users/andrey/IdeaProjects/JavaJFXGalleryMailSender",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.12180269",
     "project.structure.side.proportion": "0.27394208",
     "spring.configuration.checksum": "f60d84f15fd28ae422f61893ed589c18",
@@ -130,11 +159,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/GUI/Gallery" />
       <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$/src/main/java/GUI/Gallery" />
-      <recent name="$PROJECT_DIR$/src/main/java/GUI/Gallery/VirtualKeyboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -161,20 +190,7 @@
       <recent name="GUI.Gallery.Event" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SuperMain">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Main" />
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.gui.gallery.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="GUISender" />
@@ -188,29 +204,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SuperMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.SuperMain" />
+    <configuration name="gui.gallery.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui.gallery.Main" />
       <module name="GallerySender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.*" />
+          <option name="PATTERN" value="gui.gallery.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TST" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TST" />
-      <module name="GallerySender" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test" />
-      <module name="GallerySender" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -240,20 +242,14 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.SuperMain" />
-      <item itemvalue="Application.TST" />
-      <item itemvalue="Application.test" />
-      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.gui.gallery.Main" />
       <item itemvalue="JUnit.All in GUISender" />
       <item itemvalue="Spring Boot.SuperMain" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.gui.gallery.Main" />
         <item itemvalue="Spring Boot.SuperMain" />
-        <item itemvalue="Application.SuperMain" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.TST" />
-        <item itemvalue="Application.test" />
       </list>
     </recent_temporary>
   </component>
@@ -294,6 +290,8 @@
       <workItem from="1697990402948" duration="6696000" />
       <workItem from="1698132234968" duration="12424000" />
       <workItem from="1698181597254" duration="3168000" />
+      <workItem from="1699128771356" duration="4047000" />
+      <workItem from="1699137653161" duration="3895000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -393,7 +391,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698181447991</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="refactoring with new pojo">
+      <created>1699128475819</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1699128475819</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +438,15 @@
     <MESSAGE value="refactoring" />
     <MESSAGE value="video can work" />
     <MESSAGE value="add spring is it need?" />
-    <option name="LAST_COMMIT_MESSAGE" value="add spring is it need?" />
+    <MESSAGE value="refactoring with new pojo" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring with new pojo" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="galleryPane.getChildren()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

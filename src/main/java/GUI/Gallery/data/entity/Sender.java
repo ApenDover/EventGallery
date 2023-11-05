@@ -1,4 +1,4 @@
-package GUI.Gallery.data.entity;
+package gui.gallery.data.entity;
 
 import lombok.Data;
 

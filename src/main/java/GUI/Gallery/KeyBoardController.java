@@ -1,11 +1,11 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.data.dao.BaseDAO;
-import GUI.Gallery.data.entity.Event;
-import GUI.Gallery.runnable.SendMailProcess;
-import GUI.Gallery.singleton.LinkTransfer;
-import GUI.Gallery.singleton.MailBase;
-import GUI.Gallery.singleton.StageContainer;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.data.entity.Event;
+import gui.gallery.runnable.SendMailProcess;
+import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.MailBase;
+import gui.gallery.singleton.StageContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,6 +39,8 @@ import java.util.regex.Pattern;
 
 public class KeyBoardController implements Initializable {
 
+    public static final int MIN_HEIGHT = 40;
+    public static final int MIN_WIDTH = 60;
     @FXML
     private TextField mailField;
 
@@ -235,8 +237,8 @@ public class KeyBoardController implements Initializable {
                     mailField.setText(mailSearched);
                     finalText = mailField.getText();
                 });
-                button.setMinHeight(40);
-                button.setMinWidth(60);
+                button.setMinHeight(MIN_HEIGHT);
+                button.setMinWidth(MIN_WIDTH);
                 tileMails.getChildren().add(button);
             });
             tileMails.requestLayout();
@@ -560,5 +562,5 @@ public class KeyBoardController implements Initializable {
         back.setBackground(background);
         statusCheck.setCycleCount(Animation.INDEFINITE);
     }
-}
 
+}

@@ -1,6 +1,6 @@
-package GUI.Gallery.model;
+package gui.gallery.model;
 
-import GUI.Gallery.utils.FileStringConverter;
+import gui.gallery.utils.FileStringConverter;
 
 import java.io.File;
 import java.util.HashSet;

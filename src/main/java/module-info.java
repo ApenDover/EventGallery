@@ -1,4 +1,4 @@
-module GUI.Gallery {
+module gui.gallery {
     requires java.desktop;
     requires java.xml.bind;
     requires json.simple;
@@ -18,7 +18,7 @@ module GUI.Gallery {
     requires javafx.media;
     requires javafx.controls;
 
-    exports GUI.Gallery;
-    opens GUI.Gallery to javafx.fxml;
-    opens GUI.Gallery.data.entity;
+    exports gui.gallery;
+    opens gui.gallery to javafx.fxml;
+    opens gui.gallery.data.entity;
 }

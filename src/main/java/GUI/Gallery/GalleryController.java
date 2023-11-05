@@ -1,10 +1,10 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.model.Comparator.ImageViewComparatorIfNeed;
-import GUI.Gallery.singleton.ContainerLibrary;
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.utils.LoadAllFiles;
-import GUI.Gallery.utils.ScrollSetup;
+import gui.gallery.model.Comparator.ImageViewComparatorIfNeed;
+import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.utils.LoadAllFiles;
+import gui.gallery.utils.ScrollSetup;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -56,7 +56,7 @@ public class GalleryController implements Initializable {
     @FXML
     private VBox vBox;
 
-    ImageViewComparatorIfNeed imageViewComparatorifNeed = new ImageViewComparatorIfNeed();
+    private static final ImageViewComparatorIfNeed IMAGE_VIEW_COMPARATOR_IF_NEED = new ImageViewComparatorIfNeed();
 
 
     @Override
@@ -75,17 +75,7 @@ public class GalleryController implements Initializable {
         LoadAllFiles.load();
 
         final var actual = new ArrayList<>(ContainerLibrary.getInstance().getResizeableImageViewList());
-        actual.sort(imageViewComparatorifNeed);
-        if (!SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
-            Collections.reverse(actual);
-            galleryPane.getChildren().addAll(0, actual);
-        } else {
-            galleryPane.getChildren().addAll(actual);
-        }
-
-        mainPane.requestLayout();
-        vBox.requestLayout();
-        galleryPane.requestLayout();
+        addImageViewToGallery(actual);
 
         /**
          *  запускаем поток мониторинга папки каждые N секунд
@@ -120,14 +110,7 @@ public class GalleryController implements Initializable {
 
         if (!added.isEmpty()) {
             System.out.println(LocalTime.now() + " added " + added.size());
-            added.sort(imageViewComparatorifNeed);
-            if (!SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
-                Collections.reverse(added);
-                galleryPane.getChildren().addAll(0, added);
-            } else {
-                galleryPane.getChildren().addAll(added);
-            }
-            galleryPane.requestLayout();
+            addImageViewToGallery(added);
         }
         if (!removed.isEmpty()) {
             System.out.println(LocalTime.now() + " removed " + removed.size());
@@ -149,6 +132,17 @@ public class GalleryController implements Initializable {
                     Math.max(1, (int) (newValue.doubleValue() / (maxWidth + galleryPane.getHgap())))));
         });
 
+    }
+
+    private void addImageViewToGallery(ArrayList<ImageView> actual) {
+        actual.sort(IMAGE_VIEW_COMPARATOR_IF_NEED);
+        if (!SettingsLoader.getInstance().isByName() && SettingsLoader.getInstance().isNewUp()) {
+            Collections.reverse(actual);
+            galleryPane.getChildren().addAll(0, actual);
+        } else {
+            galleryPane.getChildren().addAll(actual);
+        }
+        galleryPane.requestLayout();
     }
 
 }

@@ -1,8 +1,8 @@
-package GUI.Gallery.model;
+package gui.gallery.model;
 
-import GUI.Gallery.singleton.SettingsLoader;
-import GUI.Gallery.utils.FileStringConverter;
-import GUI.Gallery.utils.videoResizer.VideoResizerJpg;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.utils.FileStringConverter;
+import gui.gallery.utils.videoResizer.VideoResizerJpg;
 import javafx.scene.Node;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,6 +17,8 @@ import java.util.Objects;
 @Setter
 public class VideoContainer extends AbstractContainer implements Resizeable {
 
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 800;
     private ResizedImageContainer resized;
 
     @Getter
@@ -29,8 +31,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(1200);
-        mediaView.setFitHeight(800);
+        mediaView.setFitWidth(WIDTH);
+        mediaView.setFitHeight(HEIGHT);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(path));
         setWidth(media.getWidth());
@@ -44,8 +46,8 @@ public class VideoContainer extends AbstractContainer implements Resizeable {
         final var mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView = new MediaView();
-        mediaView.setFitWidth(1200);
-        mediaView.setFitHeight(800);
+        mediaView.setFitWidth(WIDTH);
+        mediaView.setFitHeight(HEIGHT);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setId(FileStringConverter.getFullNameFromPath(file.getAbsolutePath()));
         setWidth(media.getWidth());

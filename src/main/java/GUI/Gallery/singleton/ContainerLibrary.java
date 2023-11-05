@@ -1,15 +1,14 @@
-package GUI.Gallery.singleton;
+package gui.gallery.singleton;
 
-import GUI.Gallery.model.AbstractContainer;
-import GUI.Gallery.model.ImageContainer;
-import GUI.Gallery.model.Resizeable;
-import GUI.Gallery.model.VideoContainer;
+import gui.gallery.model.AbstractContainer;
+import gui.gallery.model.ImageContainer;
+import gui.gallery.model.Resizeable;
+import gui.gallery.model.VideoContainer;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashSet;
@@ -35,11 +34,11 @@ public class ContainerLibrary {
     }
 
     public void addContainerToLibrary(AbstractContainer container) {
-        if (container instanceof ImageContainer imageContainer) {
-            resizeableLinkedHashSet.add(imageContainer);
+        if (container instanceof ImageContainer) {
+            resizeableLinkedHashSet.add((ImageContainer) container);
         }
-        if (container instanceof VideoContainer videoContainer) {
-            resizeableLinkedHashSet.add(videoContainer);
+        if (container instanceof VideoContainer) {
+            resizeableLinkedHashSet.add((VideoContainer) container);
         }
     }
 

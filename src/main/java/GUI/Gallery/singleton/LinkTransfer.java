@@ -1,6 +1,6 @@
-package GUI.Gallery.singleton;
+package gui.gallery.singleton;
 
-import GUI.Gallery.model.Resizeable;
+import gui.gallery.model.Resizeable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class LinkTransfer {
+public final class LinkTransfer {
 
     private static LinkTransfer instance;
 

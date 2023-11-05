@@ -1,6 +1,6 @@
-package GUI.Gallery.runnable;
+package gui.gallery.runnable;
 
-import GUI.Gallery.utils.imageResizer.ImgScaleProcessor;
+import gui.gallery.utils.imageResizer.ImgScaleProcessor;
 import javafx.scene.control.TextField;
 
 import java.io.File;
@@ -32,4 +32,5 @@ public class ScalePreviewImagesProcess implements Runnable {
             }
         }
     }
+
 }

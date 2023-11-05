@@ -1,10 +1,10 @@
-package GUI.Gallery.utils;
+package gui.gallery.utils;
 
-import GUI.Gallery.model.Comparator.FileComparatorByName;
-import GUI.Gallery.model.ContainerFactory;
-import GUI.Gallery.model.Resizeable;
-import GUI.Gallery.singleton.ContainerLibrary;
-import GUI.Gallery.singleton.SettingsLoader;
+import gui.gallery.model.Comparator.FileComparatorByName;
+import gui.gallery.model.ContainerFactory;
+import gui.gallery.model.Resizeable;
+import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
@@ -16,9 +16,9 @@ import java.util.Objects;
 @UtilityClass
 public class LoadAllFiles {
 
-    private final ContainerFactory CONTAINER_FACTORY = new ContainerFactory();
+    private static final ContainerFactory CONTAINER_FACTORY = new ContainerFactory();
 
-    private final FileComparatorByName comparator = new FileComparatorByName();
+    private static final FileComparatorByName COMPARATOR = new FileComparatorByName();
 
     private final File dirResize = new File(SettingsLoader.getInstance().getQualityResizeFolder());
 
@@ -36,7 +36,7 @@ public class LoadAllFiles {
                 .parallelStream().filter(resizeable -> !resizeable.getResizedImageContainer().isAlive())
                 .forEach(Resizeable::createResizePreview);
 
-        fileList.sort(comparator);
+        fileList.sort(COMPARATOR);
         fileList.removeAll(ContainerLibrary.getInstance()
                 .getResizeableLinkedHashSet().stream()
                 .map(resizeable -> resizeable.getResizedImageContainer().getOriginalContainer().getFile()).toList());

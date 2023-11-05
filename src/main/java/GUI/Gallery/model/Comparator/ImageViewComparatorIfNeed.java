@@ -1,6 +1,6 @@
-package GUI.Gallery.model.Comparator;
+package gui.gallery.model.Comparator;
 
-import GUI.Gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.SettingsLoader;
 import javafx.scene.Node;
 
 import java.util.Comparator;

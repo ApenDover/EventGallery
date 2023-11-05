@@ -1,9 +1,8 @@
-package GUI.Gallery.mail;
+package gui.gallery.mail;
 
 import org.apache.commons.lang3.StringUtils;
 
 import javax.mail.Authenticator;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -69,4 +68,5 @@ public class GmailSender {
         }
         return "SUCCESS";
     }
+
 }

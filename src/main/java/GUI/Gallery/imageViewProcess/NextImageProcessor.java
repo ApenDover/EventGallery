@@ -1,8 +1,8 @@
-package GUI.Gallery.imageViewProcess;
+package gui.gallery.imageViewProcess;
 
-import GUI.Gallery.model.Resizeable;
-import GUI.Gallery.singleton.ContainerLibrary;
-import GUI.Gallery.singleton.LinkTransfer;
+import gui.gallery.model.Resizeable;
+import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.LinkTransfer;
 import javafx.scene.Node;
 import javafx.scene.media.MediaView;
 
@@ -36,7 +36,8 @@ public class NextImageProcessor {
         }
         LinkTransfer.getInstance().setResizeable((Resizeable) file.getResizedImageContainer().getOriginalContainer());
         final var node = file.getResizedImageContainer().getOriginalContainer().getNode();
-        if (node instanceof MediaView mediaView) {
+        if (node instanceof MediaView) {
+            final var mediaView = (MediaView) node;
             mediaView.getMediaPlayer().play();
         }
         return node;

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox stylesheets="myForKey.css" fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Gallery.KeyBoardController">
+<VBox stylesheets="myForKey.css" fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.gallery.KeyBoardController">
    <children>
       <BorderPane prefHeight="1079.0" prefWidth="1920.0">
          <center>

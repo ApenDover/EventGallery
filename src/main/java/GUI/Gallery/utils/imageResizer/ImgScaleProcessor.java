@@ -1,6 +1,6 @@
-package GUI.Gallery.utils.imageResizer;
+package gui.gallery.utils.imageResizer;
 
-import GUI.Gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 import org.imgscalr.Scalr;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 @UtilityClass
 public class ImgScaleProcessor {
 
-    private final int NEW_WIDTH = Integer.parseInt(SettingsLoader.getInstance().getResizeQuality());
+    private static final int NEW_WIDTH = Integer.parseInt(SettingsLoader.getInstance().getResizeQuality());
 
     public void scale(Set<File> imgFiles) {
         if (Objects.isNull(imgFiles)) {

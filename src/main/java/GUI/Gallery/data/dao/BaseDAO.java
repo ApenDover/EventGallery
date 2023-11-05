@@ -1,12 +1,10 @@
-package GUI.Gallery.data.dao;
+package gui.gallery.data.dao;
 
-import GUI.Gallery.SetupWindowController;
-import GUI.Gallery.data.entity.Company;
-import GUI.Gallery.data.entity.Event;
-import GUI.Gallery.data.entity.Sender;
-import org.apache.commons.lang3.StringUtils;
+import gui.gallery.SetupWindowController;
+import gui.gallery.data.entity.Company;
+import gui.gallery.data.entity.Event;
+import gui.gallery.data.entity.Sender;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
@@ -18,7 +16,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BaseDAO {
+public final class BaseDAO {
 
     private static BaseDAO instance;
 
@@ -138,7 +136,8 @@ public class BaseDAO {
     public List<Event> getEventsFromCompany(String companyName) {
         final var companyId = new AtomicInteger();
         final var companies = new ArrayList<>(getCompany());
-        companies.stream().filter(company -> company.getName().equals(companyName)).forEach(company -> companyId.set(company.getIdCompany()));
+        companies.stream().filter(company -> company.getName().equals(companyName))
+                .forEach(company -> companyId.set(company.getIdCompany()));
         session.beginTransaction();
         final var result = session.createQuery("FROM Event e WHERE e.company.idCompany = :companyId", Event.class)
                 .setParameter("companyId", companyId.get())

@@ -1,4 +1,4 @@
-package GUI.Gallery.utils.imageResizer;
+package gui.gallery.utils.imageResizer;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -12,14 +12,16 @@ import java.util.Objects;
 @UtilityClass
 public class ImageDarkProcessor {
 
+    public static final int MAX_COLOR = 255;
+
     public Image darker(BufferedImage imageToDark, double factor) {
         BufferedImage darkImage = new BufferedImage(imageToDark.getWidth(), imageToDark.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < imageToDark.getHeight(); y++) {
             for (int x = 0; x < imageToDark.getWidth(); x++) {
                 Color color = new Color(imageToDark.getRGB(x, y));
-                int r = Math.max(0, Math.min(255, color.getRed() - (int) (color.getRed() * factor)));
-                int b = Math.max(0, Math.min(255, color.getBlue() - (int) (color.getBlue() * factor)));
-                int g = Math.max(0, Math.min(255, color.getGreen() - (int) (color.getGreen() * factor)));
+                int r = Math.max(0, Math.min(MAX_COLOR, color.getRed() - (int) (color.getRed() * factor)));
+                int b = Math.max(0, Math.min(MAX_COLOR, color.getBlue() - (int) (color.getBlue() * factor)));
+                int g = Math.max(0, Math.min(MAX_COLOR, color.getGreen() - (int) (color.getGreen() * factor)));
                 darkImage.setRGB(x, y, new Color(r, g, b).getRGB());
             }
         }

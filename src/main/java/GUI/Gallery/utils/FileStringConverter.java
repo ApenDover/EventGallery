@@ -1,6 +1,6 @@
-package GUI.Gallery.utils;
+package gui.gallery.utils;
 
-import GUI.Gallery.singleton.SettingsLoader;
+import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
@@ -10,9 +10,9 @@ import java.io.FileNotFoundException;
 @UtilityClass
 public class FileStringConverter {
 
-    private final String SLASH = "/";
+    private static final String SLASH = "/";
 
-    private final String POINT = ".";
+    private static final String POINT = ".";
 
     public String getName(File file) {
         return file.getName().substring(0, file.getName().lastIndexOf('.'));
