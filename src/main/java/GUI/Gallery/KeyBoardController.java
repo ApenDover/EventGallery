@@ -189,7 +189,7 @@ public class KeyBoardController implements Initializable {
     private TilePane tileMails;
 
     @FXML
-    private Label sendRezultLabel;
+    private Label sendResultLabel;
 
     @FXML
     private VBox back;
@@ -205,8 +205,8 @@ public class KeyBoardController implements Initializable {
             new KeyFrame(Duration.millis(1000),
                     event -> {
                         if (StringUtils.isNotBlank(textForStatus)) {
-                            sendRezultLabel.setText(textForStatus);
-                            sendRezultLabel.setVisible(true);
+                            sendResultLabel.setText(textForStatus);
+                            sendResultLabel.setVisible(true);
                             textForStatus = StringUtils.EMPTY;
                         }
                     }));
@@ -216,7 +216,7 @@ public class KeyBoardController implements Initializable {
             statusCheck.stop();
         }
         textForStatus = StringUtils.EMPTY;
-        sendRezultLabel.setVisible(false);
+        sendResultLabel.setVisible(false);
         mailField.setStyle("-fx-text-fill: black;");
         tileMails.getChildren().clear();
         tileMails.requestLayout();
@@ -224,14 +224,14 @@ public class KeyBoardController implements Initializable {
 //        эта штука смотрит введенный текст, сопостовляет в массиве, находит подходящие и далее создает кнопки
             tileMails.setHgap(10);
             tileMails.setVgap(10);
-            ArrayList<String> serched = new ArrayList<>();
+            final var searched = new ArrayList<String>();
             MailBase.getInstance().getMailStorage().forEach(mail -> {
                 if (mail.startsWith(finalText)) {
-                    serched.add(mail);
+                    searched.add(mail);
                 }
             });
 
-            serched.forEach(mailSearched -> {
+            searched.forEach(mailSearched -> {
                 Button button = new Button(mailSearched);
                 button.setOnAction(event -> {
                     mailField.setText(mailSearched);
@@ -536,19 +536,19 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
-        String imagePath = LinkTransfer.getInstance().getResizeable()
+        final var imagePath = LinkTransfer.getInstance().getResizeable()
                 .getResizedImageContainer().getOriginalContainer().getPath();
-        String mail = mailField.getText();
-        Pattern pattern = Pattern.compile("^.*@.*\\..*$");
-        Matcher matcher = pattern.matcher(mail);
+        final var mail = mailField.getText();
+        final var pattern = Pattern.compile("^.*@.*\\..*$");
+        final var matcher = pattern.matcher(mail);
         if (!matcher.find()) {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
             MailBase.getInstance().getMailStorage().add(mail.toLowerCase());
-            Event event = BaseDAO.getInstance().getEventById(SetupWindowController.getIdEvent());
+            final var event = BaseDAO.getInstance().getEventById(SetupWindowController.getIdEvent());
             BaseDAO.getInstance().setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
-            SendMailProcess sendMailProcess = new SendMailProcess();
+            final var sendMailProcess = new SendMailProcess();
             executor.execute(() -> textForStatus = sendMailProcess.call());
             executor.shutdown();
         }
@@ -556,8 +556,8 @@ public class KeyBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sendRezultLabel.setText(StringUtils.EMPTY);
-        Background background = new Background(new BackgroundImage(ImageMediaController.getImage(), BackgroundRepeat.NO_REPEAT,
+        sendResultLabel.setText(StringUtils.EMPTY);
+        final var background = new Background(new BackgroundImage(ImageMediaController.getImage(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         back.setBackground(background);
         statusCheck.setCycleCount(Animation.INDEFINITE);
