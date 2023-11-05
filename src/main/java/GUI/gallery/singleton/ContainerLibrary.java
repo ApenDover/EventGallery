@@ -1,9 +1,9 @@
 package gui.gallery.singleton;
 
+import gui.gallery.model.VideoContainer;
 import gui.gallery.model.AbstractContainer;
 import gui.gallery.model.ImageContainer;
 import gui.gallery.model.Resizeable;
-import gui.gallery.model.VideoContainer;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import lombok.Getter;

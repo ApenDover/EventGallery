@@ -1,8 +1,8 @@
 package gui.gallery.model;
 
-import gui.gallery.singleton.SettingsConst;
-import gui.gallery.utils.imageResizer.ImgScaleProcessor;
 import gui.gallery.utils.FileStringConverter;
+import gui.gallery.utils.imageResizer.ImgScaleProcessor;
+import gui.gallery.singleton.SettingsConst;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,9 +16,9 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class ImageContainer extends AbstractContainer implements Resizeable {
+public class ImageContainer extends gui.gallery.model.AbstractContainer implements gui.gallery.model.Resizeable {
 
-    private ResizedImageContainer resized;
+    private gui.gallery.model.ResizedImageContainer resized;
 
     private Image image;
 
@@ -61,12 +61,12 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
     @Override
     public void createResizePreview() {
         if (!isResizedAlive()) {
-            resized = new ResizedImageContainer(ImgScaleProcessor.scale(this.getFile()), this);
+            resized = new gui.gallery.model.ResizedImageContainer(ImgScaleProcessor.scale(this.getFile()), this);
         }
     }
 
     @Override
-    public ResizedImageContainer getResizedImageContainer() {
+    public gui.gallery.model.ResizedImageContainer getResizedImageContainer() {
         return resized;
     }
 
@@ -75,7 +75,7 @@ public class ImageContainer extends AbstractContainer implements Resizeable {
         return getFile().exists();
     }
 
-    public ResizedImageContainer getResized() {
+    public gui.gallery.model.ResizedImageContainer getResized() {
         createResizePreview();
         return resized;
     }

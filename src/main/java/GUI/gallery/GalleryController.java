@@ -1,10 +1,10 @@
 package gui.gallery;
 
+import gui.gallery.utils.LoadAllFiles;
+import gui.gallery.utils.ScrollSetup;
 import gui.gallery.model.Comparator.ImageViewComparatorIfNeed;
 import gui.gallery.singleton.ContainerLibrary;
 import gui.gallery.singleton.SettingsLoader;
-import gui.gallery.utils.LoadAllFiles;
-import gui.gallery.utils.ScrollSetup;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

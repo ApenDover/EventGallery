@@ -1,8 +1,8 @@
 package gui.gallery.model;
 
-import gui.gallery.singleton.SettingsConst;
 import gui.gallery.utils.FileStringConverter;
 import gui.gallery.utils.videoResizer.VideoResizerJpg;
+import gui.gallery.singleton.SettingsConst;
 import javafx.scene.Node;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

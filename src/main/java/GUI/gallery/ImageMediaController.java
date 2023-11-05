@@ -1,12 +1,12 @@
 package gui.gallery;
 
-import gui.gallery.singleton.SettingsConst;
-import gui.gallery.utils.imageResizer.ImageDarkProcessor;
 import gui.gallery.imageViewProcess.NextImageProcessor;
 import gui.gallery.model.ImageContainer;
 import gui.gallery.model.VideoContainer;
 import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.StageContainer;
+import gui.gallery.utils.imageResizer.ImageDarkProcessor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

@@ -1,10 +1,10 @@
 package gui.gallery;
 
 import gui.gallery.data.dao.BaseDAO;
-import gui.gallery.runnable.SendMailProcess;
 import gui.gallery.singleton.LinkTransfer;
 import gui.gallery.singleton.MailBase;
 import gui.gallery.singleton.StageContainer;
+import gui.gallery.runnable.SendMailProcess;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

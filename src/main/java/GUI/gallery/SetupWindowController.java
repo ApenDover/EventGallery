@@ -1,15 +1,15 @@
 package gui.gallery;
 
 import gui.gallery.data.dao.BaseDAO;
-import gui.gallery.data.entity.Company;
 import gui.gallery.data.entity.Event;
 import gui.gallery.runnable.ScalePreviewImagesProcess;
-import gui.gallery.singleton.SettingsConst;
-import gui.gallery.singleton.SettingsLoader;
 import gui.gallery.singleton.MailBase;
 import gui.gallery.singleton.StageContainer;
-import gui.gallery.utils.EmptyChecker;
 import gui.gallery.utils.FileStringConverter;
+import gui.gallery.data.entity.Company;
+import gui.gallery.singleton.SettingsConst;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.utils.EmptyChecker;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

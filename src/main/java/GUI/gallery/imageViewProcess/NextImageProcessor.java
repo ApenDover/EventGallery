@@ -1,8 +1,8 @@
 package gui.gallery.imageViewProcess;
 
+import gui.gallery.singleton.LinkTransfer;
 import gui.gallery.model.Resizeable;
 import gui.gallery.singleton.ContainerLibrary;
-import gui.gallery.singleton.LinkTransfer;
 import javafx.scene.Node;
 import javafx.scene.media.MediaView;
 

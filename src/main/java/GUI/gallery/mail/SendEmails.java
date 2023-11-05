@@ -1,8 +1,8 @@
 package gui.gallery.mail;
 
-import gui.gallery.singleton.SettingsLoader;
 import gui.gallery.data.dao.BaseDAO;
 import gui.gallery.data.entity.Sender;
+import gui.gallery.singleton.SettingsLoader;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
