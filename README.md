@@ -23,10 +23,13 @@
 <br>
 <br>
 #### Окно настройки
-![SetupWindow.png](src%2Fmain%2Fresources%2FreadmeImages%2FSetupWindow.png)
+![Окно настройки](src/main/resources/readmeImages/SetupWindow.png)
+<br>
 #### Окно галлереи
-![Gallery-view.png](src%2Fmain%2Fresources%2FreadmeImages%2FGallery-view.png)
+![Окно галлереи](src/main/resources/readmeImages/Gallery-view.png)
+<br>
 #### Окно просмотра
-![ImageMedia-view.png](src%2Fmain%2Fresources%2FreadmeImages%2FImageMedia-view.png)
+![Окно просмотра](src/main/resources/readmeImages/ImageMedia-view.png)
+<br>
 #### Окно отправки на почту
-![KeyBoard.png](src%2Fmain%2Fresources%2FreadmeImages%2FKeyBoard.png)
+![Окно отправки на почту](src/main/resources/readmeImages/KeyBoard.png)
