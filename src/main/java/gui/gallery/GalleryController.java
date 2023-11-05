@@ -31,13 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-/**
- * Если открыто следующее окно процесс мониторинга папок завершается.
- * Как вариант, прописать отдельный repeated(), который запускать по нажатию кнопки в GoToImage
- * В нем происходит ресайз новых, удаление старых, актуализация NodeBase, чтобы при загрузке просто
- * подгрузить недостающие, а не начинать делать.
- */
-
 @RequiredArgsConstructor
 public class GalleryController implements Initializable {
 
