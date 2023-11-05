@@ -22,14 +22,18 @@
 <br>
 <br>
 <br>
-Окно настройки
+Окно настройки:
+<br><br>
 <img src="/src/main/resources/readmeImages/setupwindow.png" alt="Окно настройки" title="Окно настройки" />
 <br>
-Окно галереи
+Окно галереи:
+<br><br>
 <img src="/src/main/resources/readmeImages/galleryview.png" alt="Окно галереи" title="Окно галереи" />
 <br>
-Окно просмотра
+Окно просмотра:
+<br><br>
 <img src="/src/main/resources/readmeImages/imagemediaview.png" alt="Окно просмотра" title="Окно просмотра" />
 <br>
-Окно отправки на почту
+Окно отправки на почту:
+<br><br>
 <img src="/src/main/resources/readmeImages/keyboard.png" alt="Окно отправки на почту" title="Окно отправки на почту" />
