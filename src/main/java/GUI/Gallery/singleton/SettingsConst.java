@@ -17,6 +17,6 @@ public enum SettingsConst {
 
     SCALE_RESIZE_LONG_SIDE(300);
 
-    private int value;
+    private final int value;
 
 }
