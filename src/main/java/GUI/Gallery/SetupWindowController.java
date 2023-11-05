@@ -167,6 +167,11 @@ public class SetupWindowController implements Initializable {
     @Getter
     private static Image imageForBackGround2;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        eventDate.setValue(LocalDate.now());
+    }
+
     /**
      * Настройки
      */
@@ -293,7 +298,7 @@ public class SetupWindowController implements Initializable {
             final var check = (checkAllFields() || checkFileFields() || StringUtils.isNotBlank(pathSettings.getText())
                     || Objects.nonNull(allEvents.getSelectionModel().getSelectedItem())
                     || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText())));
-            startButton.disableProperty().set(!check);
+            startButton.disableProperty().set(check);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -430,11 +435,6 @@ public class SetupWindowController implements Initializable {
         StageContainer.getInstance().getStage().setFullScreenExitHint(StringUtils.EMPTY);
         StageContainer.getInstance().getStage().setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         StageContainer.getInstance().getStage().setFullScreen(true);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        eventDate.setValue(LocalDate.now());
     }
 
     private void findPicture(CheckBox backGroundImageCheck, String title) {
