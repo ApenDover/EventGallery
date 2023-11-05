@@ -6,16 +6,18 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<Pane stylesheets="my.css" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.gallery.GalleryController">
-   <children>
-      <ScrollPane fx:id="scroll" style="-fx-background: transparent;" fitToWidth="true" styleClass="edge-to-edge">
-         <content>
-            <VBox fx:id="vBox" alignment="CENTER" fillWidth="false" focusTraversable="true">
-               <children>
-                  <TilePane fx:id="galleryPane" hgap="10" vgap="10" />
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
-   </children>
+<Pane stylesheets="my.css" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.gallery.GalleryController">
+    <children>
+        <ScrollPane fx:id="scroll" style="-fx-background: transparent;" fitToWidth="true" styleClass="edge-to-edge">
+            <content>
+                <VBox fx:id="vBox" alignment="CENTER" fillWidth="false" focusTraversable="true">
+                    <children>
+                        <TilePane fx:id="galleryPane" hgap="10" vgap="10"/>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
 </Pane>

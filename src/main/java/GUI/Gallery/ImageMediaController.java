@@ -39,6 +39,8 @@ import java.util.ResourceBundle;
 @SuppressWarnings("checkstyle:AvoidInlineConditionals")
 public class ImageMediaController implements Initializable {
 
+    private static final double FACTOR = 0.9;
+
     @FXML
     private BorderPane borderPane;
 
@@ -52,8 +54,6 @@ public class ImageMediaController implements Initializable {
     private static Image image;
 
     private NextImageProcessor nextImageProcessor;
-
-    private static final double FACTOR = 0.7;
 
 
     public void goToGallery() {
@@ -71,15 +71,15 @@ public class ImageMediaController implements Initializable {
 
     public void sentToDB() {
         borderPane.setCenter(null);
-        Rectangle2D r = Screen.getPrimary().getBounds();
+        final var r = Screen.getPrimary().getBounds();
         Robot robot;
         try {
             robot = new Robot();
         } catch (AWTException e) {
             throw new RuntimeException(e);
         }
-        Rectangle screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
-        BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
+        final var screenRect = new Rectangle((int) r.getWidth(), (int) r.getHeight());
+        final var screenFullImage = robot.createScreenCapture(screenRect);
         image = ImageDarkProcessor.darker(screenFullImage, FACTOR);
         StageContainer.getInstance().getStage().getScene().setRoot(OpenWindow.open("KeyBoard.fxml"));
         StageContainer.getInstance().getStage().centerOnScreen();
@@ -136,11 +136,11 @@ public class ImageMediaController implements Initializable {
         }
     }
 
-    private String buildNextNode(boolean target) {
+    private void buildNextNode(boolean target) {
         borderPane.setCenter(null);
         Node node = nextImageProcessor.secondImage(target);
         setCenterNode(node);
-        return node.getId();
+        node.getId();
     }
 
     private void setCenterNode(Node node) {
