@@ -35,34 +35,4 @@ public class Main extends Application {
         launch();
     }
 
-//    private ConfigurableApplicationContext applicationContext;
-//
-//    @Override
-//    public void init() {
-//        String[] args = getParameters().getRaw().toArray(new String[0]);
-//        this.applicationContext = new SpringApplicationBuilder()
-//                .sources(Main.class)
-//                .run(args);
-//    }
-//
-//    @Override
-//    public void start(Stage stage) {
-//        LinkTransfer.getInstance().setFlag(false);
-//        StageContainer.getInstance().setStage(stage);
-//        stage.requestFocus();
-//        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-//        Parent root = fxWeaver.loadView(SetupWindowController.class);
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.centerOnScreen();
-//        stage.setResizable(false);
-//        stage.show();
-//    }
-//
-//    @Override
-//    public void stop() {
-//        this.applicationContext.close();
-//        Platform.exit();
-//    }
-
 }
