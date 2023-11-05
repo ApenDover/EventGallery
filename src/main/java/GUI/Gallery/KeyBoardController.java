@@ -1,7 +1,6 @@
 package gui.gallery;
 
 import gui.gallery.data.dao.BaseDAO;
-import gui.gallery.data.entity.Event;
 import gui.gallery.runnable.SendMailProcess;
 import gui.gallery.singleton.LinkTransfer;
 import gui.gallery.singleton.MailBase;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KeyBoardController implements Initializable {

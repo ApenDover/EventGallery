@@ -10,7 +10,6 @@ import gui.gallery.singleton.StageContainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -31,12 +30,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@SuppressWarnings("checkstyle:AvoidInlineConditionals")
 public class ImageMediaController implements Initializable {
 
     private static final double FACTOR = 0.9;
