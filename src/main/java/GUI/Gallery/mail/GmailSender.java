@@ -1,7 +1,8 @@
-package GUI.Gallery.mail;
+package gui.gallery.mail;
+
+import org.apache.commons.lang3.StringUtils;
 
 import javax.mail.Authenticator;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -36,18 +37,18 @@ public class GmailSender {
     }
 
     public String send(String subject, String text, String path, String toEmail) throws MessagingException, IOException {
-        Session session = Session.getDefaultInstance(props, new Authenticator() {
+        final var session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
         });
-        Message message = new MimeMessage(session);
+        final var message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         message.setSubject(subject);
-        BodyPart messageBodyPart = new MimeBodyPart();
+        final var messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText(text);
-        if (!path.equals("")) {
+        if (StringUtils.isNotBlank(path)) {
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(new File(path));
             Multipart multipart = new MimeMultipart();
@@ -67,4 +68,5 @@ public class GmailSender {
         }
         return "SUCCESS";
     }
+
 }

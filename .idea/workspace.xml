@@ -9,17 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring">
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/MovieBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/PictureBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/connections/BaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/baseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" afterDir="false" />
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="checkStyle">
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/gallery/singleton/SettingsConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/gallery/singleton/SettingsConst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/gallery/utils/ScrollSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/gallery/utils/ScrollSetup.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +41,16 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="video can work" />
+        <option name="rewordedMessage" value="video can work" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="ac57820559dc7c0800b3d20c0831ec8901053a85" />
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -84,28 +86,38 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "extract.method.default.visibility": "private",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_directory_selection": "/Users/andrey/IdeaProjects/JavaJFXGalleryMailSender/src/main/java/gui/gallery/utils",
+    "last_opened_file_path": "/Users/andrey/IdeaProjects/JavaJFXGalleryMailSender",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.12180269",
     "project.structure.side.proportion": "0.27394208",
+    "spring.configuration.checksum": "f60d84f15fd28ae422f61893ed589c18",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/GUI/Gallery" />
       <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$/src/main/java/GUI/Gallery" />
-      <recent name="$PROJECT_DIR$/src/main/java/GUI/Gallery/VirtualKeyboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -132,13 +144,13 @@
       <recent name="GUI.Gallery.Event" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.gui.gallery.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.Main" />
-      <module name="GallerySender" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="GUISender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,12 +158,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="GUISender" />
+    <configuration name="gui.gallery.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="gui.gallery.Main" />
+      <module name="GallerySender" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="gui.gallery.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -170,84 +182,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileStringConverterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SuperMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="GallerySender" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="GUI.Gallery.SuperMain" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
+          <option name="PATTERN" value="GUI.Gallery.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileStringConverterTest.getFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="METHOD_NAME" value="getFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileStringConverterTest.getFilePath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="METHOD_NAME" value="getFilePath" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileStringConverterTest.getNameWithEx" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GallerySender" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.Gallery.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="GUI.Gallery.utils" />
-      <option name="MAIN_CLASS_NAME" value="GUI.Gallery.utils.FileStringConverterTest" />
-      <option name="METHOD_NAME" value="getNameWithEx" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.gui.gallery.Main" />
       <item itemvalue="JUnit.All in GUISender" />
-      <item itemvalue="JUnit.FileStringConverterTest" />
-      <item itemvalue="JUnit.FileStringConverterTest.getFile" />
-      <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
-      <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
+      <item itemvalue="Spring Boot.SuperMain" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.FileStringConverterTest" />
-        <item itemvalue="JUnit.FileStringConverterTest.getFile" />
-        <item itemvalue="JUnit.FileStringConverterTest.getNameWithEx" />
-        <item itemvalue="JUnit.FileStringConverterTest.getFilePath" />
+        <item itemvalue="Application.gui.gallery.Main" />
+        <item itemvalue="Spring Boot.SuperMain" />
       </list>
     </recent_temporary>
   </component>
@@ -283,6 +239,13 @@
       <workItem from="1696951357566" duration="1551000" />
       <workItem from="1696975141144" duration="6472000" />
       <workItem from="1697320386536" duration="24643000" />
+      <workItem from="1697632521211" duration="613000" />
+      <workItem from="1697842488303" duration="596000" />
+      <workItem from="1697990402948" duration="6696000" />
+      <workItem from="1698132234968" duration="12424000" />
+      <workItem from="1698181597254" duration="3168000" />
+      <workItem from="1699128771356" duration="4047000" />
+      <workItem from="1699137653161" duration="4697000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -354,7 +317,49 @@
       <option name="project" value="LOCAL" />
       <updated>1697407146946</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="video can work">
+      <created>1697486156812</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1697486156812</updated>
+    </task>
+    <task id="LOCAL-00012" summary="video can work">
+      <created>1697993193933</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1697993193933</updated>
+    </task>
+    <task id="LOCAL-00013" summary="video can work">
+      <created>1698174380132</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698174380132</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add spring is it need?">
+      <created>1698181447991</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1698181447991</updated>
+    </task>
+    <task id="LOCAL-00015" summary="refactoring with new pojo">
+      <created>1699128475819</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1699128475819</updated>
+    </task>
+    <task id="LOCAL-00016" summary="checkStyle">
+      <created>1699177568425</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699177568425</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +397,18 @@
     <MESSAGE value="load bag fix" />
     <MESSAGE value="refactoring info fix" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="video can work" />
+    <MESSAGE value="add spring is it need?" />
+    <MESSAGE value="refactoring with new pojo" />
+    <MESSAGE value="checkStyle" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkStyle" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="galleryPane.getChildren()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

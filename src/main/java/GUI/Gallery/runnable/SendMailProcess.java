@@ -1,20 +1,22 @@
-package GUI.Gallery.runnable;
+package gui.gallery.runnable;
 
-import GUI.Gallery.data.dao.baseDAO;
-import GUI.Gallery.data.entity.Sender;
-import GUI.Gallery.mail.SendEmails;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.mail.SendEmails;
+import gui.gallery.singleton.SettingsLoader;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 
 public class SendMailProcess implements Callable<String> {
 
     public String call() {
-        String status = "";
-        List<Sender> senderList = baseDAO.getSender();
+        final var sendEmails = new SendEmails();
+        final var senderList = BaseDAO.getInstance().getSender();
+        var status = StringUtils.EMPTY;
         if (!senderList.isEmpty()) {
-            status = SendEmails.send(senderList);
+            status = sendEmails.send(senderList, SettingsLoader.getInstance().getSubject(), SettingsLoader.getInstance().getText());
         }
         return status;
     }
+
 }

@@ -1,36 +1,19 @@
-package GUI.Gallery.imageViewProcess;
+package gui.gallery.imageViewProcess;
 
-import GUI.Gallery.storage.FileViewBase;
-import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.utils.FileStringConverter;
+import gui.gallery.model.Resizeable;
+import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.LinkTransfer;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class NextImageProcessor {
 
-    private final PictureBuilder pictureBuilder;
-
-    private final MovieBuilder movieBuilder;
-
-    public NextImageProcessor() {
-        pictureBuilder = new PictureBuilder();
-        movieBuilder = new MovieBuilder();
-    }
-
-    public ImageView createImage(String file) {
-        return pictureBuilder.createPictureImageView(file);
-    }
-
-    public MediaView createMovie(String file) {
-        return movieBuilder.createMovie(file);
-    }
-
-    public Node secondImage(boolean target, List<String> allGalleryImageView) {
-        int num = allGalleryImageView.indexOf(LinkTransfer.getLink());
-        final String exNext;
+    public Node secondImage(boolean target) {
+        ArrayList<Resizeable> allResizeable = new ArrayList<>(ContainerLibrary.getInstance().getResizeableLinkedHashSet());
+        allResizeable.indexOf(LinkTransfer.getInstance().getResizeable());
+        int num = allResizeable.indexOf(LinkTransfer.getInstance().getResizeable());
         final int next;
         final int lastNumber;
         final int find;
@@ -38,36 +21,26 @@ public class NextImageProcessor {
         if (target) {
             next = num + 1;
             lastNumber = 0;
-            find = allGalleryImageView.size() - 1;
+            find = allResizeable.size() - 1;
         } else {
             next = num - 1;
-            lastNumber = allGalleryImageView.size() - 1;
+            lastNumber = allResizeable.size() - 1;
             find = 0;
         }
 
+        final Resizeable file;
         if (num != find) {
-            final var file = allGalleryImageView.get(next);
-            LinkTransfer.setLink(file);
-            exNext = FileStringConverter.getExtension(file);
-            if (FileViewBase.getImgExtension().contains(exNext)) {
-                LinkTransfer.setLink(file);
-                return pictureBuilder.buildImageView(file);
-            }
-            if (FileViewBase.getMovieExtension().contains(exNext)) {
-                return movieBuilder.createMovie(file);
-            }
+            file = allResizeable.get(next);
         } else {
-            final var file = allGalleryImageView.get(lastNumber);
-            LinkTransfer.setLink(file);
-            exNext = FileStringConverter.getExtension(file);
-            if (FileViewBase.getImgExtension().contains(exNext)) {
-                return pictureBuilder.buildImageView(file);
-            }
-            if (FileViewBase.getMovieExtension().contains(exNext)) {
-                return movieBuilder.createMovie(file);
-            }
+            file = allResizeable.get(lastNumber);
         }
-        throw new RuntimeException();
+        LinkTransfer.getInstance().setResizeable((Resizeable) file.getResizedImageContainer().getOriginalContainer());
+        final var node = file.getResizedImageContainer().getOriginalContainer().getNode();
+        if (node instanceof MediaView) {
+            final var mediaView = (MediaView) node;
+            mediaView.getMediaPlayer().play();
+        }
+        return node;
     }
 
 }

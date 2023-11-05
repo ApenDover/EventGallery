@@ -1,12 +1,11 @@
-package GUI.Gallery;
+package gui.gallery;
 
-import GUI.Gallery.data.dao.baseDAO;
-import GUI.Gallery.data.entity.Event;
-import GUI.Gallery.runnable.SendMailProcess;
-import GUI.Gallery.setUp.SettingsLoader;
-import GUI.Gallery.storage.LinkTransfer;
-import GUI.Gallery.storage.MailBase;
-import GUI.Gallery.storage.StageContainer;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.data.entity.Event;
+import gui.gallery.runnable.SendMailProcess;
+import gui.gallery.singleton.LinkTransfer;
+import gui.gallery.singleton.MailBase;
+import gui.gallery.singleton.StageContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,6 +39,8 @@ import java.util.regex.Pattern;
 
 public class KeyBoardController implements Initializable {
 
+    public static final int MIN_HEIGHT = 40;
+    public static final int MIN_WIDTH = 60;
     @FXML
     private TextField mailField;
 
@@ -193,14 +194,12 @@ public class KeyBoardController implements Initializable {
     @FXML
     private VBox back;
 
-    private String finalText = "";
-
-    private final SendMailProcess sendMailProcess = new SendMailProcess();
+    private String finalText = StringUtils.EMPTY;
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     @Getter
-    private String textForStatus = "";
+    private String textForStatus = StringUtils.EMPTY;
 
     private Timeline statusCheck = new Timeline(
             new KeyFrame(Duration.millis(1000),
@@ -208,7 +207,7 @@ public class KeyBoardController implements Initializable {
                         if (StringUtils.isNotBlank(textForStatus)) {
                             sendRezultLabel.setText(textForStatus);
                             sendRezultLabel.setVisible(true);
-                            textForStatus = "";
+                            textForStatus = StringUtils.EMPTY;
                         }
                     }));
 
@@ -216,7 +215,7 @@ public class KeyBoardController implements Initializable {
         if (StringUtils.isNotBlank(textForStatus)) {
             statusCheck.stop();
         }
-        textForStatus = "";
+        textForStatus = StringUtils.EMPTY;
         sendRezultLabel.setVisible(false);
         mailField.setStyle("-fx-text-fill: black;");
         tileMails.getChildren().clear();
@@ -226,7 +225,7 @@ public class KeyBoardController implements Initializable {
             tileMails.setHgap(10);
             tileMails.setVgap(10);
             ArrayList<String> serched = new ArrayList<>();
-            MailBase.getMailStorage().forEach(mail -> {
+            MailBase.getInstance().getMailStorage().forEach(mail -> {
                 if (mail.startsWith(finalText)) {
                     serched.add(mail);
                 }
@@ -238,8 +237,8 @@ public class KeyBoardController implements Initializable {
                     mailField.setText(mailSearched);
                     finalText = mailField.getText();
                 });
-                button.setMinHeight(40);
-                button.setMinWidth(60);
+                button.setMinHeight(MIN_HEIGHT);
+                button.setMinWidth(MIN_WIDTH);
                 tileMails.getChildren().add(button);
             });
             tileMails.requestLayout();
@@ -248,8 +247,8 @@ public class KeyBoardController implements Initializable {
 
     public void goToMedia() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ImageMedia-view.fxml"));
-        StageContainer.getStage().centerOnScreen();
-        StageContainer.getStage().getScene().setRoot(root);
+        StageContainer.getInstance().getStage().centerOnScreen();
+        StageContainer.getInstance().getStage().getScene().setRoot(root);
     }
 
     /**
@@ -498,7 +497,7 @@ public class KeyBoardController implements Initializable {
     }
 
     public void clearAction(ActionEvent event) {
-        finalText = "";
+        finalText = StringUtils.EMPTY;
         mailField.setText(finalText);
         searchMail();
     }
@@ -537,17 +536,19 @@ public class KeyBoardController implements Initializable {
 
     public void sendAction(ActionEvent actionEvent) {
         statusCheck.play();
-        String imagePath = SettingsLoader.getSourceFolder() + "/" + LinkTransfer.getLink();
+        String imagePath = LinkTransfer.getInstance().getResizeable()
+                .getResizedImageContainer().getOriginalContainer().getPath();
         String mail = mailField.getText();
         Pattern pattern = Pattern.compile("^.*@.*\\..*$");
         Matcher matcher = pattern.matcher(mail);
         if (!matcher.find()) {
             mailField.setStyle("-fx-text-fill: red;");
         } else {
-            MailBase.getMailStorage().add(mail.toLowerCase());
-            Event event = baseDAO.getEventById(SetupWindowController.getIdEvent());
-            baseDAO.setSender(mail.toLowerCase(), imagePath, event);
+            MailBase.getInstance().getMailStorage().add(mail.toLowerCase());
+            Event event = BaseDAO.getInstance().getEventById(SetupWindowController.getIdEvent());
+            BaseDAO.getInstance().setSender(mail.toLowerCase(), imagePath, event);
             mailField.clear();
+            SendMailProcess sendMailProcess = new SendMailProcess();
             executor.execute(() -> textForStatus = sendMailProcess.call());
             executor.shutdown();
         }
@@ -555,11 +556,11 @@ public class KeyBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sendRezultLabel.setText("");
+        sendRezultLabel.setText(StringUtils.EMPTY);
         Background background = new Background(new BackgroundImage(ImageMediaController.getImage(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         back.setBackground(background);
         statusCheck.setCycleCount(Animation.INDEFINITE);
     }
-}
 
+}

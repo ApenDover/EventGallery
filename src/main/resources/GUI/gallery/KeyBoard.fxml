@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox stylesheets="myForKey.css" fx:id="back" maxHeight="-Infinity" maxWidth="-Infinity" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.gallery.KeyBoardController">
+   <children>
+      <BorderPane prefHeight="1079.0" prefWidth="1920.0">
+         <center>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1920.0">
+                     <children>
+                        <TextField fx:id="mailField" focusTraversable="false" alignment="CENTER" prefHeight="51.0" prefWidth="385.0" promptText="Ваша почта">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                     </children>
+                  </HBox>
+                  <Label fx:id="sendRezultLabel" alignment="CENTER" text="Label" textFill="WHITE" visible="false" />
+                  <TilePane fx:id="tileMails" alignment="CENTER" prefHeight="200.0" />
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1920.0">
+                     <children>
+                        <Button fx:id="one"  focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#oneAction" text="1" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="two" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#twoAction" text="2" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="three" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#threeAction" text="3" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="four" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#fourAction" text="4" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="five" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#fiveAction" text="5" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="six" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#sixAction" text="6" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="seven" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#sevenAction" text="7" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="eight" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#eightAction" text="8" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="nine" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#nineAction" text="9" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="zero" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#zeroAction" text="0" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="tire" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#tireAction" text="-" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="del" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#delAction" text="DEL" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1920.0">
+                     <children>
+                        <Button fx:id="q" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#qAction" text="Q" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="w" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#wAction" text="W" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="e" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#eAction" text="E" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="r" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#rAction" text="R" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="t" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#tAction" text="T" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="y" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#yAction" text="Y" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="u" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#uAction" text="U" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="i" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#iAction" text="I" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="o" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#oAction" text="O" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="p" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#pAction" text="P" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="downTire" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#downTireAction" text="_" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1920.0">
+                     <children>
+                        <Button fx:id="a" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#aAction" text="A" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="s" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#sAction" text="S" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="d" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#dAction" text="D" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="f" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#fAction" text="F" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="g" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#gAction" text="G" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="h" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#hAction" text="H" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="j" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#jAction" text="J" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="k" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#kAction" text="K" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="l" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#lAction" text="L" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="clear" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#clearAction" text="CLEAR" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="1920.0">
+                     <children>
+                        <Button fx:id="z" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#zAction" text="Z" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#xAction" text="X" fx:id="x" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="c" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#cAction" text="C" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="v" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#vAction" text="V" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="b" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#bAction" text="B" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="n" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#nAction" text="N" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="m" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#mAction" text="M" />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="point" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#pointAction" text="." />
+                        <Pane prefHeight="60.0" prefWidth="15.0" />
+                        <Button fx:id="dog" focusTraversable="true" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#dogAction" text="\@" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1920.0">
+                     <children>
+                        <Button fx:id="end" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#endAction" text="END" />
+                        <Pane prefHeight="60.0" prefWidth="20.0" />
+                        <Button fx:id="space" focusTraversable="false" minHeight="60.0" minWidth="400.0" mnemonicParsing="false" onAction="#spaceAction" prefHeight="60.0" prefWidth="485.0" text="SPACE" />
+                        <Pane prefHeight="60.0" prefWidth="20.0" />
+                        <Button fx:id="ru" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#ruAction" text=".ru" />
+                        <Pane prefHeight="60.0" prefWidth="20.0" />
+                        <Button fx:id="com" focusTraversable="false" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#comAction" text=".com" />
+                        <Pane prefHeight="60.0" prefWidth="20.0" />
+                        <Button fx:id="send" focusTraversable="false" minHeight="60.0" minWidth="140.0" mnemonicParsing="false" onAction="#sendAction" prefHeight="60.0" prefWidth="140.0" text="Отправить" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <Pane prefHeight="100.0" prefWidth="1920.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <Pane focusTraversable="false" minHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane focusTraversable="false" minHeight="600.0" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+         </right>
+         <top>
+            <HBox prefHeight="160.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="186.0" prefWidth="335.0">
+                     <children>
+                        <Pane prefHeight="70.0" prefWidth="100.0" />
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="335.0">
+                           <children>
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#goToMedia" prefHeight="100.0" prefWidth="180.0" text="Назад" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</VBox>

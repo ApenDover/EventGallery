@@ -1,40 +1,43 @@
-package GUI.Gallery.mail;
+package gui.gallery.mail;
 
-import GUI.Gallery.setUp.SettingsLoader;
-import GUI.Gallery.data.dao.baseDAO;
-import GUI.Gallery.data.entity.Sender;
+import gui.gallery.singleton.SettingsLoader;
+import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.data.entity.Sender;
+import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+@NoArgsConstructor
 public class SendEmails {
 
-    public static String send(List<Sender> senderList) {
-        AtomicReference<String> status = new AtomicReference<>("");
-        String subject = SettingsLoader.getSubject();
-        String text = SettingsLoader.getText();
+    private static final long MAX_SIZE_BYTES = 25000000;
+
+    public String send(List<Sender> senderList, String subject, String text) {
+        final var status = new AtomicReference<>(StringUtils.EMPTY);
         senderList.forEach(sender -> {
-            String mailTO = sender.getMail();
-            String attachedPath = sender.getPath();
+            final var mailTO = sender.getMail();
+            final var attachedPath = sender.getPath();
 //          если вложение > 25Mb, то abort, добавив запись в базу
-            if ((new File(sender.getPath()).length()) > 25000000) {
-                baseDAO.updateSenderStatus("too big", sender);
+            if (new File(sender.getPath()).length() > MAX_SIZE_BYTES) {
+                BaseDAO.getInstance().updateSenderStatus("too big", sender);
                 status.set(mailTO + ": " + "file is too big");
             } else {
-                GmailSender sslSender = new GmailSender(SettingsLoader.getLogin(), SettingsLoader.getPassword());
+                final var sslSender = new GmailSender(SettingsLoader.getInstance().getLogin(), SettingsLoader.getInstance().getPassword());
                 try {
-                    String statusSender = sslSender.send(subject, text, attachedPath, mailTO);
-                    baseDAO.updateSenderStatus(statusSender, sender);
+                    final var statusSender = sslSender.send(subject, text, attachedPath, mailTO);
+                    BaseDAO.getInstance().updateSenderStatus(statusSender, sender);
                     status.set(mailTO + ": " + statusSender);
                 } catch (Exception e) {
                     System.out.println("MAIN ERROR: " + e.getMessage() + " ");
                     e.printStackTrace();
                     if (e.getMessage().equals("Unknown SMTP host: smtp.gmail.com")) {
-                        baseDAO.updateSenderStatus("NO INTERNET", sender);
+                        BaseDAO.getInstance().updateSenderStatus("NO INTERNET", sender);
                         status.set(mailTO + ": " + "no internet connection");
                     } else {
-                        baseDAO.updateSenderStatus("ERROR", sender);
+                        BaseDAO.getInstance().updateSenderStatus("ERROR", sender);
                         status.set(mailTO + ": " + "error");
                     }
                 }
