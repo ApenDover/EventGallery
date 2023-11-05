@@ -9,55 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="refactoring with new pojo">
-      <change afterPath="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/checkstyle/suppressions.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/GalleryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/ImageMediaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/KeyBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/OpenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/OpenWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SetupWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SuperMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/SuperMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/dao/BaseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/data/entity/Sender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/imageViewProcess/NextImageProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/GmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/mail/SendEmails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/AbstractContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/AbstractContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/FileComparatorByName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/FileComparatorByName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/ImageViewComparatorIfNeed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Comparator/ImageViewComparatorIfNeed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ContainerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ContainerFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ImageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ImageContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Resizeable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/Resizeable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ResizedImageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/ResizedImageContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/VideoContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/model/VideoContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/ScalePreviewImagesProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/ScalePreviewImagesProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/runnable/SendMailProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/ContainerLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/ContainerLibrary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/LinkTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/LinkTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/MailBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/MailBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/SettingsLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/SettingsLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/StageContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/singleton/StageContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/EmptyChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/EmptyChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/LoadAllFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/LoadAllFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/ScrollSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/ScrollSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImageDarkProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImageDarkProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImgScaleProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/imageResizer/ImgScaleProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/videoResizer/VideoResizerJpg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/videoResizer/VideoResizerJpg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/Gallery-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/Gallery-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/ImageMedia-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/ImageMedia-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/KeyBoard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/KeyBoard.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI/Gallery/SetupWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI/gallery/SetupWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GUI/Gallery/utils/FileStringConverterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Gallery/utils/FileStringConverterTest.java" afterDir="false" />
+    <list default="true" id="0b699859-8ab3-4d69-b00d-5b390a656f70" name="Changes" comment="checkStyle">
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/gallery/singleton/SettingsConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/gallery/singleton/SettingsConst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/gallery/utils/ScrollSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/gallery/utils/ScrollSetup.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +245,7 @@
       <workItem from="1698132234968" duration="12424000" />
       <workItem from="1698181597254" duration="3168000" />
       <workItem from="1699128771356" duration="4047000" />
-      <workItem from="1699137653161" duration="3895000" />
+      <workItem from="1699137653161" duration="4697000" />
     </task>
     <task id="LOCAL-00001" summary="fix gallery center image">
       <created>1696883218380</created>
@@ -398,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699128475819</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="checkStyle">
+      <created>1699177568425</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699177568425</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +400,8 @@
     <MESSAGE value="video can work" />
     <MESSAGE value="add spring is it need?" />
     <MESSAGE value="refactoring with new pojo" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring with new pojo" />
+    <MESSAGE value="checkStyle" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkStyle" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

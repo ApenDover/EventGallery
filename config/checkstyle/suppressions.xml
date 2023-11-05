@@ -5,11 +5,8 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files="." checks="RPAREN"/>
-    <suppress files="." checks="ParameterNumber"/>
     <suppress files="." checks="HiddenField"/>
     <suppress files="[\\/]generated-sources[\\/]" checks="[a-zA-Z0-9]*"/>
     <suppress checks="MagicNumber" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
     <suppress checks="VisibilityModifier" files=".*[\\/]src[\\/](test|integration-test)[\\/]"/>
-    <suppress checks="RPAREN" files=".*"/>
 </suppressions>

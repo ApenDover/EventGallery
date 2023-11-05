@@ -1,6 +1,7 @@
 package gui.gallery.utils;
 
 import gui.gallery.SetupWindowController;
+import gui.gallery.singleton.SettingsConst;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Screen;
@@ -9,16 +10,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ScrollSetup {
 
-    private static final int COLOR_LENGTH_SHARP = 7;
-
-    private static final int COLOR_LENGTH = COLOR_LENGTH_SHARP - 1;
-
     public void setup(ScrollPane scrollPane, String colorNumber) {
         Rectangle2D r = Screen.getPrimary().getBounds();
         scrollPane.setPrefHeight(r.getHeight());
         scrollPane.setPrefWidth(r.getWidth());
         scrollPane.setStyle("-fx-background: transparent;");
-        if (colorNumber.length() == COLOR_LENGTH || colorNumber.length() == COLOR_LENGTH_SHARP) {
+        if (colorNumber.length() == SettingsConst.COLOR_LENGTH.getValue()
+                || colorNumber.length() == SettingsConst.COLOR_LENGTH_SHARP.getValue()) {
             scrollPane.setStyle("-fx-background: rgb(" + SetupWindowController.getRed()
                     + "," + SetupWindowController.getGreen() + "," + SetupWindowController.getBlue() + ");");
         } else {
