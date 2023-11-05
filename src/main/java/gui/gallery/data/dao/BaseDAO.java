@@ -4,6 +4,7 @@ import gui.gallery.data.entity.Event;
 import gui.gallery.data.entity.Sender;
 import gui.gallery.SetupWindowController;
 import gui.gallery.data.entity.Company;
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
@@ -30,6 +31,7 @@ public final class BaseDAO {
         return instance;
     }
 
+    @Getter
     private Session session;
 
     public String openConnection(String user, String password) {

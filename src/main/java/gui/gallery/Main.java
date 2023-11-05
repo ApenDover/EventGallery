@@ -14,7 +14,9 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        BaseDAO.getInstance().getInstance().closeConnection();
+        if (BaseDAO.getInstance().getSession().isOpen()) {
+            BaseDAO.getInstance().closeConnection();
+        }
         super.stop();
     }
 
