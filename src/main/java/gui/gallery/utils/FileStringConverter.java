@@ -1,5 +1,6 @@
 package gui.gallery.utils;
 
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 
@@ -26,7 +27,8 @@ public class FileStringConverter {
         return path.substring(path.lastIndexOf('/') + 1);
     }
 
-    public String getResizeFileFromOriginal(String originalPath) {
+    public String getResizePathFromOriginalPath(String originalPath) {
+
         return getFilePath(SettingsLoader.getInstance().getQualityResizeFolder(), getName(originalPath), "jpg");
     }
 

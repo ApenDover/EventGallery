@@ -16,35 +16,22 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class ImageContainer extends gui.gallery.model.AbstractContainer implements gui.gallery.model.Resizeable {
+public class ImageContainer extends AbstractContainer implements Resizeable {
 
-    private gui.gallery.model.ResizedImageContainer resized;
+    private ResizedImageContainer resized;
 
     private Image image;
 
     private ImageView imageView;
 
-    public ImageContainer(String path) {
-        super(new File(path), path, FileStringConverter.getName(path), FileStringConverter.getExtension(path));
-        createResizePreview();
-        try {
-            image = new Image(new FileInputStream(getFile()));
-            setWidth(image.getWidth());
-            setHeight(image.getHeight());
-            imageView = createImageView();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public ImageContainer(File file) {
         super(file, file.getAbsolutePath(), FileStringConverter.getName(file), FileStringConverter.getExtension(file));
-        createResizePreview();
         try {
             image = new Image(new FileInputStream(getFile()));
             setWidth(image.getWidth());
             setHeight(image.getHeight());
             imageView = createImageView();
+            createResizePreview();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +48,7 @@ public class ImageContainer extends gui.gallery.model.AbstractContainer implemen
     @Override
     public void createResizePreview() {
         if (!isResizedAlive()) {
-            resized = new gui.gallery.model.ResizedImageContainer(ImgScaleProcessor.scale(this.getFile()), this);
+            resized = new ResizedImageContainer(ImgScaleProcessor.scale(this.getFile()), this);
         }
     }
 

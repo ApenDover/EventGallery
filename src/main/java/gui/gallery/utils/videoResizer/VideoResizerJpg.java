@@ -26,7 +26,7 @@ public class VideoResizerJpg {
 
     public File getImageFromVideo(File file, int newWidth, boolean videoSign) {
         final var filePath = file.getAbsolutePath();
-        final var fileResized = new File(FileStringConverter.getResizeFileFromOriginal(filePath));
+        final var fileResized = new File(FileStringConverter.getResizePathFromOriginalPath(filePath));
         if (fileResized.exists()) {
             return fileResized;
         }
