@@ -95,7 +95,8 @@ public class ContainerLibrary {
         if (!firstLoad && !resizeableStorage.isEmpty()) {
             firstLoad = true;
         }
-        return new ArrayList<>(getResizeableStorage().stream().map(resizeable -> resizeable.getResizedImageContainer().getImageView()).toList());
+        return new ArrayList<>(getResizeableStorage().stream()
+                .map(resizeable -> resizeable.getResizedImageContainer().getImageView()).toList());
     }
 
 }

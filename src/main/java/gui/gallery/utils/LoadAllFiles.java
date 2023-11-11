@@ -19,9 +19,10 @@ import java.util.Objects;
 @UtilityClass
 public class LoadAllFiles {
 
-    private final List<String> notLoadFileList = List.of("config.json", String.valueOf(SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue()), ".DS_Store");
+    private final List<String> notLoadFileList = List.of("config.json",
+            String.valueOf(SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue()), ".DS_Store");
 
-    private final ContainerFactory CONTAINER_FACTORY = new ContainerFactory();
+    private final ContainerFactory containerFactory = new ContainerFactory();
 
     private final File dirResize = new File(SettingsLoader.getInstance().getQualityResizeFolder());
 
@@ -45,7 +46,7 @@ public class LoadAllFiles {
         log.debug("RESIZE START: " + Instant.now());
         try {
             fileList.parallelStream().filter(file -> !notLoadFileList.contains(file.getName()))
-                    .forEach(file -> ContainerLibrary.getInstance().addContainerToLibrary(CONTAINER_FACTORY.createContainer(file)));
+                    .forEach(file -> ContainerLibrary.getInstance().addContainerToLibrary(containerFactory.createContainer(file)));
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();

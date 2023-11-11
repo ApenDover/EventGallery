@@ -1,6 +1,5 @@
 package gui.gallery.utils;
 
-import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
 

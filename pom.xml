@@ -13,7 +13,6 @@
             <id>java.net.m2repo</id>
             <name>java.net Maven 2 Repository</name>
             <url>https://download.java.net/maven/2/</url>
-            <layout>default</layout>
         </repository>
     </repositories>
 
@@ -138,8 +137,6 @@
                     <linkXRef>false</linkXRef>
                 </configuration>
             </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
