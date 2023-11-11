@@ -17,6 +17,7 @@ module gui.gallery {
     requires javafx.fxml;
     requires javafx.media;
     requires javafx.controls;
+    requires org.slf4j;
 
     exports gui.gallery;
     opens gui.gallery to javafx.fxml;

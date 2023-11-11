@@ -2,6 +2,7 @@ package gui.gallery.utils.videoResizer;
 
 import gui.gallery.utils.FileStringConverter;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Set;
 
+@Slf4j
 @UtilityClass
 public class VideoResizerJpg {
 
@@ -30,7 +32,7 @@ public class VideoResizerJpg {
         if (fileResized.exists()) {
             return fileResized;
         }
-        System.out.println("RESIZE " + file.getAbsolutePath());
+        log.debug("RESIZE " + file.getAbsolutePath());
         try (var fFmpegFrameGrabber = new FFmpegFrameGrabber(filePath)) {
             fFmpegFrameGrabber.start();
             final var frame = fFmpegFrameGrabber.grabImage();

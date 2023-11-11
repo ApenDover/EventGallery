@@ -1,5 +1,6 @@
 package gui.gallery.mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.mail.Authenticator;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+@Slf4j
 public class GmailSender {
 
     private final String username;
@@ -63,7 +65,7 @@ public class GmailSender {
         try {
             Transport.send(message);
         } catch (SendFailedException e) {
-            System.out.println("SenderSSL ERROR: " + e.getMessage());
+            log.error("SenderSSL ERROR: " + e.getMessage());
             return "ERROR";
         }
         return "SUCCESS";

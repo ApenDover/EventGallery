@@ -25,7 +25,7 @@ public class ImgScaleProcessor {
             return null;
         }
         try {
-            if (imgFile.getAbsolutePath().endsWith(".jpg")) {
+            if (imgFile.getAbsolutePath().toLowerCase().endsWith(".jpg")) {
                 final var image = ImageIO.read(imgFile);
                 if (Objects.nonNull(image)) {
                     final var newFile = new File(SettingsLoader.getInstance().getQualityResizeFolder(), imgFile.getName());

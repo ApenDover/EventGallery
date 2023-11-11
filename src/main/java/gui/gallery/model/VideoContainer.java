@@ -1,5 +1,6 @@
 package gui.gallery.model;
 
+import gui.gallery.model.Comparator.ImageViewComparator;
 import gui.gallery.utils.FileStringConverter;
 import gui.gallery.utils.videoResizer.VideoResizerJpg;
 import gui.gallery.singleton.SettingsConst;
@@ -16,6 +17,8 @@ import java.util.Objects;
 @Getter
 @Setter
 public class VideoContainer extends AbstractContainer implements Resizeable {
+
+    private static final ImageViewComparator COMPARATOR = new ImageViewComparator();
 
     private ResizedImageContainer resized;
 

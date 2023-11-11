@@ -4,12 +4,14 @@ import gui.gallery.data.dao.BaseDAO;
 import gui.gallery.data.entity.Sender;
 import gui.gallery.singleton.SettingsLoader;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+@Slf4j
 @NoArgsConstructor
 public class SendEmails {
 
@@ -31,7 +33,7 @@ public class SendEmails {
                     BaseDAO.getInstance().updateSenderStatus(statusSender, sender);
                     status.set(mailTO + ": " + statusSender);
                 } catch (Exception e) {
-                    System.out.println("MAIN ERROR: " + e.getMessage() + " ");
+                    log.error("MAIN ERROR: " + e.getMessage() + " ");
                     e.printStackTrace();
                     if (e.getMessage().equals("Unknown SMTP host: smtp.gmail.com")) {
                         BaseDAO.getInstance().updateSenderStatus("NO INTERNET", sender);

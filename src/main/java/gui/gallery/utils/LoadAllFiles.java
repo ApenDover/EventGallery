@@ -1,24 +1,27 @@
 package gui.gallery.utils;
 
-import gui.gallery.model.Comparator.FileComparatorByName;
 import gui.gallery.model.ContainerFactory;
 import gui.gallery.model.Resizeable;
 import gui.gallery.singleton.ContainerLibrary;
+import gui.gallery.singleton.SettingsConst;
 import gui.gallery.singleton.SettingsLoader;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @UtilityClass
 public class LoadAllFiles {
 
-    private static final ContainerFactory CONTAINER_FACTORY = new ContainerFactory();
+    private final List<String> notLoadFileList = List.of("config.json", String.valueOf(SettingsConst.SCALE_RESIZE_LONG_SIDE.getValue()), ".DS_Store");
 
-    private static final FileComparatorByName COMPARATOR = new FileComparatorByName();
+    private final ContainerFactory CONTAINER_FACTORY = new ContainerFactory();
 
     private final File dirResize = new File(SettingsLoader.getInstance().getQualityResizeFolder());
 
@@ -28,19 +31,26 @@ public class LoadAllFiles {
         if (!sourceFolder.exists()) {
             throw new IllegalArgumentException("Source folder doesn't exist");
         }
-        List<File> fileList = new ArrayList<>(Arrays.asList(Objects.requireNonNull(sourceFolder.listFiles())));
+        final var fileList = new ArrayList<>(Arrays.asList(Objects.requireNonNull(sourceFolder.listFiles())));
 
         ContainerLibrary.getInstance().removeResizedWithoutOriginal();
 
-        ContainerLibrary.getInstance().getResizeableLinkedHashSet()
+        ContainerLibrary.getInstance().getResizeableStorage()
                 .parallelStream().filter(resizeable -> !resizeable.getResizedImageContainer().isAlive())
                 .forEach(Resizeable::createResizePreview);
 
-        fileList.sort(COMPARATOR);
         fileList.removeAll(ContainerLibrary.getInstance()
-                .getResizeableLinkedHashSet().stream()
+                .getResizeableStorage().stream()
                 .map(resizeable -> resizeable.getResizedImageContainer().getOriginalContainer().getFile()).toList());
-        fileList.forEach(file -> ContainerLibrary.getInstance().addContainerToLibrary(CONTAINER_FACTORY.createContainer(file)));
+        log.debug("RESIZE START: " + Instant.now());
+        try {
+            fileList.parallelStream().filter(file -> !notLoadFileList.contains(file.getName()))
+                    .forEach(file -> ContainerLibrary.getInstance().addContainerToLibrary(CONTAINER_FACTORY.createContainer(file)));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+        }
+        log.debug("RESIZE END: " + Instant.now());
     }
 
 }

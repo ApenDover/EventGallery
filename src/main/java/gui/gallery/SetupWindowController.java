@@ -38,6 +38,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -60,6 +61,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 public class SetupWindowController implements Initializable {
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
@@ -300,7 +302,7 @@ public class SetupWindowController implements Initializable {
                     || EmptyChecker.isStringListValid(List.of(eventDate.getEditor().getText(), eventText.getText())));
             startButton.disableProperty().set(check);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error(ex.getMessage());
             ex.printStackTrace();
         }
 

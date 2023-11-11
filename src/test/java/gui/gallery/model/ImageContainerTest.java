@@ -45,7 +45,7 @@ class ImageContainerTest {
         File file = new File(SOURCE_TEST_PATH + "/IMG_6133.jpg");
         File fileResized = new File(RESOURCES_TEST_RESIZE_PATH + "/IMG_6133.jpg");
         ImageContainer imageContainer = new ImageContainer(file);
-        Assertions.assertTrue(ContainerLibrary.getInstance().getResizeableLinkedHashSet().contains(imageContainer));
+        Assertions.assertTrue(ContainerLibrary.getInstance().getResizeableStorage().contains(imageContainer));
         Assertions.assertFalse(ContainerLibrary.getInstance().getResizeableImageViewList().isEmpty());
         Assertions.assertTrue(fileResized.exists());
         Assertions.assertEquals(imageContainer.isResizedAlive(), fileResized.exists());

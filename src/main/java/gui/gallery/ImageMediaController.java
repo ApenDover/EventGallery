@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.awt.AWTException;
@@ -34,6 +35,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Slf4j
 public class ImageMediaController implements Initializable {
 
     private static final double FACTOR = 0.9;
@@ -59,7 +61,7 @@ public class ImageMediaController implements Initializable {
         try {
             root = FXMLLoader.load(getClass().getResource("gallery-view.fxml"));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
         StageContainer.getInstance().getStage().centerOnScreen();
@@ -128,7 +130,7 @@ public class ImageMediaController implements Initializable {
                 setCenterNode(mediaView);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
             e.printStackTrace();
         }
     }

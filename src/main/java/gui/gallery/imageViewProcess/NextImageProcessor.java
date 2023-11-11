@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class NextImageProcessor {
 
     public Node secondImage(boolean target) {
-        ArrayList<Resizeable> allResizeable = new ArrayList<>(ContainerLibrary.getInstance().getResizeableLinkedHashSet());
+        ArrayList<Resizeable> allResizeable = new ArrayList<>(ContainerLibrary.getInstance().getResizeableStorage());
         allResizeable.indexOf(LinkTransfer.getInstance().getResizeable());
         int num = allResizeable.indexOf(LinkTransfer.getInstance().getResizeable());
         final int next;

@@ -1,6 +1,7 @@
 package gui.gallery;
 
 import gui.gallery.data.dao.BaseDAO;
+import gui.gallery.singleton.ExecutorServiceSingleton;
 import gui.gallery.singleton.LinkTransfer;
 import gui.gallery.singleton.StageContainer;
 import javafx.application.Application;
@@ -8,8 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class Main extends Application {
 
     @Override
@@ -17,6 +19,7 @@ public class Main extends Application {
         if (BaseDAO.getInstance().getSession().isOpen()) {
             BaseDAO.getInstance().closeConnection();
         }
+        ExecutorServiceSingleton.getInstance().stop();
         super.stop();
     }
 
